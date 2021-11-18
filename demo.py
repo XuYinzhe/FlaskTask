@@ -23,7 +23,7 @@ def _login():
             flash('Password is empty!')
             return render_template('login.html')
         else:
-            return redirect(url_for('signin'))
+            return redirect(url_for('signin'))#just test
 
 @app.route('/signin')
 def signin():
@@ -35,11 +35,18 @@ def _signin():
         email=request.form.get("signin_email")
         password=request.form.get('signin-pass')
         repeat_password=request.form.get('signin-repass')
-        if password==repeat_password:
-            return 'pass'
+        if email=='':
+            flash('Email is empty!')
+            return render_template('signin.html')
+        elif password=='':
+            flash('Password is empty!')
+            return render_template('sigin.html')
+        elif password==repeat_password:
+            flash('Passwords you entered are different!')
+            return render_template('signin.html')
         else:
             #flash('Passwords you entered are different!')
-            return render_template('signin.html')
+            return render_template('signin.html')#just test
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'

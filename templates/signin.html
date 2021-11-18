@@ -6,6 +6,11 @@
 
 {% block content %}
 <form id="sigin-form" method="post">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
     <div id="signin-all">
         <p id="signin-text1">SIGN IN</p>
         <p id="signin-text2">Email</p>
