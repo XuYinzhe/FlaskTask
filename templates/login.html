@@ -4,9 +4,13 @@
 <link rel="stylesheet" href="{{url_for('static',filename='login.css')}}">
 {% endblock %}
 
-
 {% block content %}
 <div id="login-div">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
     <form method="post" id="login-form">
         <div id="login-all">
             <p id="login-text1">Email</p>
