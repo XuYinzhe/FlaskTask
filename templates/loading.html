@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static',filename='loading.css')}}">
+{% endblock %}
+
+{% block content %}
+<form id="loading-form" method="post">
+    <input id="loading-input" type="submit" name="loading_sub" value="A">
+</form>
+{% endblock %}

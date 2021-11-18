@@ -1,0 +1,28 @@
+#loading-form{
+    width: 100%;
+    height: 100%;
+}
+
+#loading-text{
+    position: relative;
+    font-family: Jost;
+    font-style: normal;
+    font-weight: normal;
+    font-size:600%;
+    color: white;
+    top:33%;
+    text-align: center;
+}
+
+
+#loading-input{
+    height: 100%;
+    width: 100%;
+    background-color:#688CBC;
+    font-family: Jost;
+    font-style: normal;
+    font-weight: normal;
+    font-size:600%;
+    color: white;
+    text-align: center;
+}

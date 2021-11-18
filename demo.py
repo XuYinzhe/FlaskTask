@@ -7,6 +7,16 @@ from flask import flash, get_flashed_messages
 
 app=Flask(__name__)
 
+@app.route('/')
+def loading():
+    return render_template('loading.html')
+
+@app.route('/',methods=['POST'])
+def _loading():
+    if request.method=="POST":
+        return redirect(url_for('login'))
+
+
 @app.route('/login')
 def login():
     return render_template('login.html')
