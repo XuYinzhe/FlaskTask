@@ -19,46 +19,48 @@
 }
 
 #login-text1{
-    font-family: Junge;
+    font-family: 'Junge';
     font-style: normal;
     font-weight: normal;
     font-size:140%;
+    color:#688CBC;
 }
 #login-text2{
     position: relative;
     margin-top:10%;
-    font-family: Junge;
+    font-family: 'Junge';
     font-style: normal;
     font-weight: normal;
     font-size:140%;
+    color:#688CBC;
 }
 
 #login-input1{
     width:100%;
     border-width: 0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #688CBC;
     box-shadow: 0 0 0 30px white inset;
-    font-family:Junge;
+    font-family:'Junge';
     font-size: 150%;
 }
 
 #login-input1:focus{
     width:100%;
     border-width: 0;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #688CBC;
     outline: none;
 }
 
 #login-input2{
     width:100%;
     border-width: 0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #688CBC;
 }
 
 #login-input2:focus{
     width:100%;
     border-width: 0;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #688CBC;
     outline: none;
 }
 
@@ -68,8 +70,9 @@
     margin-top:30%;
     margin-left: 35%;
     border: none;
-    font-family: Junge;
+    font-family: 'Junge';
     font-style: normal;
     font-weight: normal;
     font-size:180%;
+    color:#688CBC;
 }

@@ -16,53 +16,57 @@
 #signin-text1{
     position: relative;
     text-align: center;
-    font-family: Junge;
+    font-family: 'Junge';
     font-style: normal;
     font-weight: normal;
     font-size:270%;
+    color:#688CBC;
 }
 
 #signin-text2{
     position: relative;
     margin-top: 10%;
-    font-family: Junge;
+    font-family: 'Junge';
     font-style: normal;
     font-weight: normal;
     font-size:140%;
+    color:#688CBC;
 }
 
 #signin-text3{
     position: relative;
     margin-top: 5%;
-    font-family: Junge;
+    font-family: 'Junge';
     font-style: normal;
     font-weight: normal;
     font-size:140%;
+    color:#688CBC;
 }
 
 #signin-text4{
     position: relative;
     margin-top: 5%;
-    font-family: Junge;
+    font-family: 'Junge';
     font-style: normal;
     font-weight: normal;
     font-size:140%;
+    color:#688CBC;
 }
 
 #signin-input1{
     position: relative;
     width: 100%;
     border-width: 0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #688CBC;
     box-shadow: 0 0 0 30px white inset;
-    font-family:Junge;
+    font-family:'Junge';
     font-size: 150%;
 }
 
 #signin-input1:focus{
     width:100%;
     border-width: 0;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #688CBC;
     outline: none;
 }
 
@@ -70,16 +74,16 @@
     position: relative;
     width: 100%;
     border-width: 0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #688CBC;
     box-shadow: 0 0 0 30px white inset;
-    font-family:Junge;
+    font-family:'Junge';
     font-size: 150%;
 }
 
 #signin-input2:focus{
     width:100%;
     border-width: 0;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #688CBC;
     outline: none;
 }
 
@@ -87,16 +91,16 @@
     position: relative;
     width: 100%;
     border-width: 0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #688CBC;
     box-shadow: 0 0 0 30px white inset;
-    font-family:Junge;
+    font-family:'Junge';
     font-size: 150%;
 }
 
 #signin-input3:focus{
     width:100%;
     border-width: 0;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #688CBC;
     outline: none;
 }
 
@@ -107,8 +111,9 @@
     margin-left: 35%;
     text-align: center;
     border: none;
-    font-family: Junge;
+    font-family: 'Junge';
     font-style: normal;
     font-weight: normal;
     font-size:180%;
+    color:#688CBC;
 }
