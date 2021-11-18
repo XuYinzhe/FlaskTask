@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import redirect
+from flask.helpers import url_for
 
 app=Flask(__name__)
 
@@ -11,9 +13,9 @@ def login():
 @app.route('/login',methods=['POST'])
 def _login():
     if request.method == "POST":
-       email = request.form.get("email")
-       password = request.form.get("pass") 
-       return email + password
+       email = request.form.get("login_email")
+       password = request.form.get("login_pass") 
+       return redirect(url_for('signin'))
 
 @app.route('/signin')
 def signin():

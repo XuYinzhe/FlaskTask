@@ -1,0 +1,115 @@
+
+#signin-all{
+    position: relative;
+    left:12%;
+    margin-top:11%;
+    width:76%;
+}
+
+
+#signin-form{
+    padding:1%;
+    width: 100%;
+    height: 100%;
+}
+
+#signin-text1{
+    position: relative;
+    text-align: center;
+    font-family: Junge;
+    font-style: normal;
+    font-weight: normal;
+    font-size:270%;
+}
+
+#signin-text2{
+    position: relative;
+    margin-top: 10%;
+    font-family: Junge;
+    font-style: normal;
+    font-weight: normal;
+    font-size:140%;
+}
+
+#signin-text3{
+    position: relative;
+    margin-top: 5%;
+    font-family: Junge;
+    font-style: normal;
+    font-weight: normal;
+    font-size:140%;
+}
+
+#signin-text4{
+    position: relative;
+    margin-top: 5%;
+    font-family: Junge;
+    font-style: normal;
+    font-weight: normal;
+    font-size:140%;
+}
+
+#signin-input1{
+    position: relative;
+    width: 100%;
+    border-width: 0;
+    border-bottom: 1px solid black;
+    box-shadow: 0 0 0 30px white inset;
+    font-family:Junge;
+    font-size: 150%;
+}
+
+#signin-input1:focus{
+    width:100%;
+    border-width: 0;
+    border-bottom: 3px solid black;
+    outline: none;
+}
+
+#signin-input2{
+    position: relative;
+    width: 100%;
+    border-width: 0;
+    border-bottom: 1px solid black;
+    box-shadow: 0 0 0 30px white inset;
+    font-family:Junge;
+    font-size: 150%;
+}
+
+#signin-input2:focus{
+    width:100%;
+    border-width: 0;
+    border-bottom: 3px solid black;
+    outline: none;
+}
+
+#signin-input3{
+    position: relative;
+    width: 100%;
+    border-width: 0;
+    border-bottom: 1px solid black;
+    box-shadow: 0 0 0 30px white inset;
+    font-family:Junge;
+    font-size: 150%;
+}
+
+#signin-input3:focus{
+    width:100%;
+    border-width: 0;
+    border-bottom: 3px solid black;
+    outline: none;
+}
+
+#signin-input4{
+    position: relative;
+    background-color:white;
+    margin-top: 15%;
+    margin-left: 35%;
+    text-align: center;
+    border: none;
+    font-family: Junge;
+    font-style: normal;
+    font-weight: normal;
+    font-size:180%;
+}
+

@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static',filename='signin.css')}}">
+{% endblock %}
 
+{% block content %}
+<form id="sigin-form" method="post">
+    <div id="signin-all">
+        <p id="signin-text1">SIGN IN</p>
+        <p id="signin-text2">Email</p>
+        <input id="signin-input1" name="signin_email" type="email">
+        <p id="signin-text3">Password</p>
+        <input id="signin-input2" name="signin_pass" type="password">
+        <p id="signin-text4">Repeat Password</p>
+        <input id="signin-input3" name="signin_repass" type="password">
+        <input id="signin-input4" name="signin_sub" type="submit" value="Confirm">
+    </div>
+</form>
 {% endblock %}
