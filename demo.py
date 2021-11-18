@@ -58,6 +58,24 @@ def _signin():
             #flash('Passwords you entered are different!')
             return render_template('signin.html')#just test
 
+@app.route('/user')
+def user():
+    return render_template('user.html')
+
+@app.route('/user',methods=['POST'])
+def _user():
+    if request.method=="POST":
+        admin=request.form.get('user_admin')
+        user=request.form.get('user_user')
+        if admin=='Administrator':
+            return admin
+        elif user=='User':
+            return user
+        else:
+            return render_template('user.html')
+        
+
+
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
