@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static',filename='signup.css')}}">
+{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+
+<form id="sigin-form" method="post">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+    <div id="signup-all">
+        <p id="signup-text1">SIGN IN</p>
+        <p id="signup-text2">Email</p>
+        <input id="signup-input1" name="signup_email" type="email">
+        <p id="signup-text3">Password</p>
+        <input id="signup-input2" name="signup_pass" type="password">
+        <p id="signup-text4">Repeat Password</p>
+        <input id="signup-input3" name="signup_repass" type="password">
+        <input id="signup-input4" name="signup_sub" type="submit" value="Confirm">
+    </div>
+</form>
+{% endblock %}
