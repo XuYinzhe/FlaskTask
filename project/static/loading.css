@@ -1,38 +1,16 @@
-@media screen and (max-width: 600px){
-
 #loading-form{
     width: 100%;
     height: 100%;
 }
 
-#loading-text{
-    position: relative;
+#loading-input1{
+    height: 100%;
+    width: 100%;
+    background-color:#F59022;
     font-family: 'Jost';
     font-style: normal;
     font-weight: normal;
     font-size:600%;
     color: white;
-    top:33%;
     text-align: center;
-}
-
-
-#loading-input{
-    height: 100%;
-    width: 100%;
-    background-color:#F59022;
-    font-family: Jost;
-    font-style: normal;
-    font-weight: normal;
-    font-size:600%;
-    color: white;
-    text-align: center;
-}
-
-}
-
-@media screen and (min-width: 600px){
-
-
-
 }
