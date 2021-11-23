@@ -5,7 +5,7 @@
     top:47%;
     width:76%;
     transform: translate(-50%,-50%);
-    max-width:500px;
+    max-width:400px;
 }
 
 
@@ -119,3 +119,27 @@
     font-size:180%;
     color:#F59022;
 }
+
+
+
+@media screen and (min-width:600px) {
+    
+    #signup-image1{
+        display: block;
+        position: absolute;
+        height: 98%;
+        transform: translate(-50%,0);
+    
+    }
+    
+    #signup-image2{
+        display: block;
+        position: absolute;
+        height: 98%;
+        right:0;
+        transform: translate(50%,0);
+        clip-path: polygon(0% 0%,50% 0%,50% 100%,0% 100%);
+    }
+    
+}
+    
