@@ -22,7 +22,7 @@
     font-style: normal;
     font-weight: normal;
     font-size:270%;
-    color:#688CBC;
+    color:#F59022;
 }
 
 #signup-text2{
@@ -32,7 +32,7 @@
     font-style: normal;
     font-weight: normal;
     font-size:140%;
-    color:#688CBC;
+    color:#F59022;
 }
 
 #signup-text3{
@@ -42,7 +42,7 @@
     font-style: normal;
     font-weight: normal;
     font-size:140%;
-    color:#688CBC;
+    color:#F59022;
 }
 
 #signup-text4{
@@ -52,14 +52,14 @@
     font-style: normal;
     font-weight: normal;
     font-size:140%;
-    color:#688CBC;
+    color:#F59022;
 }
 
 #signup-input1{
     position: relative;
     width: 100%;
     border-width: 0;
-    border-bottom: 1px solid #688CBC;
+    border-bottom: 1px solid #F59022;
     box-shadow: 0 0 0 30px white inset;
     font-family:'Junge';
     font-size: 150%;
@@ -68,7 +68,7 @@
 #signup-input1:focus{
     width:100%;
     border-width: 0;
-    border-bottom: 3px solid #688CBC;
+    border-bottom: 3px solid #F59022;
     outline: none;
 }
 
@@ -76,7 +76,7 @@
     position: relative;
     width: 100%;
     border-width: 0;
-    border-bottom: 1px solid #688CBC;
+    border-bottom: 1px solid #F59022;
     box-shadow: 0 0 0 30px white inset;
     font-family:'Junge';
     font-size: 150%;
@@ -85,7 +85,7 @@
 #signup-input2:focus{
     width:100%;
     border-width: 0;
-    border-bottom: 3px solid #688CBC;
+    border-bottom: 3px solid #F59022;
     outline: none;
 }
 
@@ -93,7 +93,7 @@
     position: relative;
     width: 100%;
     border-width: 0;
-    border-bottom: 1px solid #688CBC;
+    border-bottom: 1px solid #F59022;
     box-shadow: 0 0 0 30px white inset;
     font-family:'Junge';
     font-size: 150%;
@@ -102,7 +102,7 @@
 #signup-input3:focus{
     width:100%;
     border-width: 0;
-    border-bottom: 3px solid #688CBC;
+    border-bottom: 3px solid #F59022;
     outline: none;
 }
 
@@ -117,5 +117,5 @@
     font-style: normal;
     font-weight: normal;
     font-size:180%;
-    color:#688CBC;
+    color:#F59022;
 }
