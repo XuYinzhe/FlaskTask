@@ -15,5 +15,16 @@
         <input id="authority-input1" type="submit" name="authority_admin" value="Administrator">
         <input id="authority-input2" type="submit" name="authority_guest" value="Guest">
     </div>
+    <div id="authority-div4">
+        <p id="authority-text">Do you want to continue as an administrator or user?</p>
+    </div>
 </form>
+<script>
+    if(window.innerWidth>600&&window.innerWidth<880){
+        document.getElementById('authority-input1').value='Admin'
+    }
+    else{
+        document.getElementById('authority-input1').value='Administrator'
+    }
+</script>
 {% endblock %}

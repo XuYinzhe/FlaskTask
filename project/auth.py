@@ -42,7 +42,7 @@ def login_post():
 
         login_user(user) #, remember=remember)
         return redirect(url_for('auth.authority'))
-        
+
     elif goto_signup=='SIGN UP':
             return redirect(url_for('auth.signup'))
 
@@ -76,7 +76,7 @@ def authority_post():
     if request.method=="POST":
         admin=request.form.get('authority_admin')
         guest=request.form.get('authority_guest')
-        if admin=='Administrator':
+        if admin=='Administrator' or admin=='Admin':
             return admin
         elif guest=='Guest':
             return guest
