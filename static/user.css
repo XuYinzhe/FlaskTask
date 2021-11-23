@@ -11,10 +11,11 @@
 
 #user-div2{
     position:relative;
-    left:15%;
+    left:50%;
     width:70%;
-    top:20%;
+    top:50%;
     text-align:center;
+    transform: translate(-50%,-50%);
 }
 
 #user-div3{
