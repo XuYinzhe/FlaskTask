@@ -9,9 +9,9 @@ def loading():
     return render_template('loading.html')
 
 @main.route('/',methods=['POST'])
-def _loading():
+def loading_post():
     if request.method=="POST":
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
 
 # @main.route('/profile')
 # @login_required

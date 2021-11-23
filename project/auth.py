@@ -10,9 +10,9 @@ auth = Blueprint('auth', __name__)
 def login():
     return render_template('login.html')
 
-@auth.route('/signin')
+@auth.route('/signup')
 def signup():
-    return render_template('signin.html')
+    return render_template('signup.html')
 
 @auth.route('/logout')
 @login_required
@@ -42,9 +42,9 @@ def login_post():
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
-    email=request.form.get("signin_email")
-    password=request.form.get('signin_pass')
-    repeat_password=request.form.get('signin_repass')
+    email=request.form.get("signup_email")
+    password=request.form.get('signup_pass')
+    repeat_password=request.form.get('signup_repass')
 
     user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
 
@@ -52,8 +52,12 @@ def signup_post():
         flash('Email address already exists')
         return redirect(url_for('auth.signup'))
 
+    if not password == repeat_password:
+        flash('Passwords you entered are different!')
+        return redirect(url_for('auth.signup'))
+
     # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
+    new_user = User(email=email, password=generate_password_hash(password, method='sha256'))
 
     # add the new user to the database
     db.session.add(new_user)

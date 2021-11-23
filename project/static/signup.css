@@ -1,5 +1,5 @@
 
-#signin-all{
+#signup-all{
     position: absolute;
     left:50%;
     top:47%;
@@ -9,13 +9,13 @@
 }
 
 
-#signin-form{
+#signup-form{
     padding:1%;
     width: 100%;
     height: 100%;
 }
 
-#signin-text1{
+#signup-text1{
     position: relative;
     text-align: center;
     font-family: 'Junge';
@@ -25,7 +25,7 @@
     color:#688CBC;
 }
 
-#signin-text2{
+#signup-text2{
     position: relative;
     margin-top: 10%;
     font-family: 'Junge';
@@ -35,7 +35,7 @@
     color:#688CBC;
 }
 
-#signin-text3{
+#signup-text3{
     position: relative;
     margin-top: 5%;
     font-family: 'Junge';
@@ -45,7 +45,7 @@
     color:#688CBC;
 }
 
-#signin-text4{
+#signup-text4{
     position: relative;
     margin-top: 5%;
     font-family: 'Junge';
@@ -55,7 +55,7 @@
     color:#688CBC;
 }
 
-#signin-input1{
+#signup-input1{
     position: relative;
     width: 100%;
     border-width: 0;
@@ -65,14 +65,14 @@
     font-size: 150%;
 }
 
-#signin-input1:focus{
+#signup-input1:focus{
     width:100%;
     border-width: 0;
     border-bottom: 3px solid #688CBC;
     outline: none;
 }
 
-#signin-input2{
+#signup-input2{
     position: relative;
     width: 100%;
     border-width: 0;
@@ -82,14 +82,14 @@
     font-size: 150%;
 }
 
-#signin-input2:focus{
+#signup-input2:focus{
     width:100%;
     border-width: 0;
     border-bottom: 3px solid #688CBC;
     outline: none;
 }
 
-#signin-input3{
+#signup-input3{
     position: relative;
     width: 100%;
     border-width: 0;
@@ -99,14 +99,14 @@
     font-size: 150%;
 }
 
-#signin-input3:focus{
+#signup-input3:focus{
     width:100%;
     border-width: 0;
     border-bottom: 3px solid #688CBC;
     outline: none;
 }
 
-#signin-input4{
+#signup-input4{
     position: relative;
     background-color:white;
     margin-top: 15%;
