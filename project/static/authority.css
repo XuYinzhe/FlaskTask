@@ -1,15 +1,15 @@
-#user-form{
+#authority-form{
     width:100%;
     height:100%;
     background-color: #688CBC;
 }
 
-#user-div1{
+#authority-div1{
     width:100%;
     height:50%;
 }
 
-#user-div2{
+#authority-div2{
     position:relative;
     left:50%;
     width:70%;
@@ -18,13 +18,13 @@
     transform: translate(-50%,-50%);
 }
 
-#user-div3{
+#authority-div3{
     width:100%;
     height:50%;
     background-color:white;
 }
 
-#user-text{
+#authority-text{
     font-family: 'Junge';
     font-style: normal;
     font-weight: normal;
@@ -32,7 +32,7 @@
     color:white;
 }
 
-#user-input1{
+#authority-input1{
     position:relative;
     top:25%;
     left:10%;
@@ -48,7 +48,7 @@
     color:white;
 }
 
-#user-input2{
+#authority-input2{
     position:relative;
     top:35%;
     left:10%;
