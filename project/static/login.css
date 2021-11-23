@@ -14,10 +14,10 @@
 #login-all{
     position: absolute;
     left: 50%;
-    top:45%;
+    top:50%;
     width:77%;
     transform: translate(-50%,-50%);
-    max-width: 500px;
+    max-width: 400px;
 }
 
 #login-text1{
@@ -69,7 +69,7 @@
 #login-input3{
     position: absolute;
     background-color:white;
-    top: 160%;
+    top: 150%;
     left: 50%;
     border: none;
     font-family: 'Junge';
@@ -78,4 +78,68 @@
     font-size:180%;
     color:#F59022;
     transform: translate(-50%,-50%);
+}
+
+#login-input3:hover{
+    font-size:190%;
+}
+
+#login-text3{
+    display: none;
+}
+
+#login-image1{
+    display: none;
+}
+
+#login-image2{
+    display: none;
+}
+
+
+@media screen and (min-width:600px) {
+
+#login-text3{
+    display: inline;
+    position: absolute;
+    top: 92%;
+    left: 50%;
+    font-family: 'Junge';
+    font-style: normal;
+    font-weight: normal;
+    font-size:110%;
+    text-align: center;
+    color:#F59022;
+    transform: translate(-50%,-50%);
+}
+
+#login-input4{
+    display: inline;
+    background-color:white;
+    border: none;
+    color:#F59022;
+    text-decoration: underline;
+}
+
+#login-input4:hover{
+    font-size:110%;
+}
+
+#login-image1{
+    display: block;
+    position: absolute;
+    height: 98%;
+    transform: translate(-50%,0);
+
+}
+
+#login-image2{
+    display: block;
+    position: absolute;
+    height: 98%;
+    right:0;
+    transform: translate(50%,0);
+    clip-path: polygon(0% 0%,50% 0%,50% 100%,0% 100%);
+}
+
 }

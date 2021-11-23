@@ -28,18 +28,23 @@ def authority():
 def login_post():
     email = request.form.get('login_email')
     password = request.form.get('login_pass')
+    goto_signup=request.form.get('login_sign')
+    goto_login=request.form.get('login_sub')
     # remember = True if request.form.get('remember') else False
+    if goto_login=='LOG IN':
+        user = User.query.filter_by(email=email).first()
 
-    user = User.query.filter_by(email=email).first()
+        # check if the user actually exists
+        # take the user-supplied password, hash it, and compare it to the hashed password in the database
+        if not user or not check_password_hash(user.password, password):
+            flash(f'Please check your login details and try again.')
+            return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
 
-    # check if the user actually exists
-    # take the user-supplied password, hash it, and compare it to the hashed password in the database
-    if not user or not check_password_hash(user.password, password):
-        flash(f'Please check your login details and try again.')
-        return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
-
-    login_user(user) #, remember=remember)
-    return redirect(url_for('auth.authority'))
+        login_user(user) #, remember=remember)
+        return redirect(url_for('auth.authority'))
+        
+    elif goto_signup=='SIGN UP':
+            return redirect(url_for('auth.signup'))
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
