@@ -18,6 +18,7 @@
     width:77%;
     transform: translate(-50%,-50%);
     max-width: 400px;
+    z-index:2;
 }
 
 #login-text1{
@@ -26,6 +27,7 @@
     font-weight: normal;
     font-size:140%;
     color:#F59022;
+    z-index:2;
 }
 #login-text2{
     position: relative;
@@ -35,6 +37,7 @@
     font-weight: normal;
     font-size:140%;
     color:#F59022;
+    z-index:2;
 }
 
 #login-input1{
@@ -44,6 +47,7 @@
     box-shadow: 0 0 0 30px white inset;
     font-family:'Junge';
     font-size: 150%;
+    z-index:2;
 }
 
 #login-input1:focus{
@@ -57,6 +61,7 @@
     width:100%;
     border-width: 0;
     border-bottom: 1px solid #F59022;
+    z-index:2;
 }
 
 #login-input2:focus{
@@ -78,6 +83,7 @@
     font-size:180%;
     color:#F59022;
     transform: translate(-50%,-50%);
+    z-index:2;
 }
 
 #login-input3:hover{
@@ -115,6 +121,7 @@
     text-align: center;
     color:#F59022;
     transform: translate(-50%,-50%);
+    z-index:2;
 }
 
 #login-input4{
@@ -123,6 +130,7 @@
     border: none;
     color:#F59022;
     text-decoration: underline;
+    z-index:2;
 }
 
 #login-input4:hover{
@@ -132,32 +140,33 @@
 #login-image1{
     display: block;
     position: absolute;
-    height: 98%;
-    transform: translate(-50%,0);
+    top:10%;
+    height: 80%;
+    left: 0;
     opacity:0.8;
-    z-index:0;
+    z-index:1;
 }
 
 #login-image2{
     display: block;
     position: absolute;
-    height: 98%;
+    top:10%;
+    height: 80%;
     right:0;
-    transform: translate(50%,0);
-    clip-path: polygon(0% 0%,50% 0%,50% 100%,0% 100%);
+    /*clip-path: polygon(0% 0%,50% 0%,50% 100%,0% 100%);*/
     opacity:0.8;
-    z-index:0;
+    z-index:1;
 }
 
 #login-image3{
     display: block;
     position: absolute;
-    width: 60%;
-    max-width:600px;
+    width: 30%;
+    max-width:380px;
     transform: translateX(-50%);
     left: 50%;
-    top:6%;
-    z-index:1;
+    top:8%;
+    z-index:0;
 }
 
 }

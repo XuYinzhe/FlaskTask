@@ -1,11 +1,16 @@
 #loading-form{
     width: 100%;
     height: 100%;
+    background-color:#EB8C27;
 }
 
 #loading-input1{
+    position: absolute;
     height: 100%;
     width: 100%;
+    max-width: 930px;
+    left: 50%;
+    transform:translateX(-50%);
     background-color:#F59022;
     font-family: 'Jost';
     font-style: normal;

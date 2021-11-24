@@ -2,10 +2,11 @@
 #signup-all{
     position: absolute;
     left:50%;
-    top:47%;
+    top:52%;
     width:76%;
     transform: translate(-50%,-50%);
     max-width:400px;
+    z-index:1;
 }
 
 
@@ -120,25 +121,35 @@
     color:#F59022;
 }
 
+#signup-image1{
+    display: none;
+}
 
+#signup-image2{
+    display: none;
+}
 
-@media screen and (min-width:600px) {
+@media screen and (min-width:800px) {
     
     #signup-image1{
         display: block;
         position: absolute;
-        height: 98%;
-        transform: translate(-50%,0);
-    
+        top:10%;
+        height: 80%;
+        left: 0;
+        opacity:0.8;
+        z-index:0;
     }
     
     #signup-image2{
         display: block;
         position: absolute;
-        height: 98%;
+        top:10%;
+        height: 80%;
         right:0;
-        transform: translate(50%,0);
-        clip-path: polygon(0% 0%,50% 0%,50% 100%,0% 100%);
+        /*clip-path: polygon(0% 0%,50% 0%,50% 100%,0% 100%);*/
+        opacity:0.8;
+        z-index:0;
     }
     
 }
