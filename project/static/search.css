@@ -121,4 +121,10 @@
         float: left;
     }
 
+    #search-user-menu{
+        /*display: none;*/
+        visibility: hidden;
+    }
+
+
 }

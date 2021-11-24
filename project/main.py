@@ -16,19 +16,25 @@ def loading_post():
 
 @main.route('/search')
 def search():
-    return render_template('search.html')
+    user_name='Shaun'
+    user_authority='User'
+    return render_template('search.html',
+                user_name=user_name, user_authority=user_authority)
 
 @main.route('/search',methods=['POST'])
 def search_post():
     if request.method=="POST":
         room=request.form.get('search_room')
         sub=request.form.get('search_sub')
-        setting=request.form.get('search_set')
-        user=request.form.get('search_user')
+
+        user_name='Shaun'
+        user_authority='User'
+
         if sub=='':
             return room
         else:
-            return render_template('search.html')
+            return render_template('search.html',
+                user_name=user_name, user_authority=user_authority)
 
 # @main.route('/profile')
 # @login_required
