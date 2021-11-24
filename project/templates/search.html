@@ -35,35 +35,46 @@
         </div>
     </div>
     <div id="search-user-menu">
-        <p id="search-text1">Logged in as:</p>
+        <p id="search-text1">Logged in as</p>
         <p id="search-text2">{{user_name}}</p>
-        <p id="search-text3">Your role is:</p>
+        <p id="search-text3">Your role is</p>
         <p id="search-text4">{{user_authority}}</p>
+        <input id="search-input2" type="submit" name="search_switch_user" value="Switch User">
+        <input id="search-input3" type="submit" name="search_switch_role" value="Switch Role">
+        <input id="search-input4" type="submit" name="search_logout" value="Log Out">
     </div>
 </form>
 <script>
-    /*
-    const user=document.getElementById('search-div2')
-    user.addEventListener('click',function(){
-        if(document.getElementById('search-user-menu').style.display=='none'){
-            document.getElementById('search-user-menu').style.display='block';
-            console.log('show')
-        }
-        else if(document.getElementById('search-user-menu').style.display=='block'){
-            document.getElementById('search-user-menu').style.display='none';
-            console.log('hid')
-        }
-    })*/
-      
-function showlist(){
-    if(document.getElementById('search-user-menu').style.visibility=='hidden'){
-            document.getElementById('search-user-menu').style.visibility='visible';
-        }
-        else if(document.getElementById('search-user-menu').style.visibility=='visible'){
-            document.getElementById('search-user-menu').style.visibility='hidden';
-        } 
-}
+let show=true
+hidlist_once();
 
+function hidlist_once(){
+    const user=document.getElementById('search-user-menu')
+    if(show){
+        user.style.display='none';
+        show=false;
+    }
+}
+/*
+function hidlist(){
+    const user=document.getElementById('search-user-menu')
+    user.style.display='none';
+}
+*/
+window.addEventListener('mouseup', function(event){
+	var box = document.getElementById('search-user-menu');
+	if(event.target!=box)
+        box.style.display = 'none';
+});
+
+function showlist(){
+    const user=document.getElementById('search-user-menu')
+    if(user.style.display=='none')
+        user.style.display='block';
+    else if(user.style.display=='block')
+        user.style.display='none';
+    else user.style.display='none';
+}
 </script>
 {% endblock %}
 

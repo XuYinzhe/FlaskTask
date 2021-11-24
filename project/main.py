@@ -26,11 +26,20 @@ def search_post():
     if request.method=="POST":
         room=request.form.get('search_room')
         sub=request.form.get('search_sub')
+        change_user=request.form.get('search_switch_user')
+        change_role=request.form.get('search_switch_role')
+        logout=request.form.get('search_logout')
 
         user_name='Shaun'
         user_authority='User'
 
-        if sub=='':
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return render_template('authority.html',user_name=user_name)
+        elif logout=='Log Out':
+            return redirect(url_for('auth.login'))
+        elif sub=='':
             return room
         else:
             return render_template('search.html',
