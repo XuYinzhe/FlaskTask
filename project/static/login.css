@@ -96,6 +96,10 @@
     display: none;
 }
 
+#login-image3{
+    display: none;
+}
+
 
 @media screen and (min-width:600px) {
 
@@ -130,7 +134,8 @@
     position: absolute;
     height: 98%;
     transform: translate(-50%,0);
-
+    opacity:0.8;
+    z-index:0;
 }
 
 #login-image2{
@@ -140,6 +145,19 @@
     right:0;
     transform: translate(50%,0);
     clip-path: polygon(0% 0%,50% 0%,50% 100%,0% 100%);
+    opacity:0.8;
+    z-index:0;
+}
+
+#login-image3{
+    display: block;
+    position: absolute;
+    width: 60%;
+    max-width:600px;
+    transform: translateX(-50%);
+    left: 50%;
+    top:6%;
+    z-index:1;
 }
 
 }
