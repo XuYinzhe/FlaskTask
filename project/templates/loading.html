@@ -6,6 +6,17 @@
 
 {% block content %}
 <form id="loading-form" method="post">
-    <input id="loading-input" type="submit" name="loading_sub" value="A">
+    <input id="loading-input1">
 </form>
+<script>
+    if(window.innerWidth<=600){
+        document.getElementById('loading-input1').value='A';
+        document.getElementById('loading-input1').type='submit';
+        
+    }
+    else{
+        document.getElementById('loading-input1').src="{{url_for('static',filename='logo-avata-11.png')}}";
+        document.getElementById('loading-input1').type='image';
+    }
+</script>
 {% endblock %}
