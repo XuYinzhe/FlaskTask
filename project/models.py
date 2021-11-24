@@ -1,8 +1,6 @@
 from flask_login import UserMixin
 from . import db
 
-namestr = "4223"
-
 class User(UserMixin, db.Model):
     __tablename__ = "User"
     __table_args__ = {'extend_existing': True} 
