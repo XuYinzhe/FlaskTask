@@ -7,9 +7,8 @@ set FLASK_env=development
 ```
 ## 3. Database Configuration
 ```python
-python
->>> from project import db, create_app
->>> db.create_all(app=create_app()) # create database
+from project import db, create_app
+db.create_all(app=create_app()) # create database
 ```
 ## 4. Run Flask
 ```

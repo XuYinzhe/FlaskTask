@@ -3,15 +3,25 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 # init SQLAlchemy so we can use it later in our models
+
+HOSTNAME = '127.0.0.1'
+PORT = '3306'
+DATABASE = 'avata'
+USERNAME = 'root'
+PASSWORD = 'root'
+DB_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(USERNAME, PASSWORD, HOSTNAME, PORT, DATABASE)
+
 db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = 'secret-key-goes-here'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+    app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     db.init_app(app)
+    # engine = db.get_engine()
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -33,3 +43,5 @@ def create_app():
     app.register_blueprint(main_blueprint)
 
     return app
+
+    
