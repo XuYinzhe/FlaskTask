@@ -70,6 +70,18 @@
     display: none;
 }
 
+#authority-image{
+    display: none;
+}
+
+#authority-image1{
+    display: none;
+}
+
+#authority-image2{
+    display: none;
+}
+
 @media screen and (min-width:600px) {
 
     #authority-div1{
@@ -137,5 +149,36 @@
         color:#F59022;
         border: 2px solid #F59022;
         font-size:180%;
+    }
+
+    #authority-image{
+        display: block;
+        position: absolute;
+        width: 60%;
+        max-width:600px;
+        transform: translateX(-50%);
+        left: 50%;
+        top:6%;
+        z-index:1;
+    }
+
+    #authority-image1{
+        display: block;
+        position: absolute;
+        height: 98%;
+        transform: translate(-50%,0);
+        opacity:0.8;
+        z-index:0;
+    }
+    
+    #authority-image2{
+        display: block;
+        position: absolute;
+        height: 98%;
+        right:0;
+        transform: translate(50%,0);
+        clip-path: polygon(0% 0%,50% 0%,50% 100%,0% 100%);
+        opacity:0.8;
+        z-index:0;
     }
 }
