@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from .models import User
 from . import db
 
@@ -37,11 +37,12 @@ def login_post():
         # check if the user actually exists
         # take the user-supplied password, hash it, and compare it to the hashed password in the database
         if not user or not check_password_hash(user.password, password):
-            flash(f'Please check your login details and try again.')
+            flash('Please check your login details and try again.')
             return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
 
         login_user(user) #, remember=remember)
         return redirect(url_for('auth.authority'))
+        # return current_user.email
 
     elif goto_signup=='SIGN UP':
             return redirect(url_for('auth.signup'))
@@ -63,7 +64,7 @@ def signup_post():
         return redirect(url_for('auth.signup'))
 
     # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-    new_user = User(email=email, password=generate_password_hash(password, method='sha256'))
+    new_user = User(email=email, password=generate_password_hash(password, method='sha256'), authority='guest')
 
     # add the new user to the database
     db.session.add(new_user)
@@ -77,6 +78,9 @@ def authority_post():
         admin=request.form.get('authority_admin')
         guest=request.form.get('authority_guest')
         if admin=='Administrator' or admin=='Admin':
+            user = User.query.filter_by(email=current_user.email).first()
+            user.authority = 'admin'
+            db.session.commit()
             return admin
         elif guest=='Guest':
             return guest
