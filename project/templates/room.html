@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static',filename='room.css')}}">
+{% endblock %}
+
+{% block content %}
+<form id="room-form" method="post">
+    <div id="room-div1">
+        <img id="room-image1" src="{{url_for('static',filename='LOGO-N.PNG')}}">
+        
+    </div>
+    <div id="room-div2">
+
+    </div>
+    <div id="room-div3">
+
+    </div>
+    <div id="room-div4">
+
+    </div>
+</form>
+{% endblock %}

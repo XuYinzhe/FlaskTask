@@ -16,7 +16,7 @@ def loading_post():
 
 @main.route('/search')
 def search():
-    user_name='Shaun'
+    user_name='aaabbbcccaaabbbcccaaabbb'
     user_authority='User'
     return render_template('search.html',
                 user_name=user_name, user_authority=user_authority)
@@ -30,7 +30,7 @@ def search_post():
         change_role=request.form.get('search_switch_role')
         logout=request.form.get('search_logout')
 
-        user_name='Shaun'
+        user_name='Shaun@connect.use.hk'
         user_authority='User'
 
         if change_user=='Switch User':
@@ -47,7 +47,7 @@ def search_post():
 
 @main.route('/search_admin')
 def search_admin():
-    user_name='Shaun'
+    user_name='Shaun@connect.use.hk'
     user_authority='Administrator'
     return render_template('search_admin.html',
         user_name=user_name, user_authority=user_authority)
@@ -62,7 +62,7 @@ def search_admin_post():
         change_role=request.form.get('search_switch_role')
         logout=request.form.get('search_logout')
 
-        user_name='Shaun'
+        user_name='Shaun@connect.use.hk'
         user_authority='Administrator'
 
         if change_user=='Switch User':
