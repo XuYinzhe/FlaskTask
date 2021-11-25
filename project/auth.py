@@ -77,8 +77,8 @@ def authority_post():
         admin=request.form.get('authority_admin')
         guest=request.form.get('authority_guest')
         if admin=='Administrator' or admin=='Admin':
-            return admin
+            return redirect(url_for('main.search_admin'))
         elif guest=='Guest':
-            return guest
+            return redirect(url_for('main.search'))
         else:
             return render_template('authority.html')

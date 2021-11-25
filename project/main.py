@@ -26,12 +26,55 @@ def search_post():
     if request.method=="POST":
         room=request.form.get('search_room')
         sub=request.form.get('search_sub')
+        change_user=request.form.get('search_switch_user')
+        change_role=request.form.get('search_switch_role')
+        logout=request.form.get('search_logout')
 
         user_name='Shaun'
         user_authority='User'
 
-        if sub=='':
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return render_template('authority.html',user_name=user_name)
+        elif logout=='Log Out':
+            return redirect(url_for('auth.login'))
+        elif sub=='':
             return room
+        else:
+            return render_template('search.html',
+                user_name=user_name, user_authority=user_authority)
+
+@main.route('/search_admin')
+def search_admin():
+    user_name='Shaun'
+    user_authority='Administrator'
+    return render_template('search_admin.html',
+        user_name=user_name, user_authority=user_authority)
+
+@main.route('/search_admin',methods=['POST'])
+def search_admin_post():
+    if request.method=="POST":
+        btn = request.form.get('create-btn')
+        room = request.form.get('search_room')
+        sub=request.form.get('search_sub')
+        change_user=request.form.get('search_switch_user')
+        change_role=request.form.get('search_switch_role')
+        logout=request.form.get('search_logout')
+
+        user_name='Shaun'
+        user_authority='Administrator'
+
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return render_template('authority.html',user_name=user_name)
+        elif logout=='Log Out':
+            return redirect(url_for('auth.login'))
+        elif sub=='':
+            return room
+        elif btn == 'Create New Room':
+            return btn
         else:
             return render_template('search.html',
                 user_name=user_name, user_authority=user_authority)
