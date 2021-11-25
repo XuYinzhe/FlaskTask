@@ -82,6 +82,12 @@ def search_admin_post():
             return render_template('search.html',
                 user_name=user_name, user_authority=user_authority)
 
+@main.route('/device')
+def device():
+    room_name='Room 4223'
+    room_locate='Academic Building, 4/F'
+    return render_template('device.html',
+        room_name=room_name,room_locate=room_locate)
 
 @main.route('/room_admin/<room>')
 def room_admin(room):
@@ -126,5 +132,3 @@ def room_admin_post(room):
 # @login_required
 # def profile():
 #     return render_template('profile.html', name=current_user.name)
-
-
