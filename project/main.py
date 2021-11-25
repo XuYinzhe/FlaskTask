@@ -122,21 +122,9 @@ def room_admin_post(room):
             return render_template('room_admin.html',
                 user_name=user_name, user_authority=user_authority)
 
-
-device_image_size=[2880,720]    #resize input image to this size
-#devices={                       #position (related to image) and name of eache devices 
-#    'device1':[0.05,0.05],
-#    'device2':[0.3,0.2],
-#    'device3':[0.8,0.2],
-#    'device4':[0.1,0.7],
-#}
-
-from objects import Device
-devices=[]
-devices.append(Device('device1','type1',0.05,0.05))
-devices.append(Device('device2','type2',0.3,0.2))
-devices.append(Device('device3','type3',0.8,0.2))
-devices.append(Device('device4','type4',0.1,0.7))
+from .objects import Device
+from .objects import devices_test
+devices=devices_test
 
 @main.route('/device')
 def device():
@@ -147,7 +135,7 @@ def device():
     return render_template('device.html',
         room_name=room_name,room_locate=room_locate,
         user_name=user_name,user_authority=user_authority,
-        devices=devices,img_size=device_image_size)
+        devices=devices,img_size=devices.img)
 
 @main.route('/device', methods=['POST'])
 def device_post():
@@ -172,4 +160,4 @@ def device_post():
             return render_template('device.html',
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
-                devices=devices,img_size=device_image_size)
+                devices=devices,img_sizee=devices.img)
