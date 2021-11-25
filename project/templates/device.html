@@ -45,7 +45,8 @@
     </div>
     <div id="device-scroll">
         <img id="device-large-image" src="{{url_for('static',filename='img/longimage.jpg')}}">
-        
+        <!--<div id="test"></div>-->
+
     </div>
     <div id="dropdown-menu">
         <p id="dropdown-text1">Logged in as</p>
@@ -143,6 +144,11 @@ var getFontSize = (textLength) => {
     return `${fontSize}px`
 }
 
+</script>
+<script>
+    const img=document.getElementById('device-large-image')
+    img.style.width='{{img_size[0]}}px'
+    img.style.height='{{img_size[1]}}px'
 </script>
 
 {% endblock %}
