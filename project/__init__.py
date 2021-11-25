@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+# from flask_script import Manager
 
 # init SQLAlchemy so we can use it later in our models
 
@@ -21,6 +22,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     db.init_app(app)
+    # manager = Manager(app=create_app())
     # engine = db.get_engine()
 
     login_manager = LoginManager()
@@ -44,4 +46,7 @@ def create_app():
 
     return app
 
+# if __name__ == '__main__':
+    
+#     manager.run
     

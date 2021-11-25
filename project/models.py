@@ -18,4 +18,3 @@ class Room(db.Model):
     control_with = db.Column(db.String(1000))
     link_by = db.Column(db.String(1000))
     link_with = db.Column(db.String(1000))
-        
