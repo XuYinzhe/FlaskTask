@@ -50,6 +50,7 @@ def get_room_cls(room_id):
     from .models import RoomList
 
     room_name = table_name = "room_" + room_id
+    print(room_id)
     # room = RoomList.query.filter_by(room_name=room_name).first()
 
     # if not room:
@@ -61,7 +62,7 @@ def get_room_cls(room_id):
     # else:
     #     return "Room already exist"
 
-    room_content = type(room_name, (room_cls, ), {'__tablename__': table_name}, __table_args__ = {"extend_existing": True})
+    room_content = type(room_name, (room_cls, ), {'__tablename__': table_name})
 
     return 
 
@@ -69,6 +70,7 @@ def insert_room(room_id):
     # from .models import User
 
     # print(User.query.get(1))
+    print(room_id)
     table = get_room_cls(room_id)
     # app = create_app()
 

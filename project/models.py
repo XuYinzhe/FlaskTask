@@ -4,6 +4,7 @@ from . import db
 class User(UserMixin, db.Model):
     
     __tablename__ = "User"
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
@@ -13,6 +14,7 @@ class User(UserMixin, db.Model):
 class RoomList(UserMixin, db.Model):
 
     __tablename__ = "RoomList"
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True)
     room_name = db.Column(db.String(100))
 
