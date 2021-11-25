@@ -128,7 +128,4 @@ def room_admin_post(room):
         else:
             return render_template('room_admin.html',
                 user_name=user_name, user_authority=user_authority)
-# @main.route('/profile')
-# @login_required
-# def profile():
-#     return render_template('profile.html', name=current_user.name)
+
