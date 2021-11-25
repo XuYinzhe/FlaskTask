@@ -51,29 +51,22 @@ def get_room_cls(room_id):
 
     room_name = table_name = "room_" + room_id
     print(room_id)
-    # room = RoomList.query.filter_by(room_name=room_name).first()
+    room = RoomList.query.filter_by(room_name=room_name).first()
 
-    # if not room:
-    #     room_content = type(room_name, (room_cls, ), {'__tablename__': table_name})
-    #     newroom = RoomList(room_name=room_name)
+    if not room:
+        room_content = type(room_name, (room_cls, ), {'__tablename__': table_name})
+        newroom = RoomList(room_name=room_name)
 
-    #     db.session.add(newroom)
-    #     db.session.commit() 
-    # else:
-    #     return "Room already exist"
+        db.session.add(newroom)
+        db.session.commit() 
+    else:
+        return "Room already exist"
 
-    room_content = type(room_name, (room_cls, ), {'__tablename__': table_name})
-
-    return 
+    return room_name
 
 def insert_room(room_id):
-    # from .models import User
 
-    # print(User.query.get(1))
-    print(room_id)
     table = get_room_cls(room_id)
-    # app = create_app()
-
-    # with app.app_context():
-    #     db.create_all()
     db.create_all(app=create_app())
+
+    return table

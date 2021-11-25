@@ -35,8 +35,7 @@ def search_post():
         elif logout=='Log Out':
             return redirect(url_for('auth.login'))
         elif sub=='':
-            insert_room(room)
-            return room
+            return insert_room(room)
         else:
             return render_template('search.html',
                 user_name=current_user.email, user_authority=current_user.authority)
