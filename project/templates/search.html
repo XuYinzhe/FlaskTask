@@ -9,7 +9,7 @@
     <p>Please view this page in PC device.</p>
 </div>
 <form id="search-form" method="post">
-    <img id="search-image" src="{{url_for('static',filename='logo-icon.png')}}">
+    <img id="search-image" src="{{url_for('static',filename='img/logo-icon.png')}}">
     <div id="search-all">
         <p id="search-text">Room</p>
         <div id="search-div">
@@ -45,7 +45,6 @@
     </div>
 </form>
 <script>
-
 let show=true
 hidlist_once();
 
@@ -59,9 +58,8 @@ function hidlist_once(){
 /*
 function hidlist(){
     const user=document.getElementById('search-user-menu')
-    user.style.display='none';   
+    user.style.display='none';
 }
-
 */
 window.addEventListener('mouseup', function(event){
 	var box = document.getElementById('search-user-menu');
@@ -76,6 +74,28 @@ function showlist(){
     else if(user.style.display=='block')
         user.style.display='none';
     else user.style.display='none';
+
+    const user_text=document.getElementById('search-text2');
+    const length=user_text.textContent.length;
+    user_text.style.fontSize=getFontSize(length);
+}
+
+var getFontSize = (textLength) => {
+    const baseSize = 18
+    var fontSize=baseSize
+    var delta=0
+    if (textLength >= baseSize) {
+        delta = textLength - baseSize + 1
+        fontSize = baseSize - delta
+    }
+    else {
+        delta=0
+        fontSize=baseSize
+    }
+    console.log(delta)
+    console.log(textLength)
+    console.log(fontSize)
+    return `${fontSize}px`
 }
 
 </script>

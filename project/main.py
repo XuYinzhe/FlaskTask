@@ -16,7 +16,7 @@ def loading_post():
 
 @main.route('/search')
 def search():
-    user_name='Shaun'
+    user_name='aaabbbcccaaabbbcccaaabbb'
     user_authority='User'
     return render_template('search.html',
                 user_name=user_name, user_authority=user_authority)
@@ -30,7 +30,7 @@ def search_post():
         change_role=request.form.get('search_switch_role')
         logout=request.form.get('search_logout')
 
-        user_name='Shaun'
+        user_name='Shaun@connect.use.hk'
         user_authority='User'
 
         if change_user=='Switch User':
@@ -47,7 +47,7 @@ def search_post():
 
 @main.route('/search_admin')
 def search_admin():
-    user_name='Shaun'
+    user_name='Shaun@connect.use.hk'
     user_authority='Administrator'
     return render_template('search_admin.html',
         user_name=user_name, user_authority=user_authority)
@@ -62,7 +62,7 @@ def search_admin_post():
         change_role=request.form.get('search_switch_role')
         logout=request.form.get('search_logout')
 
-        user_name='Shaun'
+        user_name='Shaun@connect.use.hk'
         user_authority='Administrator'
 
         if change_user=='Switch User':
@@ -72,13 +72,56 @@ def search_admin_post():
         elif logout=='Log Out':
             return redirect(url_for('auth.login'))
         elif sub=='':
-            return room
+            if room == '4223':
+                return redirect(url_for('main.room_admin', room=room))
+            else:
+                return room
         elif btn == 'Create New Room':
             return btn
         else:
             return render_template('search.html',
                 user_name=user_name, user_authority=user_authority)
 
+
+@main.route('/room_admin/<room>')
+def room_admin(room):
+    user_name='Shaun@connect.use.hk'
+    user_authority='Administrator'
+    return render_template('room_admin.html', room=room, user_name=user_name, user_authority=user_authority)
+
+
+@main.route('/room_admin/<room>',methods=['POST'])
+def room_admin_post(room):
+    if request.method=="POST":
+        edit = request.form.get('room-edit-btn')
+        room = request.form.get('search_room')
+        sub=request.form.get('search_sub')
+        change_user=request.form.get('search_switch_user')
+        change_role=request.form.get('search_switch_role')
+        logout=request.form.get('search_logout')
+        home=request.form.get('search-home')
+
+        user_name='Shaun@connect.use.hk'
+        user_authority='Administrator'
+
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return render_template('authority.html',user_name=user_name)
+        elif logout=='Log Out':
+            return redirect(url_for('auth.login'))
+        elif home=='Home':
+            return redirect(url_for('main.search_admin'))
+        elif sub=='':
+            if room == '4223':
+                return redirect(url_for('main.room_admin', room=room))
+            else:
+                return room
+        elif edit == 'Edit':
+            return edit
+        else:
+            return render_template('room_admin.html',
+                user_name=user_name, user_authority=user_authority)
 # @main.route('/profile')
 # @login_required
 # def profile():
