@@ -77,7 +77,7 @@ def search_admin_post():
             else:
                 return room
         elif btn == 'Create New Room':
-            return btn
+            return redirect(url_for('main.create_admin'))
         else:
             return render_template('search.html',
                 user_name=user_name, user_authority=user_authority)
@@ -120,7 +120,39 @@ def room_admin_post(room):
         elif edit == 'Edit':
             return edit
         else:
-            return render_template('room_admin.html',
+            return render_template('room_admin.html', room=room,
+                user_name=user_name, user_authority=user_authority)
+
+@main.route('/create_admin')
+def create_admin():
+    user_name='Shaun@connect.use.hk'
+    user_authority='Administrator'
+    return render_template('create_admin.html', user_name=user_name, user_authority=user_authority)
+
+@main.route('/create_admin',methods=['POST'])
+def create_admin_post():
+    if request.method=="POST":
+        conti = request.form.get('search-continue-btn')
+        change_user=request.form.get('search_switch_user')
+        change_role=request.form.get('search_switch_role')
+        logout=request.form.get('search_logout')
+        home=request.form.get('search-home')
+
+        user_name='Shaun@connect.use.hk'
+        user_authority='Administrator'
+
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return render_template('authority.html',user_name=user_name)
+        elif logout=='Log Out':
+            return redirect(url_for('auth.login'))
+        elif home=='Home':
+            return redirect(url_for('main.search_admin'))
+        elif conti == 'Continue':
+            return conti
+        else:
+            return render_template('create_admin.html',
                 user_name=user_name, user_authority=user_authority)
 # @main.route('/profile')
 # @login_required
