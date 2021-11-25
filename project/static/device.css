@@ -73,22 +73,18 @@
         right: 6%;
         width: 40%;
         transform:translateY(-50%);
-        border: 1px solid black;
     }
 
     #device-div3{
         float: right;
-        border: 1px solid black;
     }
 
     #device-div4{
         float: right;
-        border: 1px solid black;
     }
 
     #device-div5{
         float: right;
-        border: 1px solid black;
     }
 
     #device-button1{
@@ -98,7 +94,6 @@
         border: none;
         background-color: rgba(255, 255, 255, 0);
         z-index: 1;
-        border: 1px solid black;
     }
 
     #device-button2{
@@ -108,7 +103,6 @@
         border: none;
         background-color: rgba(255, 255, 255, 0);
         z-index: 1;
-        border: 1px solid black;
     }
 
     #device-button3{
@@ -118,7 +112,37 @@
         border: none;
         background-color: rgba(255, 255, 255, 0);
         z-index: 1;
-        border: 1px solid black;
     }
+
+    #device-div6{
+        position: absolute;
+        left: 50%;
+        top:16%;
+        width: 70%;
+        transform:translateX(-50%);
+    }
+
+    #device-text3{    
+        text-align: center;
+        font-family: 'Junge';
+        font-style: normal;
+        font-weight: normal;
+        color:#F59022;
+        font-size:max(min(2vw,26px),22px);
+    }
+
+    #device-scroll{
+        position: absolute;
+        transform:translateX(-50%);
+        left: 50%;
+        top:22%;
+        width: 90%;
+        height: 72%;
+        overflow-y: scroll;
+        overflow-x: scroll;
+        border-radius: 40px 18px 18px 18px;
+    }
+
+    
 
 }

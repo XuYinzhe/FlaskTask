@@ -3,6 +3,7 @@
 {% block head %}
 <link rel="stylesheet" href="{{url_for('static',filename='device.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='device_dropdown.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='scroll.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -39,9 +40,12 @@
             </svg>                  
         </div>
     </div>
-    <p id="device-text3">Please select all the devices that you want to use.</p>
+    <div id="device-div6">
+        <p id="device-text3">Please select all the devices that you want to use.</p>
+    </div>
     <div id="device-scroll">
         <img id="device-large-image" src="{{url_for('static',filename='img/longimage.jpg')}}">
+        
     </div>
     <div id="dropdown-menu">
         <p id="dropdown-text1">Logged in as</p>
@@ -53,6 +57,7 @@
         <input id="dropdown-input4" type="submit" name="dropdown_logout" value="Log Out">
     </div>
 </form>
+
 <script>
     const form=document.getElementById('device-form')
     const svg1=document.getElementById('device-svg1')
@@ -139,6 +144,5 @@ var getFontSize = (textLength) => {
 }
 
 </script>
-
 
 {% endblock %}
