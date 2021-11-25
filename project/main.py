@@ -86,8 +86,36 @@ def search_admin_post():
 def device():
     room_name='Room 4223'
     room_locate='Academic Building, 4/F'
+    user_name='Shaun@connect.use.hk'
+    user_authority='User'
     return render_template('device.html',
-        room_name=room_name,room_locate=room_locate)
+        room_name=room_name,room_locate=room_locate,
+        user_name=user_name,user_authority=user_authority)
+
+@main.route('/device', methods=['POST'])
+def device_post():
+    if request.method=="POST":
+        change_user=request.form.get('dropdown_switch_user')
+        change_role=request.form.get('dropdown_switch_role')
+        logout=request.form.get('dropdown_logout')
+
+        user_name='Shaun@connect.use.hk'
+        user_authority='User'
+
+        room_name='Room 4223'
+        room_locate='Academic Building, 4/F'
+
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return render_template('authority.html',user_name=user_name)
+        elif logout=='Log Out':
+            return redirect(url_for('auth.login'))
+        else:
+            return render_template('device.html',
+                room_name=room_name,room_locate=room_locate,
+                user_name=user_name,user_authority=user_authority)
+
 
 @main.route('/room_admin/<room>')
 def room_admin(room):

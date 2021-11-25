@@ -2,13 +2,14 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{url_for('static',filename='device.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='device_dropdown.css')}}">
 {% endblock %}
 
 {% block content %}
 <div id="show">
     <p>Please view this page in PC device.</p>
 </div>
-<form id="device-form">
+<form id="device-form" method="post">
     <div id="device-info">
         <div id="device-div1">
             <img id="device-image1" src="{{url_for('static',filename='img/logo-icon.png')}}">
@@ -20,7 +21,7 @@
     </div>
     <div id="device-menu">
         <div id="device-div3">
-            <input id="device-button1" type="submit" name="device_home" value=''></button>
+            <button id="device-button1" type="button" onclick="showlist()"></button>
             <svg id="device-svg1" width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M23 23C25.9837 23 28.8452 21.8147 30.955 19.705C33.0647 17.5952 34.25 14.7337 34.25 11.75C34.25 8.76631 33.0647 5.90483 30.955 3.79505C28.8452 1.68526 25.9837 0.5 23 0.5C20.0163 0.5 17.1548 1.68526 15.045 3.79505C12.9353 5.90483 11.75 8.76631 11.75 11.75C11.75 14.7337 12.9353 17.5952 15.045 19.705C17.1548 21.8147 20.0163 23 23 23ZM30.5 11.75C30.5 13.7391 29.7098 15.6468 28.3033 17.0533C26.8968 18.4598 24.9891 19.25 23 19.25C21.0109 19.25 19.1032 18.4598 17.6967 17.0533C16.2902 15.6468 15.5 13.7391 15.5 11.75C15.5 9.76088 16.2902 7.85322 17.6967 6.4467C19.1032 5.04018 21.0109 4.25 23 4.25C24.9891 4.25 26.8968 5.04018 28.3033 6.4467C29.7098 7.85322 30.5 9.76088 30.5 11.75ZM45.5 41.75C45.5 45.5 41.75 45.5 41.75 45.5H4.25C4.25 45.5 0.5 45.5 0.5 41.75C0.5 38 4.25 26.75 23 26.75C41.75 26.75 45.5 38 45.5 41.75ZM41.75 41.735C41.7463 40.8125 41.1725 38.0375 38.63 35.495C36.185 33.05 31.5837 30.5 23 30.5C14.4125 30.5 9.815 33.05 7.37 35.495C4.8275 38.0375 4.2575 40.8125 4.25 41.735H41.75Z" fill="#F59022"/>
             </svg>
@@ -32,7 +33,7 @@
             </svg>                
         </div>
         <div id="device-div5">
-            <button id="device-button3" type="button"></button>
+            <input id="device-button3" type="submit" name="device_home" value=''></button>
              <svg id="device-svg3" width="54" height="52" viewBox="0 0 54 52" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M52.459 25.59L29.8184 2.96109L28.3008 1.44351C27.955 1.10001 27.4874 0.907227 27 0.907227C26.5126 0.907227 26.045 1.10001 25.6992 1.44351L1.54102 25.59C1.18671 25.9429 0.906695 26.3633 0.717499 26.8262C0.528304 27.2891 0.433764 27.7852 0.439459 28.2853C0.462897 30.3478 2.17969 31.9943 4.24219 31.9943H6.73243V51.0783H47.2676V31.9943H49.8106C50.8125 31.9943 51.7559 31.6017 52.4648 30.8927C52.8139 30.5447 53.0905 30.131 53.2786 29.6754C53.4667 29.2197 53.5625 28.7313 53.5606 28.2384C53.5606 27.2423 53.168 26.299 52.459 25.59ZM30.2813 46.8595H23.7188V34.9064H30.2813V46.8595ZM43.0488 27.7755V46.8595H34.0313V33.5001C34.0313 32.2052 32.9824 31.1564 31.6875 31.1564H22.3125C21.0176 31.1564 19.9688 32.2052 19.9688 33.5001V46.8595H10.9512V27.7755H5.32618L27.0059 6.11343L28.3594 7.46694L48.6797 27.7755H43.0488Z" fill="#F59022"/>
             </svg>                  
@@ -42,5 +43,102 @@
     <div id="device-scroll">
         <img id="device-large-image" src="{{url_for('static',filename='img/longimage.jpg')}}">
     </div>
+    <div id="dropdown-menu">
+        <p id="dropdown-text1">Logged in as</p>
+        <p id="dropdown-text2">{{user_name}}</p>
+        <p id="dropdown-text3">Your role is</p>
+        <p id="dropdown-text4">{{user_authority}}</p>
+        <input id="dropdown-input2" type="submit" name="dropdown_switch_user" value="Switch User">
+        <input id="dropdown-input3" type="submit" name="dropdown_switch_role" value="Switch Role">
+        <input id="dropdown-input4" type="submit" name="dropdown_logout" value="Log Out">
+    </div>
 </form>
+<script>
+    const form=document.getElementById('device-form')
+    const svg1=document.getElementById('device-svg1')
+    const svg2=document.getElementById('device-svg2')
+    const svg3=document.getElementById('device-svg3')
+    const div1=document.getElementById('device-div3')
+    const div2=document.getElementById('device-div4')
+    const div3=document.getElementById('device-div5')
+
+    var scale=1
+    var scale_string='scale('+scale+','+scale+')'
+    var margin=5
+    var margin_string=margin+'%'
+
+    if(window.innerWidth>=750 && window.innerWidth<=1000){
+        scale=0.5+(window.innerWidth-750)/(1000-750)*0.5
+        scale_string='scale('+scale+','+scale+')'
+        margin=(window.innerWidth-750)/(1000-750)*5
+        margin_string=margin+'%'
+    }
+    else if(window.innerWidth<=750){
+        scale=0.5
+        scale_string='scale('+scale+','+scale+')'
+        margin_string='0'
+    }
+    svg1.style.transform=scale_string
+    svg2.style.transform=scale_string
+    svg3.style.transform=scale_string
+    div1.style.marginLeft=margin_string
+    div2.style.marginLeft=margin_string
+    div3.style.marginLeft=margin_string
+</script>
+<script>
+
+let show=true
+hidlist_once();
+
+function hidlist_once(){
+    const user=document.getElementById('dropdown-menu')
+    if(show){
+        user.style.display='none';
+        show=false;
+    }
+    
+}
+/*
+function hidlist(){
+    const user=document.getElementById('search-user-menu')
+    user.style.display='none';
+}
+*/
+window.addEventListener('mouseup', function(event){
+	var box = document.getElementById('dropdown-menu');
+	if(event.target!=box)
+        box.style.display = 'none';
+});
+
+function showlist(){
+    const user=document.getElementById('dropdown-menu')
+    if(user.style.display=='none')
+        user.style.display='block';
+    else if(user.style.display=='block')
+        user.style.display='none';
+    else user.style.display='none';
+
+    const user_text=document.getElementById('dropdown-text2');
+    const length=user_text.textContent.length;
+    user_text.style.fontSize=getFontSize(length);
+}
+
+var getFontSize = (textLength) => {
+    const baseSize = 18
+    var fontSize=baseSize
+    var delta=0
+    if (textLength >= baseSize) {
+        delta = textLength - baseSize + 1
+        fontSize = baseSize - delta
+    }
+    else {
+        delta=0
+        fontSize=baseSize
+    }
+    return `${fontSize}px`
+}
+
+</script>
+
+
 {% endblock %}
