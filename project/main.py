@@ -163,7 +163,7 @@ device_image_size=[2880,720]    #resize input image to this size
 #    'device4':[0.1,0.7],
 #}
 
-from objects import Device
+from project.objects import Device
 devices=[]
 devices.append(Device('device1','type1',0.05,0.05))
 devices.append(Device('device2','type2',0.3,0.2))
