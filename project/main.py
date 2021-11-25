@@ -82,7 +82,6 @@ def search_admin_post():
             return render_template('search.html',
                 user_name=user_name, user_authority=user_authority)
 
-
 @main.route('/room_admin/<room>')
 def room_admin(room):
     user_name='Shaun@connect.use.hk'
@@ -154,9 +153,55 @@ def create_admin_post():
         else:
             return render_template('create_admin.html',
                 user_name=user_name, user_authority=user_authority)
-# @main.route('/profile')
-# @login_required
-# def profile():
-#     return render_template('profile.html', name=current_user.name)
 
 
+device_image_size=[2880,720]    #resize input image to this size
+#devices={                       #position (related to image) and name of eache devices 
+#    'device1':[0.05,0.05],
+#    'device2':[0.3,0.2],
+#    'device3':[0.8,0.2],
+#    'device4':[0.1,0.7],
+#}
+
+from objects import Device
+devices=[]
+devices.append(Device('device1','type1',0.05,0.05))
+devices.append(Device('device2','type2',0.3,0.2))
+devices.append(Device('device3','type3',0.8,0.2))
+devices.append(Device('device4','type4',0.1,0.7))
+
+@main.route('/device')
+def device():
+    room_name='Room 4223'
+    room_locate='Academic Building, 4/F'
+    user_name='Shaun@connect.use.hk'
+    user_authority='User'
+    return render_template('device.html',
+        room_name=room_name,room_locate=room_locate,
+        user_name=user_name,user_authority=user_authority,
+        devices=devices,img_size=device_image_size)
+
+@main.route('/device', methods=['POST'])
+def device_post():
+    if request.method=="POST":
+        change_user=request.form.get('dropdown_switch_user')
+        change_role=request.form.get('dropdown_switch_role')
+        logout=request.form.get('dropdown_logout')
+
+        user_name='Shaun@connect.use.hk'
+        user_authority='User'
+
+        room_name='Room 4223'
+        room_locate='Academic Building, 4/F'
+
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return render_template('authority.html',user_name=user_name)
+        elif logout=='Log Out':
+            return redirect(url_for('auth.login'))
+        else:
+            return render_template('device.html',
+                room_name=room_name,room_locate=room_locate,
+                user_name=user_name,user_authority=user_authority,
+                devices=devices,img_size=device_image_size)
