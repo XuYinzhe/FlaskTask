@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
-from .models import User
+from .models import User, room_cls, RoomList
 from . import db
 
 auth = Blueprint('auth', __name__)
@@ -74,6 +74,8 @@ def signup_post():
 
 @auth.route('/authority',methods=['POST'])
 def authority_post():
+    # room_name = table_name = 'room_studio'
+    # room_content = type(room_name, (room_cls, ), {'__tablename__': table_name})
     if request.method=="POST":
         admin=request.form.get('authority_admin')
         guest=request.form.get('authority_guest')
@@ -82,6 +84,8 @@ def authority_post():
             user.authority = 'admin'
             db.session.commit()
             return admin
+            # room = RoomList.query.filter_by(id=1).first()
+            # return str(room.id)
         elif guest=='Guest':
             return guest
         else:

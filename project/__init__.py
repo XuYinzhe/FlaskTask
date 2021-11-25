@@ -44,17 +44,34 @@ def create_app():
 
     return app
 
-def get_table_model_cls(room_id, room_class_dict={}):
+def get_room_cls(room_id):
 
-    from .models import table_model_cls
+    from .models import room_cls
+    from .models import RoomList
 
-    if room_id not in room_class_dict:
-        class_name = table_name = room_id
-        class_content = type(class_name, (table_model_cls, ), {'__tablename__': table_name})
-        room_class_dict[room_id] = class_content
-    
+    room_name = table_name = "room_" + room_id
+    # room = RoomList.query.filter_by(room_name=room_name).first()
+
+    # if not room:
+    #     room_content = type(room_name, (room_cls, ), {'__tablename__': table_name})
+    #     newroom = RoomList(room_name=room_name)
+
+    #     db.session.add(newroom)
+    #     db.session.commit() 
+    # else:
+    #     return "Room already exist"
+
+    room_content = type(room_name, (room_cls, ), {'__tablename__': table_name}, __table_args__ = {"extend_existing": True})
+
     return 
 
 def insert_room(room_id):
-    table = table = get_table_model_cls(room_id)
+    # from .models import User
+
+    # print(User.query.get(1))
+    table = get_room_cls(room_id)
+    # app = create_app()
+
+    # with app.app_context():
+    #     db.create_all()
     db.create_all(app=create_app())

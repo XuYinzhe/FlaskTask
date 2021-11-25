@@ -10,8 +10,14 @@ class User(UserMixin, db.Model):
     authority = db.Column(db.String(100))
     # name = db.Column(db.String(1000))
 
-class table_model_cls(UserMixin, db.Model):
+class RoomList(UserMixin, db.Model):
+
+    __tablename__ = "RoomList"
+    id = db.Column(db.Integer, primary_key=True)
+    room_name = db.Column(db.String(100))
+
+class room_cls(UserMixin, db.Model):
      
     __abstract__ = True  # 关键语句,定义所有数据库表对应的父类
     __table_args__ = {"extend_existing": True}
-    ID = db.Column(db.Integer, primary_key=True) 
+    id = db.Column(db.Integer, primary_key=True) 
