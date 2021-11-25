@@ -47,6 +47,22 @@
         color:#F59022;
     }
 
+    #search-create-btn{
+        position: relative;
+        transform:translateX(-50%);
+        left:50%;
+        top: 10%;
+
+        background-color:#fff;
+        border: 2px solid #F59022;
+        border-radius: 10px;
+        font-family:'Junge';
+        font-style: normal;
+        font-weight: normal;
+        font-size:180%;
+        color:#F59022;
+    }
+
     #search-input{
         position: relative;
         float: left;
@@ -118,6 +134,10 @@
     }
 
     #search-div2{
+        float: left;
+    }
+
+    #search-div3{
         float: left;
     }
 
@@ -240,6 +260,5 @@
         border-top: 1px solid;
         background-color:white;
     }
-
 
 }
