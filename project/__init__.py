@@ -44,4 +44,17 @@ def create_app():
 
     return app
 
+def get_table_model_cls(room_id, room_class_dict={}):
+
+    from .models import table_model_cls
+
+    if room_id not in room_class_dict:
+        class_name = table_name = room_id
+        class_content = type(class_name, (table_model_cls, ), {'__tablename__': table_name})
+        room_class_dict[room_id] = class_content
     
+    return 
+
+def insert_room(room_id):
+    table = table = get_table_model_cls(room_id)
+    db.create_all(app=create_app())
