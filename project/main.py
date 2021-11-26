@@ -177,6 +177,7 @@ def device_post():
         change_user=request.form.get('dropdown_switch_user')
         change_role=request.form.get('dropdown_switch_role')
         logout=request.form.get('dropdown_logout')
+        confirm=request.form.get('device_confirm')
 
         user_name='Shaun@connect.use.hk'
         user_authority='User'
@@ -192,6 +193,8 @@ def device_post():
             return render_template('authority.html',user_name=user_name)
         elif logout=='Log Out':
             return redirect(url_for('auth.login'))
+        elif confirm=='Confirm':
+            return devices.chooseDevice()
         else:
             return render_template('device.html',
                 room_name=room_name,room_locate=room_locate,

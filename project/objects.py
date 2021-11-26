@@ -56,15 +56,8 @@ class Devices(object):
 
     def getJson(self):
         #Get the JSON file in string type
+        #self.__json={0:{'name':...,'type':...,'x':...,'y':...},1:{'name':...,'type':...,'x':...,'y':...},...}
         if not self.__jsondone:
-            '''
-            self.__json='{ "devices" : ['
-            for device in self.devices:
-                self.__json+='{ "name":"'+device.name+'" , "type":"'+\
-                    device.type+'" , "x":"'+str(device.x)+'px" , "y":"'+str(device.y)+'px" },'
-            self.__json+=']}'
-            self.__jsondone=True
-            '''
             self.__json={}
             i=0
             for device in self.devices:
@@ -82,6 +75,8 @@ class Devices(object):
         self.__jsondone=False
 
     def chooseDevice(self,name=None):
+        #Initial, choose or not choose one device in a room
+        #self.device_choose={0:{'name':...,'choose':0 or 1},0:{'name':...,'choose':0 or 1},...}
         if not self.__choose_ini:
             self.device_choose={}
             i=0
@@ -100,6 +95,10 @@ class Devices(object):
 
         return self.device_choose
 
+    def chooseDevice_clear(self):
+        self.device_choose=None
+        self.__choose_ini=True
+
     '''
     def computeDevicesPosition(self):
         _w=[1,1,0,0,0.05,0.09,0.117,0.13,0.155,0.17,0.155,0.13,0.117,0.09,0.05,0,0]
@@ -116,7 +115,7 @@ def update_from_request(devices:Devices):
             devices.chooseDevice(d.name)
         i+=1
 
-devices_test=Devices(img=[2880,720])
+devices_test=Devices(img=[3240,720])
 devices_test.addDevice('Projecter','a',0.2,0.2)
 devices_test.addDevice('Screen','b',0.8,0.1)
 devices_test.addDevice('Speaker','c',0.3,0.7)

@@ -163,4 +163,26 @@
         height: 100%;
     }
 
+    #device-input5{
+        position: absolute;
+        text-align: center;
+        font-family: 'Junge';
+        font-style: normal;
+        font-weight: bold;
+        font-size: 90%;
+        color:#F59022;
+        width: 90px;
+        height: 40px;
+        bottom: 11%;
+        right:8%;
+        border: 3px solid #F59022;
+        border-radius: 15px;
+        background-color:rgba(255, 255, 255, 0.8);
+    }
+
+    #device-input5:hover{
+        background-color:#F59022;
+        color:white;
+    }
+
 }

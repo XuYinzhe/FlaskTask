@@ -46,10 +46,9 @@
     <div id="device-scroll">
         <img id="device-large-image" src="{{url_for('static',filename='img/longimage.jpg')}}">
         <!--<div id="test"></div>-->
-        <div id="device-objs">
-            
-        </div>
+        <div id="device-objs"></div>
     </div>
+    <input id="device-input5" type="submit" name="device_confirm" value="Confirm">
     <div id="dropdown-menu">
         <p id="dropdown-text1">Logged in as</p>
         <p id="dropdown-text2">{{user_name}}</p>
@@ -184,7 +183,7 @@ var getFontSize = (textLength) => {
         grandsonDiv.style.border='3px solid #F59022'
         grandsonDiv.style.borderRadius='10px'
         grandsonDiv.style.transform='translate(10px,-18px)'
-        grandsonDiv.style.backgroundColor='rgba(255, 255, 255, 0.7)'
+        grandsonDiv.style.backgroundColor='rgba(255, 255, 255, 0.8)'
         grandsonDiv.style.zIndex='0'
         grandsonDiv.style.fontFamily='Junge'
         grandsonDiv.style.fontStyle='normal'
