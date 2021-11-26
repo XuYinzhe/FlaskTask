@@ -184,15 +184,6 @@ def device_post():
         room_name='Room 4223'
         room_locate='Academic Building, 4/F'
 
-        '''
-        i=0
-        for d in devices.devices:
-            cur_d=request.form.get('devices_input_'+d.name)
-            if cur_d==' ':
-                #devices.device_choose[i]['choose']=1-devices.device_choose[i]['choose']
-                devices.chooseDevice(d.name)
-            i+=1
-        '''  
         update_from_request(devices)
 
         if change_user=='Switch User':
