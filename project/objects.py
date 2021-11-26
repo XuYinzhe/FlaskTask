@@ -1,5 +1,6 @@
 #All the objects in this project
 from typing import List
+import numpy as np
 
 class Device(object):
     #One device
@@ -12,13 +13,14 @@ class Device(object):
 
 
 class Devices(object):
-    #All the __devices in one room
+    #All the devices in one room
     def __init__(self, width:int=None, height:int=None, img:List[int]=None):
         #Require to give 'width' and 'height' at the same time or only give 'img'
-        self.__devices=[] #All the __devices in the class type Device
-        self.__json='' #JSON of all __devices
+        self.devices=[] #All the devices in the class type Device
+        self.devices_list=[]
+        self.__json=None #JSON of all devices
         self.__jsondone=False #Whether the json is filled
-        self.img=[] #The size of the image that all the __devices belong to
+        self.img=[] #The size of the image that all the devices belong to
         if not img:
             if width and height:
                 self.img=[width,height]
@@ -30,37 +32,42 @@ class Devices(object):
             else:
                 self.img=img
 
-    def numDevice(self):
-        return len(self.__devices)
-
-    def clearDevice(self):
-        self.__devices=[]
-
     def addDevice(self,name:str=None,type:str=None,x:float=None,y:float=None,device:Device=None):
         #Add another device to this room: give all the deivce attributes or only give a initialized Deive class
         if not device:
             if name and type and x and y:
-                self.__devices.append(Device(name,type,x,y,self.img[0],self.img[1]))
+                self.devices.append(Device(name,type,x,y,self.img[0],self.img[1]))
+                self.devices_list.append([name,type,x*self.img[0],y*self.img[1]])
             else:
                 raise ValueError('Device attributes must be set!')
         else:
-            self.__devices.append(device)
+            self.devices.append(device)
+            self.devices_list.append(device.name,device.type,device.x,device.y)
 
     def deleteDevice_name(self,name):
         index=-1
-        for i in range(len(self.__devices)):
-            if self.__devices[i].name==name:
+        for i in range(len(self.devices)):
+            if self.devices[i].name==name:
                 index=i
-        del self.__devices[i]
+        del self.devices[index]
 
     def getJson(self):
         #Get the JSON file in string type
         if not self.__jsondone:
-            self.__json='{ "__devices" : ['
-            for device in self.__devices:
+            '''
+            self.__json='{ "devices" : ['
+            for device in self.devices:
                 self.__json+='{ "name":"'+device.name+'" , "type":"'+\
                     device.type+'" , "x":"'+str(device.x)+'px" , "y":"'+str(device.y)+'px" },'
             self.__json+=']}'
+            self.__jsondone=True
+            '''
+            self.__json={}
+            i=0
+            for device in self.devices:
+                self.__json[i]={'name':device.name,'type':device.type,
+                                'x':device.x,'y':device.y}
+                i+=1
             self.__jsondone=True
             return self.__json
         else:
@@ -71,8 +78,13 @@ class Devices(object):
         self.__json=''
         self.__jsondone=False
 
-
-
+    '''
+    def computeDevicesPosition(self):
+        _w=[1,1,0,0,0.05,0.09,0.117,0.13,0.155,0.17,0.155,0.13,0.117,0.09,0.05,0,0]
+        _h=[0,1,1,0.75,0.74,0.72,0.6925,0.665,0.61,0.5,0.39,0.335,0.3075,0.28,0.26,0.255,0]
+        w=self.img[0]*np.array(_w)
+        h=self.img[1]*np.array(_h)
+    '''
 devices_test=Devices(img=[2880,720])
 devices_test.addDevice('a','a',0.2,0.2)
 devices_test.addDevice('b','b',0.8,0.1)

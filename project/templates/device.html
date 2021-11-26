@@ -61,7 +61,7 @@
     </div>
 </form>
 
-<script>
+<script>//react component
     const form=document.getElementById('device-form')
     const svg1=document.getElementById('device-svg1')
     const svg2=document.getElementById('device-svg2')
@@ -94,7 +94,7 @@
     div3.style.marginLeft=margin_string
 </script>
 
-<script>
+<script>//hid and show menu
 
 let show=true
 hidlist_once();
@@ -149,13 +149,58 @@ var getFontSize = (textLength) => {
 
 </script>
 
-<script>
+<script>//resize img
     const img=document.getElementById('device-large-image')
     img.style.width='{{img_size[0]}}px'
     img.style.height='{{img_size[1]}}px'
 </script>
 
 <script>
+    var objs = JSON.parse('{{ devices | tojson | safe}}')
+    var parenDiv=document.getElementById('device-objs')
+    //console.log(Object.keys(obj))//['0', '1', '2']
+    for (let i = 0; i < Object.keys(objs).length; i++) {
+        var obj=objs[i]
+        let sonDiv=document.createElement("div")
+        sonDiv.style.position='absolute'
+        sonDiv.style.top=obj.y+'px'
+        sonDiv.style.left=obj.x+'px'
+        sonDiv.style.transform='translate(-50%,-50%)'
+        sonDiv.style.border='3px solid #F59022'
+        sonDiv.style.height='30px'
+        sonDiv.style.width='30px'
+        sonDiv.style.borderRadius='50%'
+        sonDiv.style.backgroundColor='transparent'
+        sonDiv.style.zIndex='1'
+        
+        let grandsonDiv=document.createElement("div")
+        grandsonDiv.innerHTML=obj.name+' '+obj.type
+        grandsonDiv.style.position='absolute'
+        //grandsonDiv.style.height='10vh'
+        //grandsonDiv.style.width='10vw'
+        grandsonDiv.style.height='60px'
+        grandsonDiv.style.width='100px'
+        grandsonDiv.style.border='3px solid #F59022'
+        grandsonDiv.style.borderRadius='10px'
+        grandsonDiv.style.transform='translate(10px,-18px)'
+        grandsonDiv.style.backgroundColor='white'
+        grandsonDiv.style.zIndex='0'
+        //grandsonDiv.style.clipPath='polygen(100% 0%, 100% 100%, 0% 100%, 0% 70%, 9% 60%, 18% 50%, 9% 40%, 0% 30%, 0% 0%)'
+        //grandsonDiv.style.clipPath='polygon(100% 0%, 100% 100%, 0% 100%, 0% 75%,'+
+        //'5% 74%,9% 72%,11.7% 69.25%, 13% 66.5%, 15.5% 61%,'+'17% 50%,'+'15.5% 39%, 13% 33.5%, 11.7% 30.75%, 9% 28%,5% 26%,'+
+        //'0% 25.5%, 0% 0%)'
+        //w=[1,1,0,0,0.05,0.09,0.117,0.13,0.155,0.17,0.155,0.13,0.117,0.09,0.05,0,0]
+        //h=[0,1,1,0.75,0.74,0.72,0.6925,0.665,0.61,0.5,0.39,0.335,0.3075,0.28,0.26,0.255,0]
+        grandsonDiv.style.clipPath='polygon(100px 0px, 100px 60px, 0px 60px, 0px 45px,'+
+        '5px 44.4px,9px 43.2px,11.7px 41.55px, 13px 39.9px, 15.5px 36.6px,'+
+        '17px 30px,'+
+        '15.5px 23.4px, 13px 20.1px, 11.7px 18.45px, 9px 16.8px,5px 15.6px,'+
+        '0px 15.3px, 0px 0px)'
 
+        sonDiv.appendChild(grandsonDiv)
+        parenDiv.appendChild(sonDiv)
+    }
+    //const json_obj = JSON.parse(devices_text)
+    
 </script>
 {% endblock %}

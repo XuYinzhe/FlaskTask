@@ -155,8 +155,8 @@ def create_admin_post():
             return render_template('create_admin.html',
                 user_name=user_name, user_authority=user_authority)
 
-from .objects import Device
-from .objects import devices_test
+from .objects import *
+
 devices=devices_test
 
 @main.route('/device')
@@ -168,7 +168,7 @@ def device():
     return render_template('device.html',
         room_name=room_name,room_locate=room_locate,
         user_name=user_name,user_authority=user_authority,
-        devices=devices,img_size=devices.img)
+        devices=devices.getJson(),img_size=devices.img)
 
 @main.route('/device', methods=['POST'])
 def device_post():
@@ -193,4 +193,4 @@ def device_post():
             return render_template('device.html',
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
-                devices=devices,img_sizee=devices.img)
+                devices=devices.getJson(),img_sizee=devices.img)
