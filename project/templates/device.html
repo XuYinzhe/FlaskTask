@@ -155,9 +155,10 @@ var getFontSize = (textLength) => {
     img.style.height='{{img_size[1]}}px'
 </script>
 
-<script>
+<script>//create div
     var objs = JSON.parse('{{ devices | tojson | safe}}')
     var parenDiv=document.getElementById('device-objs')
+    var choose_obj = JSON.parse('{{ device_choose | tojson | safe}}')
     //console.log(Object.keys(obj))//['0', '1', '2']
     for (let i = 0; i < Object.keys(objs).length; i++) {
         var obj=objs[i]
@@ -174,7 +175,7 @@ var getFontSize = (textLength) => {
         sonDiv.style.zIndex='1'
         
         let grandsonDiv=document.createElement("div")
-        grandsonDiv.innerHTML=obj.name+' '+obj.type
+        grandsonDiv.innerHTML=obj.name
         grandsonDiv.style.position='absolute'
         //grandsonDiv.style.height='10vh'
         //grandsonDiv.style.width='10vw'
@@ -183,8 +184,16 @@ var getFontSize = (textLength) => {
         grandsonDiv.style.border='3px solid #F59022'
         grandsonDiv.style.borderRadius='10px'
         grandsonDiv.style.transform='translate(10px,-18px)'
-        grandsonDiv.style.backgroundColor='white'
+        grandsonDiv.style.backgroundColor='rgba(255, 255, 255, 0.7)'
         grandsonDiv.style.zIndex='0'
+        grandsonDiv.style.fontFamily='Junge'
+        grandsonDiv.style.fontStyle='normal'
+        grandsonDiv.style.fontWeight='bold'
+        grandsonDiv.style.color='#F59022'
+        grandsonDiv.style.textAlign='center'
+        grandsonDiv.style.paddingTop='65%'
+        grandsonDiv.style.paddingLeft='5px'
+        grandsonDiv.style.fontSize='90%'
         //grandsonDiv.style.clipPath='polygen(100% 0%, 100% 100%, 0% 100%, 0% 70%, 9% 60%, 18% 50%, 9% 40%, 0% 30%, 0% 0%)'
         //grandsonDiv.style.clipPath='polygon(100% 0%, 100% 100%, 0% 100%, 0% 75%,'+
         //'5% 74%,9% 72%,11.7% 69.25%, 13% 66.5%, 15.5% 61%,'+'17% 50%,'+'15.5% 39%, 13% 33.5%, 11.7% 30.75%, 9% 28%,5% 26%,'+
@@ -197,10 +206,69 @@ var getFontSize = (textLength) => {
         '15.5px 23.4px, 13px 20.1px, 11.7px 18.45px, 9px 16.8px,5px 15.6px,'+
         '0px 15.3px, 0px 0px)'
 
+        let grandsonInput=document.createElement("input")
+        grandsonInput.type='submit'
+        grandsonInput.name='devices_input_'+obj.name
+        grandsonInput.value=' '
+        grandsonInput.style.position='absolute'
+        grandsonInput.style.top='-2px'
+        grandsonInput.style.left='-2px'
+        grandsonInput.style.height='28px'
+        grandsonInput.style.width='28px'
+        grandsonInput.style.borderRadius='50%'
+        grandsonInput.style.border='none'
+        if(choose_obj[i].choose==1)
+            grandsonInput.style.backgroundColor='#F59022'
+        else grandsonInput.style.backgroundColor='transparent'
+
+        //grandsonInput.onclick=function(){
+        //    if(grandsonInput.style.backgroundColor=='transparent')
+        //        grandsonInput.style.backgroundColor='#F59022'
+        //    else grandsonInput.style.backgroundColor='transparent'
+        //}
+        
+        sonDiv.appendChild(grandsonInput)
         sonDiv.appendChild(grandsonDiv)
         parenDiv.appendChild(sonDiv)
     }
     //const json_obj = JSON.parse(devices_text)
     
+</script>
+
+<script>
+    const slider = document.getElementById('device-scroll')
+    let isDown = false;
+    let startX,startY;
+    let scrollLeft,scrollTop;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+        startY = e.pageY - slider.offsetTop;
+        scrollTop = slider.scrollTop;
+    });
+
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walkX = (x - startX) * 2; //scroll-fast
+        slider.scrollLeft = scrollLeft - walkX;
+        const y = e.pageY - slider.offsetTop;
+        const walkY = (y - startY) * 2;
+        slider.scrollTop = scrollTop - walkY;
+    });
 </script>
 {% endblock %}

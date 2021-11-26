@@ -1,6 +1,7 @@
 #All the objects in this project
 from typing import List
 import numpy as np
+from flask import request
 
 class Device(object):
     #One device
@@ -21,6 +22,8 @@ class Devices(object):
         self.__json=None #JSON of all devices
         self.__jsondone=False #Whether the json is filled
         self.img=[] #The size of the image that all the devices belong to
+        self.device_choose=None #Which devices are chose, which are not
+        self.__choose_ini=False
         if not img:
             if width and height:
                 self.img=[width,height]
@@ -78,6 +81,25 @@ class Devices(object):
         self.__json=''
         self.__jsondone=False
 
+    def chooseDevice(self,name=None):
+        if not self.__choose_ini:
+            self.device_choose={}
+            i=0
+            for d in self.devices:
+                self.device_choose[i]={'name':d.name,'choose':0}
+                i+=1
+                if name==d.name:
+                    self.device_choose[i]['choose']=1-self.device_choose[i]['choose']
+            self.__choose_ini=True
+        elif name:
+            i=0
+            for d in self.devices:
+                if name==d.name:
+                    self.device_choose[i]['choose']=1-self.device_choose[i]['choose']
+                i+=1
+
+        return self.device_choose
+
     '''
     def computeDevicesPosition(self):
         _w=[1,1,0,0,0.05,0.09,0.117,0.13,0.155,0.17,0.155,0.13,0.117,0.09,0.05,0,0]
@@ -85,7 +107,16 @@ class Devices(object):
         w=self.img[0]*np.array(_w)
         h=self.img[1]*np.array(_h)
     '''
+
+def update_from_request(devices:Devices):
+    i=0
+    for d in devices.devices:
+        cur_d=request.form.get('devices_input_'+d.name)
+        if cur_d==' ':
+            devices.chooseDevice(d.name)
+        i+=1
+
 devices_test=Devices(img=[2880,720])
-devices_test.addDevice('a','a',0.2,0.2)
-devices_test.addDevice('b','b',0.8,0.1)
-devices_test.addDevice('c','c',0.3,0.7)
+devices_test.addDevice('Projecter','a',0.2,0.2)
+devices_test.addDevice('Screen','b',0.8,0.1)
+devices_test.addDevice('Speaker','c',0.3,0.7)

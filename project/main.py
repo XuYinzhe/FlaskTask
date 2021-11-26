@@ -158,6 +158,7 @@ def create_admin_post():
 from .objects import *
 
 devices=devices_test
+devices.chooseDevice()
 
 @main.route('/device')
 def device():
@@ -168,7 +169,7 @@ def device():
     return render_template('device.html',
         room_name=room_name,room_locate=room_locate,
         user_name=user_name,user_authority=user_authority,
-        devices=devices.getJson(),img_size=devices.img)
+        devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice())
 
 @main.route('/device', methods=['POST'])
 def device_post():
@@ -183,6 +184,17 @@ def device_post():
         room_name='Room 4223'
         room_locate='Academic Building, 4/F'
 
+        '''
+        i=0
+        for d in devices.devices:
+            cur_d=request.form.get('devices_input_'+d.name)
+            if cur_d==' ':
+                #devices.device_choose[i]['choose']=1-devices.device_choose[i]['choose']
+                devices.chooseDevice(d.name)
+            i+=1
+        '''  
+        update_from_request(devices)
+
         if change_user=='Switch User':
             return redirect(url_for('auth.login'))
         elif change_role=='Switch Role':
@@ -193,4 +205,4 @@ def device_post():
             return render_template('device.html',
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
-                devices=devices.getJson(),img_sizee=devices.img)
+                devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice())
