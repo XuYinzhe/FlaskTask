@@ -82,9 +82,9 @@ class Devices(object):
             i=0
             for d in self.devices:
                 self.device_choose[i]={'name':d.name,'choose':0}
-                i+=1
                 if name==d.name:
                     self.device_choose[i]['choose']=1-self.device_choose[i]['choose']
+                i+=1  
             self.__choose_ini=True
         elif name:
             i=0
