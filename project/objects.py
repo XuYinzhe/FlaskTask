@@ -14,16 +14,16 @@ class Device(object):
 
 
 class Devices(object):
-    #All the devices in one room
+    #All the devices in one room (used in device.html page)
     def __init__(self, width:int=None, height:int=None, img:List[int]=None):
         #Require to give 'width' and 'height' at the same time or only give 'img'
         self.devices=[] #All the devices in the class type Device
-        self.devices_list=[]
+        self.devices_list=[] #All the deivces directly save in list
         self.__json=None #JSON of all devices
         self.__jsondone=False #Whether the json is filled
         self.img=[] #The size of the image that all the devices belong to
         self.device_choose=None #Which devices are chose, which are not
-        self.__choose_ini=False
+        self.__choose_ini=False #Whether the choose list is filled
         if not img:
             if width and height:
                 self.img=[width,height]
