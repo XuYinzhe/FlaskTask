@@ -115,6 +115,38 @@ def update_from_request(devices:Devices):
             devices.chooseDevice(d.name)
         i+=1
 
+class PersonalDevice(object):
+    #All personal devices in a room (used in add.html page)
+    def __init__(self):
+        self.device=[] #List of deivces: [[name1,type1],[name2,type2],...]
+        self.__json=None #Json of all devices: {0:{'name':...,'type':...}, 1:{'name':...,'type':...},...}
+    
+    def addDevice(self,name,type):
+        #Add new personal device, only name and type
+        self.device.append([name,type])
+
+    def deleteDevice(self,name):
+        #Delete a deivce with a specific name
+        i=0
+        index=-1
+        for d in self.device:
+            if d[0]==name:
+                index=i
+            i+=1
+        if not index==-1:
+            del self.device[index]
+    
+    def getJson(self):
+        #Change the list of deivces into json
+        self.__json={}
+        i=0
+        for d in self.device:
+            self.__json[i]={'name':d[0],'type':d[1]}
+            i+=1
+        return self.__json
+
+
+
 devices_test=Devices(img=[3240,720])
 devices_test.addDevice('Projecter','a',0.2,0.2)
 devices_test.addDevice('Screen','b',0.8,0.1)
