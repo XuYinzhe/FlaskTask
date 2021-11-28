@@ -156,3 +156,4 @@ personal_test=PersonalDevice()
 personal_test.addDevice('Shaun\'s Windowsaa','Windows')
 personal_test.addDevice('Shaun\'s iPhone','Apple')
 personal_test.addDevice('Shaun\'s Android','Android')
+

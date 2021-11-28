@@ -1,41 +1,40 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<link rel="stylesheet" href="{{url_for('static',filename='add.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='add_inter.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='device_dropdown.css')}}">
-<link rel="stylesheet" href="{{url_for('static',filename='scroll.css')}}">
 {% endblock %}
 
 {% block content %}
 <div id="show">
-    <p>Please view this page in full screen.</p>
+    <p>Please view this page in PC device.</p>
 </div>
-<form id="add-form" method="post">
-    <div id="add-info">
-        <div id="add-div1">
-            <img id="add-image1" src="{{url_for('static',filename='img/logo-icon.png')}}">
+<form id="inter-form" method="post">
+    <div id="inter-info">
+        <div id="inter-div1">
+            <img id="inter-image1" src="{{url_for('static',filename='img/logo-icon.png')}}">
         </div>
-        <div id="add-div2">
-            <p id="add-text1">{{room_name}}</p>
-            <p id="add-text2">{{room_locate}}</p>
+        <div id="inter-div2">
+            <p id="inter-text1">{{room_name}}</p>
+            <p id="inter-text2">{{room_locate}}</p>
         </div>
     </div>
-    <div id="add-menu">
-        <div id="add-div3">
-            <button id="add-button1" type="button" onclick="showlist()"></button>
-            <svg id="add-svg1" width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div id="inter-menu">
+        <div id="inter-div3">
+            <button id="inter-button1" type="button" onclick="showlist()"></button>
+            <svg id="inter-svg1" width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M23 23C25.9837 23 28.8452 21.8147 30.955 19.705C33.0647 17.5952 34.25 14.7337 34.25 11.75C34.25 8.76631 33.0647 5.90483 30.955 3.79505C28.8452 1.68526 25.9837 0.5 23 0.5C20.0163 0.5 17.1548 1.68526 15.045 3.79505C12.9353 5.90483 11.75 8.76631 11.75 11.75C11.75 14.7337 12.9353 17.5952 15.045 19.705C17.1548 21.8147 20.0163 23 23 23ZM30.5 11.75C30.5 13.7391 29.7098 15.6468 28.3033 17.0533C26.8968 18.4598 24.9891 19.25 23 19.25C21.0109 19.25 19.1032 18.4598 17.6967 17.0533C16.2902 15.6468 15.5 13.7391 15.5 11.75C15.5 9.76088 16.2902 7.85322 17.6967 6.4467C19.1032 5.04018 21.0109 4.25 23 4.25C24.9891 4.25 26.8968 5.04018 28.3033 6.4467C29.7098 7.85322 30.5 9.76088 30.5 11.75ZM45.5 41.75C45.5 45.5 41.75 45.5 41.75 45.5H4.25C4.25 45.5 0.5 45.5 0.5 41.75C0.5 38 4.25 26.75 23 26.75C41.75 26.75 45.5 38 45.5 41.75ZM41.75 41.735C41.7463 40.8125 41.1725 38.0375 38.63 35.495C36.185 33.05 31.5837 30.5 23 30.5C14.4125 30.5 9.815 33.05 7.37 35.495C4.8275 38.0375 4.2575 40.8125 4.25 41.735H41.75Z" fill="#F59022"/>
             </svg>
         </div>
-        <div id="add-div4">
-            <button id="add-button2" type="button"></button>
-            <svg id="add-svg2" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div id="inter-div4">
+            <button id="inter-button2" type="button"></button>
+            <svg id="inter-svg2" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M29.55 50H20.45C19.8798 50.0001 19.3268 49.8053 18.8825 49.4479C18.4383 49.0905 18.1295 48.592 18.0075 48.035L16.99 43.325C15.6327 42.7303 14.3456 41.9865 13.1525 41.1075L8.56001 42.57C8.01642 42.7433 7.42988 42.7255 6.89781 42.5195C6.36574 42.3135 5.92014 41.9317 5.63501 41.4375L1.07501 33.56C0.792873 33.0653 0.686966 32.4896 0.774615 31.9269C0.862265 31.3642 1.13828 30.8479 1.55751 30.4625L5.12001 27.2125C4.958 25.7403 4.958 24.2547 5.12001 22.7825L1.55751 19.54C1.13769 19.1544 0.861296 18.6377 0.773632 18.0745C0.685968 17.5112 0.792233 16.9349 1.07501 16.44L5.62501 8.5575C5.91014 8.06329 6.35574 7.68148 6.88781 7.47547C7.41988 7.26946 8.00642 7.25165 8.55001 7.425L13.1425 8.8875C13.7525 8.4375 14.3875 8.0175 15.0425 7.6375C15.675 7.2825 16.325 6.96 16.99 6.6725L18.01 1.9675C18.1314 1.41049 18.4396 0.911719 18.8834 0.553872C19.3272 0.196025 19.8799 0.000599915 20.45 0H29.55C30.1201 0.000599915 30.6729 0.196025 31.1166 0.553872C31.5604 0.911719 31.8686 1.41049 31.99 1.9675L33.02 6.675C34.3766 7.26975 35.6628 8.01348 36.855 8.8925L41.45 7.43C41.9933 7.25729 42.5792 7.27543 43.1108 7.4814C43.6423 7.68738 44.0875 8.06882 44.3725 8.5625L48.9225 16.445C49.5025 17.4625 49.3025 18.75 48.44 19.5425L44.8775 22.7925C45.0395 24.2647 45.0395 25.7503 44.8775 27.2225L48.44 30.4725C49.3025 31.2675 49.5025 32.5525 48.9225 33.57L44.3725 41.4525C44.0874 41.9467 43.6418 42.3285 43.1097 42.5345C42.5776 42.7405 41.9911 42.7584 41.4475 42.585L36.855 41.1225C35.6629 42.0009 34.3766 42.7438 33.02 43.3375L31.99 48.035C31.8681 48.5915 31.5597 49.0897 31.116 49.4471C30.6722 49.8045 30.1198 49.9995 29.55 50ZM14.05 35.5725L16.1 37.0725C16.5625 37.4125 17.0425 37.725 17.5425 38.01C18.0125 38.2825 18.4925 38.5275 18.99 38.75L21.3225 39.7725L22.465 45H27.54L28.6825 39.77L31.015 38.7475C32.0325 38.2975 33 37.74 33.8975 37.0825L35.9475 35.5825L41.0525 37.2075L43.59 32.8125L39.6325 29.205L39.9125 26.675C40.0375 25.5675 40.0375 24.45 39.9125 23.345L39.6325 20.815L43.5925 17.2L41.0525 12.8025L35.95 14.4275L33.8975 12.9275C32.9995 12.2667 32.0331 11.7043 31.015 11.25L28.6825 10.2275L27.54 5H22.465L21.315 10.23L18.99 11.25C17.9705 11.6965 17.0037 12.2549 16.1075 12.915L14.055 14.415L8.95501 12.79L6.41251 17.2L10.37 20.8025L10.09 23.335C9.96501 24.4425 9.96501 25.56 10.09 26.665L10.37 29.195L6.41251 32.8025L8.95001 37.1975L14.05 35.5725ZM24.99 35C22.3378 35 19.7943 33.9464 17.9189 32.0711C16.0436 30.1957 14.99 27.6522 14.99 25C14.99 22.3478 16.0436 19.8043 17.9189 17.9289C19.7943 16.0536 22.3378 15 24.99 15C27.6422 15 30.1857 16.0536 32.0611 17.9289C33.9364 19.8043 34.99 22.3478 34.99 25C34.99 27.6522 33.9364 30.1957 32.0611 32.0711C30.1857 33.9464 27.6422 35 24.99 35ZM24.99 20C24.0109 20.001 23.0536 20.2894 22.237 20.8295C21.4203 21.3696 20.7802 22.1376 20.396 23.0382C20.0119 23.9388 19.9006 24.9324 20.0759 25.8956C20.2513 26.8589 20.7057 27.7495 21.3826 28.4569C22.0596 29.1643 22.9293 29.6574 23.8839 29.875C24.8385 30.0926 25.836 30.0251 26.7527 29.6809C27.6693 29.3367 28.4647 28.731 29.0402 27.9389C29.6157 27.1468 29.946 26.2031 29.99 25.225V26.225V25C29.99 23.6739 29.4632 22.4021 28.5255 21.4645C27.5879 20.5268 26.3161 20 24.99 20Z" fill="#F59022"/>
             </svg>                
         </div>
-        <div id="add-div5">
-            <input id="add-button3" type="submit" name="add_home" value=''></button>
-             <svg id="add-svg3" width="54" height="52" viewBox="0 0 54 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div id="inter-div5">
+            <input id="inter-button3" type="submit" name="inter_home" value=''></button>
+             <svg id="inter-svg3" width="54" height="52" viewBox="0 0 54 52" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M52.459 25.59L29.8184 2.96109L28.3008 1.44351C27.955 1.10001 27.4874 0.907227 27 0.907227C26.5126 0.907227 26.045 1.10001 25.6992 1.44351L1.54102 25.59C1.18671 25.9429 0.906695 26.3633 0.717499 26.8262C0.528304 27.2891 0.433764 27.7852 0.439459 28.2853C0.462897 30.3478 2.17969 31.9943 4.24219 31.9943H6.73243V51.0783H47.2676V31.9943H49.8106C50.8125 31.9943 51.7559 31.6017 52.4648 30.8927C52.8139 30.5447 53.0905 30.131 53.2786 29.6754C53.4667 29.2197 53.5625 28.7313 53.5606 28.2384C53.5606 27.2423 53.168 26.299 52.459 25.59ZM30.2813 46.8595H23.7188V34.9064H30.2813V46.8595ZM43.0488 27.7755V46.8595H34.0313V33.5001C34.0313 32.2052 32.9824 31.1564 31.6875 31.1564H22.3125C21.0176 31.1564 19.9688 32.2052 19.9688 33.5001V46.8595H10.9512V27.7755H5.32618L27.0059 6.11343L28.3594 7.46694L48.6797 27.7755H43.0488Z" fill="#F59022"/>
             </svg>                  
         </div>
@@ -49,17 +48,20 @@
         <input id="dropdown-input3" type="submit" name="dropdown_switch_role" value="Switch Role">
         <input id="dropdown-input4" type="submit" name="dropdown_logout" value="Log Out">
     </div>
-    <div id="add-div6">
-        Do you want to use any personal device(s)?
+    <div id="inter-all">
+        <p id="inter-text3">Type</p>
+        <input id="inter-input1" type="radio" name="inter_device" value="Apple">
+        <label id="label1" for="inter-input1">Apple</label>
+        <input id="inter-input2" type="radio" name="inter_device" value="Windows">
+        <label id="label2" for="inter-input2">Windows</label>
+        <input id="inter-input3" type="radio" name="inter_device" value="Android">
+        <label id="label3" for="inter-input3">Android</label>
+        <p id="inter-text4">Name</p>
+        <input id="inter-input4" type="text" name="inter_name" autocomplete="off">
     </div>
-    <div id="add-device"></div>
-    <input id="add-input2" type="submit" name="add_continue" value="Continue">
+    <input id="inter-input5" type="submit" name="inter_continue" value="Confirm">
 </form>
 
-<div id="add-plus">
-    <input id="add-input1" type="submit" name="add_plus" value=''>
-    <div id="add-cross"></div>
-</div>
 
 <script>//hid and show menu
 
@@ -112,32 +114,32 @@
 </script>
 
 <script>//react component !!!unreadale
-    const form=document.getElementById('add-form')
-    const svg1=document.getElementById('add-svg1')
-    const svg2=document.getElementById('add-svg2')
-    const svg3=document.getElementById('add-svg3')
-    const div1=document.getElementById('add-div3')
-    const div2=document.getElementById('add-div4')
-    const div3=document.getElementById('add-div5')
+    const form=document.getElementById('inter-form')
+    const svg1=document.getElementById('inter-svg1')
+    const svg2=document.getElementById('inter-svg2')
+    const svg3=document.getElementById('inter-svg3')
+    const div1=document.getElementById('inter-div3')
+    const div2=document.getElementById('inter-div4')
+    const div3=document.getElementById('inter-div5')
 
     var scale=1
     var scale_string='scale('+scale+','+scale+')'
     var margin=5
     var margin_string=margin+'%'
 
-    const logo=document.getElementById('add-div1')
+    const logo=document.getElementById('inter-div1')
     if(window.innerWidth>1000){
         logo.style.display='block'
     }
 
     if(window.innerWidth>=750){
-        document.getElementById('add-menu').style.right='6%'
+        document.getElementById('inter-menu').style.right='6%'
     }
     else if(window.innerWidth>=500){
-        document.getElementById('add-menu').style.right='7%'
+        document.getElementById('inter-menu').style.right='7%'
     }
     else{
-        document.getElementById('add-menu').style.right='8%'
+        document.getElementById('inter-menu').style.right='8%'
     }
 
     if(window.innerWidth>=750 && window.innerWidth<=1000){
@@ -153,12 +155,12 @@
         margin_string=margin+'%'
         if(window.innerWidth<=530){
             logo.style.display='none'
-            document.getElementById('add-div2').style.paddingLeft='5%'
+            document.getElementById('inter-div2').style.paddingLeft='5%'
         }
     }
     else if(window.innerWidth<360){
         logo.style.display='none'
-        document.getElementById('add-div2').style.paddingLeft='5%'
+        document.getElementById('inter-div2').style.paddingLeft='5%'
         scale=0.5
         scale_string='scale('+scale+','+scale+')'
         margin_string='-7%'
@@ -171,102 +173,6 @@
     div3.style.marginLeft=margin_string
 </script>
 
-<script>
-    var objs=JSON.parse('{{ devices | tojson | safe}}')
-    var parenDiv=document.getElementById('add-device')
-    for (let i = 0; i < Object.keys(objs).length; i++){
-        var obj=objs[i]
-        let sonDiv=document.createElement("div")
-        let divStyle=sonDiv.style
-        divStyle.display='inline-block'
-        divStyle.marginRight='13px'
-        divStyle.width='150px'
-        divStyle.height='150px'
-        divStyle.border='3px solid #F59022'
-        divStyle.borderRadius='20px'
 
-        let grandsonImg=document.createElement("img")
-        let imgStyle=grandsonImg.style
-        var scale=1
-        if(obj.type=='Windows'){
-            grandsonImg.src="{{url_for('static',filename='img/Windows_logo.png')}}"
-            scale=1
-            imgStyle.height=92*scale+'px'
-            imgStyle.width=103*scale+'px'
-            imgStyle.transform='translateY(4px)'
-        }
-        else if(obj.type=='Android'){
-            grandsonImg.src="{{url_for('static',filename='img/Android_logo.png')}}"
-            scale=0.75
-            imgStyle.height=131*scale+'px'
-            imgStyle.width=233*scale+'px'
-            imgStyle.transform='translateX(-14px)'
-        }
-        else if(obj.type=='Apple'){
-            grandsonImg.src="{{url_for('static',filename='img/Apple_logo.png')}}"
-            scale=1
-            imgStyle.height=96*scale+'px'
-            imgStyle.width=81*scale+'px'
-        }
-        imgStyle.display='table'
-        imgStyle.marginLeft='auto'
-        imgStyle.marginRight='auto'
-        imgStyle.marginTop='12px'
 
-        let grandsonText=document.createElement('div')
-        let textStyle=grandsonText.style
-        grandsonText.innerHTML=obj.name
-        textStyle.fontFamily='Junge'
-        textStyle.fontStyle='normal'
-        textStyle.fontWeight='normal'
-        textStyle.color='#F59022'
-        textStyle.fontSize='13px'
-        textStyle.position='absolute'
-        textStyle.textAlign='center'
-        textStyle.bottom='40px'
-        textStyle.marginLeft='13px'
-
-        sonDiv.appendChild(grandsonText)
-        sonDiv.appendChild(grandsonImg)
-        parenDiv.appendChild(sonDiv)
-    }
-    parenDiv.appendChild(document.getElementById('add-plus'))
-</script>
-
-<script>//drap scroll
-    const slider = document.getElementById('add-device')
-    let isDown = false;
-    let startX,startY;
-    let scrollLeft,scrollTop;
-
-    slider.addEventListener('mousedown', (e) => {
-        isDown = true;
-        slider.classList.add('active');
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
-        startY = e.pageY - slider.offsetTop;
-        scrollTop = slider.scrollTop;
-    });
-
-    slider.addEventListener('mouseleave', () => {
-        isDown = false;
-        slider.classList.remove('active');
-    });
-
-    slider.addEventListener('mouseup', () => {
-        isDown = false;
-        slider.classList.remove('active');
-    });
-
-    slider.addEventListener('mousemove', (e) => {
-        if(!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
-        const walkX = (x - startX) * 1.2; //scroll-fast
-        slider.scrollLeft = scrollLeft - walkX;
-        const y = e.pageY - slider.offsetTop;
-        const walkY = (y - startY) * 1.2;
-        slider.scrollTop = scrollTop - walkY;
-    });
-</script>
 {% endblock %}

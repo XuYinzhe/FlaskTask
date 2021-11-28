@@ -201,7 +201,8 @@ def device_post():
                 user_name=user_name,user_authority=user_authority,
                 devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice())
 
-personal_devices=personal_test
+#personal_devices=personal_test
+personal_devices=PersonalDevice()
 
 @main.route('/add')
 def add():
@@ -236,8 +237,51 @@ def add_post():
             return redirect(url_for('auth.login'))
         elif continu=='Continue':
             return personal_devices.getJson()
+        elif add=='':
+            return redirect(url_for('main.add_inter'))
         else:
             return render_template('add.html',
+                room_name=room_name,room_locate=room_locate,
+                user_name=user_name,user_authority=user_authority,
+                devices=personal_devices.getJson())
+
+@main.route('/add_inter')
+def add_inter():
+    room_name='Room 4223'
+    room_locate='Academic Building, 4/F'
+    user_name='Shaun@connect.use.hk'
+    user_authority='User'
+    return render_template('add_inter.html',
+                room_name=room_name,room_locate=room_locate,
+                user_name=user_name,user_authority=user_authority)
+
+@main.route('/add_inter',methods=['POST'])
+def add_inter_post():
+    if request.method=="POST":
+        change_user=request.form.get('dropdown_switch_user')
+        change_role=request.form.get('dropdown_switch_role')
+        logout=request.form.get('dropdown_logout')
+        continu=request.form.get('inter_continue')
+        radio=request.form.get('inter_device')
+        name=request.form.get('inter_name')
+
+        room_name='Room 4223'
+        room_locate='Academic Building, 4/F'
+        user_name='Shaun@connect.use.hk'
+        user_authority='User'
+
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return render_template('authority.html',user_name=user_name)
+        elif logout=='Log Out':
+            return redirect(url_for('auth.login'))
+        elif continu=='Confirm':
+            personal_devices.addDevice(name,radio)
+            return redirect(url_for('main.add'))
+            
+        else:
+            return render_template('add_inter.html',
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
                 devices=personal_devices.getJson())
