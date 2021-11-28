@@ -52,13 +52,14 @@
     <div id="add-div6">
         Do you want to use any personal device(s)?
     </div>
-    <div id="add-device">
-        <div id="add-plus">
-            <input id="add-input1" type="submit" name="add_plus" value=''>
-            <div id="add-cross"></div>
-        </div>
-    </div>
+    <div id="add-device"></div>
+    <input id="add-input2" type="submit" name="add_continue" value="Continue">
 </form>
+
+<div id="add-plus">
+    <input id="add-input1" type="submit" name="add_plus" value=''>
+    <div id="add-cross"></div>
+</div>
 
 <script>//hid and show menu
 
@@ -175,5 +176,102 @@
     div3.style.marginLeft=margin_string
 </script>
 
+<script>
+    var objs=JSON.parse('{{ devices | tojson | safe}}')
+    var parenDiv=document.getElementById('add-device')
+    for (let i = 0; i < Object.keys(objs).length; i++){
+        var obj=objs[i]
+        let sonDiv=document.createElement("div")
+        let divStyle=sonDiv.style
+        divStyle.display='inline-block'
+        divStyle.marginRight='13px'
+        divStyle.width='150px'
+        divStyle.height='150px'
+        divStyle.border='3px solid #F59022'
+        divStyle.borderRadius='20px'
 
+        let grandsonImg=document.createElement("img")
+        let imgStyle=grandsonImg.style
+        var scale=1
+        if(obj.type=='Windows'){
+            grandsonImg.src="{{url_for('static',filename='img/Windows_logo.png')}}"
+            scale=1
+            imgStyle.height=92*scale+'px'
+            imgStyle.width=103*scale+'px'
+            imgStyle.transform='translateY(4px)'
+        }
+        else if(obj.type=='Android'){
+            grandsonImg.src="{{url_for('static',filename='img/Android_logo.png')}}"
+            scale=0.75
+            imgStyle.height=131*scale+'px'
+            imgStyle.width=233*scale+'px'
+            imgStyle.transform='translateX(-14px)'
+        }
+        else if(obj.type=='Apple'){
+            grandsonImg.src="{{url_for('static',filename='img/Apple_logo.png')}}"
+            scale=1
+            imgStyle.height=96*scale+'px'
+            imgStyle.width=81*scale+'px'
+        }
+        imgStyle.display='table'
+        imgStyle.marginLeft='auto'
+        imgStyle.marginRight='auto'
+        imgStyle.marginTop='12px'
+
+        let grandsonText=document.createElement('div')
+        let textStyle=grandsonText.style
+        grandsonText.innerHTML=obj.name
+        textStyle.fontFamily='Junge'
+        textStyle.fontStyle='normal'
+        textStyle.fontWeight='normal'
+        textStyle.color='#F59022'
+        textStyle.fontSize='13px'
+        textStyle.position='absolute'
+        textStyle.textAlign='center'
+        textStyle.bottom='40px'
+        textStyle.marginLeft='13px'
+
+        sonDiv.appendChild(grandsonText)
+        sonDiv.appendChild(grandsonImg)
+        parenDiv.appendChild(sonDiv)
+    }
+    parenDiv.appendChild(document.getElementById('add-plus'))
+</script>
+
+<script>//drap scroll
+    const slider = document.getElementById('add-device')
+    let isDown = false;
+    let startX,startY;
+    let scrollLeft,scrollTop;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+        startY = e.pageY - slider.offsetTop;
+        scrollTop = slider.scrollTop;
+    });
+
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walkX = (x - startX) * 1.2; //scroll-fast
+        slider.scrollLeft = scrollLeft - walkX;
+        const y = e.pageY - slider.offsetTop;
+        const walkY = (y - startY) * 1.2;
+        slider.scrollTop = scrollTop - walkY;
+    });
+</script>
 {% endblock %}

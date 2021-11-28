@@ -119,37 +119,33 @@
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
-    top:20%;
+    top:21%;
     width: 80%;
     text-align: center;
     font-family: 'Junge';
     font-style: normal;
     font-weight: normal;
     color: #F59022;
-    font-size: max(min(3vw,26px),16px);
+    font-size: max(min(3vw,26px),20px);
 }
 
 #add-device{
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
-    top:30%;
-    width: 90%;
-    height:40%;
-    overflow-x: hidden;
+    top:35%;
+    width: 80%;
+    height:28%;
+    overflow: auto;
+    white-space: nowrap;
     text-align: center;
-    border: 1px solid black;
 }
 
 #add-plus{
-    position: absolute;
     display: inline-block;
-    margin-left: 5px;
     width: 150px;
     height: 150px;
-    vertical-align: middle;
-    transform: translate(-50%,-50%);
-    top:50%;
+    transform: translate(0,0);
     border: 3px solid #F59022;
     border-radius: 20px;
 }
@@ -166,11 +162,32 @@
 }
 
 #add-input1{
-    width:100%;
-    height:100%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top:50%;
+    left:50%;
+    width:90%;
+    height:90%;
     z-index: 1;
     border: none;
     background-color: transparent;
+}
+
+#add-input2{
+    position: absolute;
+    transform: translateX(-50%);
+    left:50%;
+    top:73%;
+    width: max(min(20vw,240px),160px);
+    height: 10%;
+    border: 3px solid #F59022;
+    border-radius: 20px;
+    background-color:white;
+    font-family: 'Junge';
+    font-style: normal;
+    font-weight: normal;
+    color: #F59022;
+    font-size:150%;
 }
 
 }
