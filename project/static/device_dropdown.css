@@ -20,6 +20,7 @@
     width: 200px;
     height:225px;
     background-color: white;
+    z-index: 10;
 }
 
 #dropdown-text1{

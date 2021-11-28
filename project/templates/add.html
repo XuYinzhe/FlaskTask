@@ -3,6 +3,7 @@
 {% block head %}
 <link rel="stylesheet" href="{{url_for('static',filename='add.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='device_dropdown.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='scroll.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -48,10 +49,15 @@
         <input id="dropdown-input3" type="submit" name="dropdown_switch_role" value="Switch Role">
         <input id="dropdown-input4" type="submit" name="dropdown_logout" value="Log Out">
     </div>
-    <div >
-
+    <div id="add-div6">
+        Do you want to use any personal device(s)?
     </div>
-    
+    <div id="add-device">
+        <div id="add-plus">
+            <input id="add-input1" type="submit" name="add_plus" value=''>
+            <div id="add-cross"></div>
+        </div>
+    </div>
 </form>
 
 <script>//hid and show menu
@@ -168,4 +174,6 @@
     div2.style.marginLeft=margin_string
     div3.style.marginLeft=margin_string
 </script>
+
+
 {% endblock %}
