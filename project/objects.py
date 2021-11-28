@@ -151,3 +151,7 @@ devices_test=Devices(img=[3240,720])
 devices_test.addDevice('Projecter','a',0.2,0.2)
 devices_test.addDevice('Screen','b',0.8,0.1)
 devices_test.addDevice('Speaker','c',0.3,0.7)
+
+personal_test=PersonalDevice()
+personal_test.addDevice('Shaun\'s Windows','Windows')
+personal_test.addDevice('Shaun\'s iPhone','Apple')
