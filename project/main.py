@@ -117,7 +117,7 @@ def room_admin_post(room):
             else:
                 return room
         elif edit == 'Edit':
-            return edit
+            return redirect(url_for('main.device_admin', room=room))
         else:
             return render_template('room_admin.html',
                 user_name=user_name, user_authority=user_authority)
@@ -137,6 +137,8 @@ def create_admin_post():
         change_role=request.form.get('search_switch_role')
         logout=request.form.get('search_logout')
         home=request.form.get('search-home')
+        name=request.form.get('create-name-txtedit')
+        addr=request.form.get('create-addr-txtedit')
 
         user_name='Shaun@connect.use.hk'
         user_authority='Administrator'
@@ -149,8 +151,8 @@ def create_admin_post():
             return redirect(url_for('auth.login'))
         elif home=='Home':
             return redirect(url_for('main.search_admin'))
-        elif conti == 'Continue':
-            return conti
+        elif conti == 'Continue' and name and addr:
+                return redirect(url_for('main.device_admin',name=name,addr=addr,init="1"))             
         else:
             return render_template('create_admin.html',
                 user_name=user_name, user_authority=user_authority)
@@ -170,6 +172,7 @@ def device():
         room_name=room_name,room_locate=room_locate,
         user_name=user_name,user_authority=user_authority,
         devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice())
+
 
 @main.route('/device', methods=['POST'])
 def device_post():
@@ -197,6 +200,60 @@ def device_post():
             return devices.chooseDevice()
         else:
             return render_template('device.html',
+                room_name=room_name,room_locate=room_locate,
+                user_name=user_name,user_authority=user_authority,
+                devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice(), img_path=url_for('static', filename='img/white.png'))
+
+
+@main.route('/device_admin')
+def device_admin():
+    name = request.args.get('name')
+    addr = request.args.get('addr')
+    init = request.args.get('init')
+    # if source is create room, device room is empty.
+    user_name='Shaun@connect.use.hk'
+    user_authority='User'
+    if init:
+        return render_template('device_admin.html',
+                    room_name=name,room_locate=addr,
+                    user_name=user_name,user_authority=user_authority,
+                    devices='',img_size=devices.img,device_choose='',img_path=url_for('static',filename='img/white.png')) 
+    # if source is room or search, device room remains
+    else:
+        room_name='Room 4223'
+        room_locate='Academic Building, 4/F'
+        return render_template('device_admin.html',
+            room_name=room_name,room_locate=room_locate,
+            user_name=user_name,user_authority=user_authority,
+            devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice(),img_path=url_for('static',filename='img/longimage.jpg'))
+
+
+@main.route('/device_admin', methods=['POST'])
+def device_post_admin():
+    if request.method=="POST":
+        change_user=request.form.get('dropdown_switch_user')
+        change_role=request.form.get('dropdown_switch_role')
+        logout=request.form.get('dropdown_logout')
+        save=request.form.get('device_save')
+
+        user_name='Shaun@connect.use.hk'
+        user_authority='User'
+
+        room_name='Room 4223'
+        room_locate='Academic Building, 4/F'
+
+        update_from_request(devices)
+
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return render_template('authority.html',user_name=user_name)
+        elif logout=='Log Out':
+            return redirect(url_for('auth.login'))
+        elif save=='Save':
+            return save
+        else:
+            return render_template('device_admin.html',
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
                 devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice())
