@@ -257,3 +257,16 @@ def device_post_admin():
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
                 devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice())
+
+personal_devices=personal_test
+
+@main.route('/add')
+def add():
+    room_name='Room 4223'
+    room_locate='Academic Building, 4/F'
+    user_name='Shaun@connect.use.hk'
+    user_authority='User'
+    return render_template('add.html',
+        room_name=room_name,room_locate=room_locate,
+        user_name=user_name,user_authority=user_authority,
+        devices=personal_devices.getJson())

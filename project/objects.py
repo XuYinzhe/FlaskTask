@@ -14,16 +14,16 @@ class Device(object):
 
 
 class Devices(object):
-    #All the devices in one room
+    #All the devices in one room (used in device.html page)
     def __init__(self, width:int=None, height:int=None, img:List[int]=None):
         #Require to give 'width' and 'height' at the same time or only give 'img'
         self.devices=[] #All the devices in the class type Device
-        self.devices_list=[]
+        self.devices_list=[] #All the deivces directly save in list
         self.__json=None #JSON of all devices
         self.__jsondone=False #Whether the json is filled
         self.img=[] #The size of the image that all the devices belong to
         self.device_choose=None #Which devices are chose, which are not
-        self.__choose_ini=False
+        self.__choose_ini=False #Whether the choose list is filled
         if not img:
             if width and height:
                 self.img=[width,height]
@@ -188,7 +188,43 @@ def update_from_request(devices:Devices):
             devices.device_choose[i]['now'] = 0
             i+=1
 
+class PersonalDevice(object):
+    #All personal devices in a room (used in add.html page)
+    def __init__(self):
+        self.device=[] #List of deivces: [[name1,type1],[name2,type2],...]
+        self.__json=None #Json of all devices: {0:{'name':...,'type':...}, 1:{'name':...,'type':...},...}
+    
+    def addDevice(self,name,type):
+        #Add new personal device, only name and type
+        self.device.append([name,type])
+
+    def deleteDevice(self,name):
+        #Delete a deivce with a specific name
+        i=0
+        index=-1
+        for d in self.device:
+            if d[0]==name:
+                index=i
+            i+=1
+        if not index==-1:
+            del self.device[index]
+    
+    def getJson(self):
+        #Change the list of deivces into json
+        self.__json={}
+        i=0
+        for d in self.device:
+            self.__json[i]={'name':d[0],'type':d[1]}
+            i+=1
+        return self.__json
+
+
+
 devices_test=Devices(img=[3240,720])
 devices_test.addDevice('Projecter','a',0.2,0.2)
 devices_test.addDevice('Screen','b',0.8,0.1)
 devices_test.addDevice('Speaker','c',0.3,0.7)
+
+personal_test=PersonalDevice()
+personal_test.addDevice('Shaun\'s Windows','Windows')
+personal_test.addDevice('Shaun\'s iPhone','Apple')
