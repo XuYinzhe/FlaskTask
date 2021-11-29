@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static',filename='create_admin.css')}}">
+{% endblock %}
+
+{% block content %}
+<form id="create-form" method="post">
+    <div id="create-div1">
+        <img id="create-image1" src="{{url_for('static',filename='img/logo-icon.png')}}">
+        <div id="create-text">
+            <p id="create-text1">New Room</p>
+            <p id="create-text2">Create New Room</p>
+        </div>
+    </div>
+    <!-- upload img -->
+    <div id="create-div2">
+        <img id="create-image2" src="{{url_for('static',filename='img/white.png')}}">
+        <input type="file" id="file-uploader" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" value style="opacity: 0">
+        <svg id="create-image3"width="50" height="45" viewBox="0 0 50 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30.3 5L34.875 10H45V40H5V10H15.125L19.7 5H30.3ZM32.5 0H17.5L12.925 5H5C2.25 5 0 7.25 0 10V40C0 42.75 2.25 45 5 45H45C47.75 45 50 42.75 50 40V10C50 7.25 47.75 5 45 5H37.075L32.5 0ZM25 17.5C29.125 17.5 32.5 20.875 32.5 25C32.5 29.125 29.125 32.5 25 32.5C20.875 32.5 17.5 29.125 17.5 25C17.5 20.875 20.875 17.5 25 17.5ZM25 12.5C18.1 12.5 12.5 18.1 12.5 25C12.5 31.9 18.1 37.5 25 37.5C31.9 37.5 37.5 31.9 37.5 25C37.5 18.1 31.9 12.5 25 12.5Z" fill="#F59022"/>
+        </svg>
+    </div>
+    <div id="create-div3">
+        <p id="create-text3">Name</p>
+        <input id="create-name-txtedit" type="text" name="create-name-txtedit" value="">
+    </div>
+    <div id="create-div6">
+        <p id="create-text4">Address</p>
+        <input id="create-addr-txtedit" type="text" name="create-addr-txtedit" value="">
+    </div>
+    <div id="create-div4">
+        <input id="search-continue-btn" type="submit" name="search-continue-btn" value="Continue">
+    </div>
+    <div id="search-menu">
+        <div id="search-div3">
+            <input id="search-home" type="submit" name="search-home" value="Home">
+            <svg width="54" height="52" viewBox="0 0 54 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M52.4592 25.59L29.8186 2.96109L28.301 1.44351C27.9552 1.10001 27.4876 0.907227 27.0002 0.907227C26.5128 0.907227 26.0452 1.10001 25.6995 1.44351L1.54126 25.59C1.18695 25.9429 0.906931 26.3633 0.717736 26.8262C0.52854 27.2891 0.434 27.7852 0.439696 28.2853C0.463133 30.3478 2.17993 31.9943 4.24243 31.9943H6.73267V51.0783H47.2678V31.9943H49.8108C50.8127 31.9943 51.7561 31.6017 52.4651 30.8927C52.8142 30.5447 53.0908 30.131 53.2789 29.6754C53.4669 29.2197 53.5628 28.7313 53.5608 28.2384C53.5608 27.2423 53.1682 26.299 52.4592 25.59ZM30.2815 46.8595H23.719V34.9064H30.2815V46.8595ZM43.0491 27.7755V46.8595H34.0315V33.5001C34.0315 32.2052 32.9827 31.1564 31.6877 31.1564H22.3127C21.0178 31.1564 19.969 32.2052 19.969 33.5001V46.8595H10.9514V27.7755H5.32642L27.0061 6.11343L28.3596 7.46694L48.6799 27.7755H43.0491Z" fill="#F59022"/>
+            </svg>            
+        </div>
+        <div id="search-div1">
+            <button id="search-setting" type="button"></button>
+            <svg id="search-svg1" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M29.55 50H20.45C19.8798 50.0001 19.3268 49.8053 18.8825 49.4479C18.4383 49.0905 18.1295 48.592 18.0075 48.035L16.99 43.325C15.6327 42.7303 14.3456 41.9865 13.1525 41.1075L8.56001 42.57C8.01642 42.7433 7.42988 42.7255 6.89781 42.5195C6.36574 42.3135 5.92014 41.9317 5.63501 41.4375L1.07501 33.56C0.792873 33.0653 0.686966 32.4896 0.774615 31.9269C0.862265 31.3642 1.13828 30.8479 1.55751 30.4625L5.12001 27.2125C4.958 25.7403 4.958 24.2547 5.12001 22.7825L1.55751 19.54C1.13769 19.1544 0.861296 18.6377 0.773632 18.0745C0.685968 17.5112 0.792233 16.9349 1.07501 16.44L5.62501 8.5575C5.91014 8.06329 6.35574 7.68148 6.88781 7.47547C7.41988 7.26946 8.00642 7.25165 8.55001 7.425L13.1425 8.8875C13.7525 8.4375 14.3875 8.0175 15.0425 7.6375C15.675 7.2825 16.325 6.96 16.99 6.6725L18.01 1.9675C18.1314 1.41049 18.4396 0.911719 18.8834 0.553872C19.3272 0.196025 19.8799 0.000599915 20.45 0H29.55C30.1201 0.000599915 30.6729 0.196025 31.1166 0.553872C31.5604 0.911719 31.8686 1.41049 31.99 1.9675L33.02 6.675C34.3766 7.26975 35.6628 8.01348 36.855 8.8925L41.45 7.43C41.9933 7.25729 42.5792 7.27543 43.1108 7.4814C43.6423 7.68738 44.0875 8.06882 44.3725 8.5625L48.9225 16.445C49.5025 17.4625 49.3025 18.75 48.44 19.5425L44.8775 22.7925C45.0395 24.2647 45.0395 25.7503 44.8775 27.2225L48.44 30.4725C49.3025 31.2675 49.5025 32.5525 48.9225 33.57L44.3725 41.4525C44.0874 41.9467 43.6418 42.3285 43.1097 42.5345C42.5776 42.7405 41.9911 42.7583 41.4475 42.585L36.855 41.1225C35.6628 42.0009 34.3766 42.7438 33.02 43.3375L31.99 48.035C31.8681 48.5915 31.5597 49.0897 31.116 49.4471C30.6722 49.8045 30.1198 49.9995 29.55 50ZM14.05 35.5725L16.1 37.0725C16.5625 37.4125 17.0425 37.725 17.5425 38.01C18.0125 38.2825 18.4925 38.5275 18.99 38.75L21.3225 39.7725L22.465 45H27.54L28.6825 39.77L31.015 38.7475C32.0325 38.2975 33 37.74 33.8975 37.0825L35.9475 35.5825L41.0525 37.2075L43.59 32.8125L39.6325 29.205L39.9125 26.675C40.0375 25.5675 40.0375 24.45 39.9125 23.345L39.6325 20.815L43.5925 17.2L41.0525 12.8025L35.95 14.4275L33.8975 12.9275C32.9995 12.2667 32.0331 11.7043 31.015 11.25L28.6825 10.2275L27.54 5H22.465L21.315 10.23L18.99 11.25C17.9705 11.6965 17.0037 12.2549 16.1075 12.915L14.055 14.415L8.95501 12.79L6.41251 17.2L10.37 20.8025L10.09 23.335C9.96501 24.4425 9.96501 25.56 10.09 26.665L10.37 29.195L6.41251 32.8025L8.95001 37.1975L14.05 35.5725V35.5725ZM24.99 35C22.3378 35 19.7943 33.9464 17.9189 32.0711C16.0436 30.1957 14.99 27.6522 14.99 25C14.99 22.3478 16.0436 19.8043 17.9189 17.9289C19.7943 16.0536 22.3378 15 24.99 15C27.6422 15 30.1857 16.0536 32.0611 17.9289C33.9364 19.8043 34.99 22.3478 34.99 25C34.99 27.6522 33.9364 30.1957 32.0611 32.0711C30.1857 33.9464 27.6422 35 24.99 35ZM24.99 20C24.0109 20.001 23.0536 20.2894 22.237 20.8295C21.4203 21.3696 20.7802 22.1376 20.396 23.0382C20.0119 23.9388 19.9006 24.9324 20.0759 25.8956C20.2513 26.8589 20.7057 27.7495 21.3826 28.4569C22.0596 29.1643 22.9293 29.6574 23.8839 29.875C24.8385 30.0926 25.836 30.0251 26.7527 29.6809C27.6693 29.3367 28.4647 28.731 29.0402 27.9389C29.6157 27.1468 29.946 26.2031 29.99 25.225V26.225V25C29.99 23.6739 29.4632 22.4021 28.5255 21.4645C27.5879 20.5268 26.3161 20 24.99 20Z" fill="#F59022"/>
+            </svg>
+        </div>
+        <div id="search-div2">
+            <button id="search-user" type="button" onclick="showlist()"></button>
+            <svg id="search-svg1" width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23 23C25.9837 23 28.8452 21.8147 30.955 19.705C33.0647 17.5952 34.25 14.7337 34.25 11.75C34.25 8.76631 33.0647 5.90483 30.955 3.79505C28.8452 1.68526 25.9837 0.5 23 0.5C20.0163 0.5 17.1548 1.68526 15.045 3.79505C12.9353 5.90483 11.75 8.76631 11.75 11.75C11.75 14.7337 12.9353 17.5952 15.045 19.705C17.1548 21.8147 20.0163 23 23 23ZM30.5 11.75C30.5 13.7391 29.7098 15.6468 28.3033 17.0533C26.8968 18.4598 24.9891 19.25 23 19.25C21.0109 19.25 19.1032 18.4598 17.6967 17.0533C16.2902 15.6468 15.5 13.7391 15.5 11.75C15.5 9.76088 16.2902 7.85322 17.6967 6.4467C19.1032 5.04018 21.0109 4.25 23 4.25C24.9891 4.25 26.8968 5.04018 28.3033 6.4467C29.7098 7.85322 30.5 9.76088 30.5 11.75ZM45.5 41.75C45.5 45.5 41.75 45.5 41.75 45.5H4.25C4.25 45.5 0.5 45.5 0.5 41.75C0.5 38 4.25 26.75 23 26.75C41.75 26.75 45.5 38 45.5 41.75ZM41.75 41.735C41.7463 40.8125 41.1725 38.0375 38.63 35.495C36.185 33.05 31.5837 30.5 23 30.5C14.4125 30.5 9.815 33.05 7.37 35.495C4.8275 38.0375 4.2575 40.8125 4.25 41.735H41.75Z" fill="#F59022"/>
+            </svg>                
+        </div>
+    </div>
+    <div id="room-div4">
+        <p id="search-text1">Logged in as</p>
+        <p id="search-text2">{{user_name}}</p>
+        <p id="search-text3">Your role is</p>
+        <p id="search-text4">{{user_authority}}</p>
+        <input id="search-input2" type="submit" name="search_switch_user" value="Switch User">
+        <input id="search-input3" type="submit" name="search_switch_role" value="Switch Role">
+        <input id="search-input4" type="submit" name="search_logout" value="Log Out">
+    </div>
+</form>
+
+<script>
+    
+    let show=true
+    hidlist_once();
+    
+    function hidlist_once(){
+        const user=document.getElementById('room-div4')
+        if(show){
+            user.style.display='none';
+            show=false;
+        }
+    }
+    /*
+    function hidlist(){
+        const user=document.getElementById('search-user-menu')
+        user.style.display='none';
+    }
+    */
+    window.addEventListener('mouseup', function(event){
+        var box = document.getElementById('room-div4');
+        if(event.target!=box)
+            box.style.display = 'none';
+    });
+    
+    function showlist(){
+        const user=document.getElementById('room-div4')
+        if(user.style.display=='none')
+            user.style.display='block';
+        else if(user.style.display=='block')
+            user.style.display='none';
+        else user.style.display='none';
+    }
+    
+    const user_text=document.getElementById('search-text2');
+        const length=user_text.textContent.length;
+        user_text.style.fontSize=getFontSize(length);
+    
+    
+    var getFontSize = (textLength) => {
+        const baseSize = 18
+        var fontSize=baseSize
+        var delta=0
+        if (textLength >= baseSize) {
+            delta = textLength - baseSize + 1
+            fontSize = baseSize - delta
+        }
+        else {
+            delta=0
+            fontSize=baseSize
+        }
+        console.log(delta)
+        console.log(textLength)
+        console.log(fontSize)
+        return `${fontSize}px`
+    }
+    
+</script>
+
+<script>
+const fileUploader = document.getElementById('file-uploader');
+// 听更 change 件并读取元数据
+fileUploader.addEventListener('change', (event) => {
+    // 获取文件列表数组
+    const files = event.target.files;
+    if(files.length > 1){
+        alert("请您上传1张图片")
+    }
+    const file = files[0]
+
+    const name = file.name;
+    const type = file.type ? file.type: 'NA';
+    const size = file.size;
+    const lastModified = file.lastModified;
+
+    var imageType = /^image\//; 
+    // 是否是图片 
+    if(!imageType.test(type)) { alert("请选择图片！"); return; }
+    //if(size > 40 * 1024 * 1024) {alert("发送的图片超过40MB！"); return;}
+
+    console.log({ file, name, type, size, lastModified });
+
+    // 判断是否支持FileReader 
+    if(window.FileReader) { 
+        const reader = new FileReader(); 
+        reader.readAsDataURL(file);
+        reader.addEventListener('load', (event) => {
+            const img = document.getElementById('create-image2');
+            img.src = event.target.result;
+            img.alt = file.name;
+        });
+    } 
+    else { alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！"); } 
+
+});
+</script>
+{% endblock %}

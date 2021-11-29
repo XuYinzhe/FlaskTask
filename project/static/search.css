@@ -159,11 +159,11 @@
         position: absolute;
         left: 50%;
         transform:translateX(-50%);
-        top: 30px;
+        top: 35px;
+        text-align: center;
         font-family: 'Junge';
         font-style: normal;
         font-weight: normal;
-        font-size: 24px;
         color: #F59022;
     }
 
