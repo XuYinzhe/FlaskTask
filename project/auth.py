@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
-from .models import User, room_cls, RoomList
+from .models import User
 from . import db
 
 auth = Blueprint('auth', __name__)
@@ -18,7 +18,7 @@ def signup():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.loading'))
 
 @auth.route('/authority')
 def authority():
@@ -28,30 +28,34 @@ def authority():
 def login_post():
     email = request.form.get('login_email')
     password = request.form.get('login_pass')
-    goto_signup=request.form.get('login_sign')
-    goto_login=request.form.get('login_sub')
+    goto_signup = request.form.get('login_sign')
+    goto_login = request.form.get('login_sub')
     # remember = True if request.form.get('remember') else False
-    if goto_login=='LOG IN':
+    if goto_login == 'LOG IN':
         user = User.query.filter_by(email=email).first()
 
         # check if the user actually exists
         # take the user-supplied password, hash it, and compare it to the hashed password in the database
         if not user or not check_password_hash(user.password, password):
-            flash('Please check your login details and try again.')
+            flash('Signup first!')
+            return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
+
+        if not check_password_hash(user.password, password):
+            flash('Wrong Password!')
             return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
 
         login_user(user) #, remember=remember)
         return redirect(url_for('auth.authority'))
         # return current_user.email
 
-    elif goto_signup=='SIGN UP':
+    elif goto_signup == 'SIGN UP':
             return redirect(url_for('auth.signup'))
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
-    email=request.form.get("signup_email")
-    password=request.form.get('signup_pass')
-    repeat_password=request.form.get('signup_repass')
+    email = request.form.get("signup_email")
+    password = request.form.get('signup_pass')
+    repeat_password = request.form.get('signup_repass')
 
     user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
 
@@ -76,17 +80,20 @@ def signup_post():
 def authority_post():
     # room_name = table_name = 'room_studio'
     # room_content = type(room_name, (room_cls, ), {'__tablename__': table_name})
-    if request.method=="POST":
-        admin=request.form.get('authority_admin')
-        guest=request.form.get('authority_guest')
-        if admin=='Administrator' or admin=='Admin':
+    if request.method == "POST":
+        admin = request.form.get('authority_admin')
+        guest = request.form.get('authority_guest')
+        if admin == 'Administrator' or admin=='Admin':
             user = User.query.filter_by(email=current_user.email).first()
             user.authority = 'admin'
             db.session.commit()
-            return admin
+            return redirect(url_for('dev.search'))
             # room = RoomList.query.filter_by(id=1).first()
             # return str(room.id)
-        elif guest=='Guest':
-            return guest
+        elif guest == 'Guest':
+            user = User.query.filter_by(email=current_user.email).first()
+            user.authority = 'guest'
+            db.session.commit()
+            return redirect(url_for('dev.search'))
         else:
             return render_template('authority.html')

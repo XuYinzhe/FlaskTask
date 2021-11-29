@@ -25,8 +25,8 @@ class RoomList(UserMixin, db.Model):
     __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True)
     room_name = db.Column(db.String(100))
-    room_img_view = db.Column(db.String(100))
-    room_img_det = db.Column(db.String(100))
+    room_img_prev = db.Column(db.String(100))
+    room_img_long = db.Column(db.String(100))
     room_loc = db.Column(db.String(100))
 
 class room_cls(UserMixin, db.Model):

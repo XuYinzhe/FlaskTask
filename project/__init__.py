@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, flash
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
@@ -42,31 +42,47 @@ def create_app():
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    from .dev import dev as dev_blueprint
+    app.register_blueprint(dev_blueprint)
+
     return app
 
-def get_room_cls(room_id):
+def get_room_cls(room_id, room_img_prev, room_loc):
+
+    print("111")
 
     from .models import room_cls
     from .models import RoomList
 
     room_name = table_name = "room_" + room_id
-    print(room_id)
     room = RoomList.query.filter_by(room_name=room_name).first()
 
     if not room:
         room_content = type(room_name, (room_cls, ), {'__tablename__': table_name})
-        newroom = RoomList(room_name=room_name)
+        newroom = RoomList(room_name=room_name, room_img_prev=room_img_prev, room_img_long='', room_loc=room_loc)
 
         db.session.add(newroom)
         db.session.commit() 
     else:
-        return "Room already exist"
+        return("Room already exist")
 
     return room_name
 
-def insert_room(room_id):
+def insert_room(name, room_img_prev, room_loc):
 
-    table = get_room_cls(room_id)
+    table = get_room_cls(name, room_img_prev, room_loc)
     db.create_all(app=create_app())
 
     return table
+
+def check_room(room_id):
+
+    from .models import RoomList
+
+    room_name = "room_" + room_id
+    room = RoomList.query.filter_by(room_name=room_name).first()
+
+    if not room:
+        return False
+    else:
+        return True
