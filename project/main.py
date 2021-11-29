@@ -184,6 +184,9 @@ def device():
     room_locate='Academic Building, 4/F'
     user_name='Shaun@connect.use.hk'
     user_authority='User'
+
+    room=re.findall(r"\d+",room_name)[0]
+    devices=devices_dict[room]
     return render_template('device.html',
         room_name=room_name,room_locate=room_locate,
         user_name=user_name,user_authority=user_authority,
