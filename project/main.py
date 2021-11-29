@@ -271,6 +271,9 @@ def device_admin(name="", addr="", init=""):
 
 #personal_devices=personal_test
 personal_devices=PersonalDevice()
+personal_devices.addDevice('Shaun\'s Windowsaa','Windows')
+personal_devices.addDevice('Shaun\'s Windowsaa','Windows')
+personal_devices.addDevice('Shaun\'s iPhone','Apple')
 
 @main.route('/add')
 def add():
