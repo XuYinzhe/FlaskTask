@@ -128,6 +128,7 @@ def room_admin_post(room):
             return render_template('room_admin.html',
                 user_name=user_name, user_authority=user_authority)
 
+room_select_set={}#save all device setting of all room
 
 @main.route('/create_admin')
 def create_admin():
@@ -145,6 +146,8 @@ def create_admin_post():
         home=request.form.get('search-home')
         name=request.form.get('create-name-txtedit')
         addr=request.form.get('create-addr-txtedit')
+
+        #room_select_set[len(room_select_set)]={'room_name':re.findall(r"\d+",name)[0],'room_addr':addr}
 
         user_name='Shaun@connect.use.hk'
         user_authority='Administrator'
@@ -165,12 +168,14 @@ def create_admin_post():
 
 from .objects import *
 from .objects_admin import *
+import re
 
-devices=devices_test
-devices.chooseDevice()
+#devices=devices_test
+#devices.chooseDevice()
 devices_admin=devices_test_admin
 devices_admin.chooseDevice()
 devices_dict = {}
+personal_devices_dict={}
 
 
 @main.route('/device')
@@ -179,6 +184,9 @@ def device():
     room_locate='Academic Building, 4/F'
     user_name='Shaun@connect.use.hk'
     user_authority='User'
+
+    room=re.findall(r"\d+",room_name)[0]
+    devices=devices_dict[room]
     return render_template('device.html',
         room_name=room_name,room_locate=room_locate,
         user_name=user_name,user_authority=user_authority,
@@ -199,6 +207,8 @@ def device_post():
         room_name='Room 4223'
         room_locate='Academic Building, 4/F'
 
+        room=re.findall(r"\d+",room_name)[0]
+        devices=devices_dict[room]
         update_from_request(devices)
 
         if change_user=='Switch User':
@@ -281,10 +291,15 @@ def add():
     room_locate='Academic Building, 4/F'
     user_name='Shaun@connect.use.hk'
     user_authority='User'
+
+    room=re.findall(r"\d+",room_name)[0]
+    if room not in personal_devices_dict.keys():
+        personal_devices_dict[room]=PersonalDevice()
+
     return render_template('add.html',
         room_name=room_name,room_locate=room_locate,
         user_name=user_name,user_authority=user_authority,
-        devices=personal_devices.getJson())
+        devices=personal_devices_dict[room].getJson())
 
 @main.route('/add',methods=['POST'])
 def add_post():
@@ -300,6 +315,7 @@ def add_post():
         user_name='Shaun@connect.use.hk'
         user_authority='User'
 
+        room=re.findall(r"\d+",room_name)[0]
         if change_user=='Switch User':
             return redirect(url_for('auth.login'))
         elif change_role=='Switch Role':
@@ -307,14 +323,14 @@ def add_post():
         elif logout=='Log Out':
             return redirect(url_for('auth.login'))
         elif continu=='Continue':
-            return personal_devices.getJson()
+            return personal_devices_dict[room].getJson()
         elif add=='':
             return redirect(url_for('main.add_inter'))
         else:
             return render_template('add.html',
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
-                devices=personal_devices.getJson())
+                devices=personal_devices_dict[room].getJson())
 
 @main.route('/add_inter')
 def add_inter():
@@ -341,6 +357,7 @@ def add_inter_post():
         user_name='Shaun@connect.use.hk'
         user_authority='User'
 
+        room=re.findall(r"\d+",room_name)[0]
         if change_user=='Switch User':
             return redirect(url_for('auth.login'))
         elif change_role=='Switch Role':
@@ -348,14 +365,14 @@ def add_inter_post():
         elif logout=='Log Out':
             return redirect(url_for('auth.login'))
         elif continu=='Confirm':
-            personal_devices.addDevice(name,radio)
+            personal_devices_dict[room].addDevice(name,radio)
             return redirect(url_for('main.add'))
             
         else:
             return render_template('add_inter.html',
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
-                devices=personal_devices.getJson())
+                devices=personal_devices_dict[room].getJson())
 
 
 @main.route('/instruction/<num>')
@@ -404,3 +421,95 @@ def instruction_post(num):
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
                 ins_img=ins_img,ins1=ins1,ins2=ins2,num=num)
+'''
+room_select_set={
+    0:{
+        'room_name':...,
+        'room_addr':...,
+        'select':{
+            0:{
+                'device_name':...,
+                'controller':{
+                    0:{
+
+                    },
+                    1:{...}
+                }
+            },
+            1:{...},
+        }
+    },
+    1:{...},
+}
+'''
+room_select_set[0]={'room_name':'room1','room_addr':'addr1'}
+room_select_set[0]['select']={'device_name':'device1','controller':{}}
+
+select_dict={
+    'devices':[
+        'Projector 1',
+        'Projector 2',
+        'Projection Screen 1',
+        'Projection Screen 2',
+        'Microphone 1',
+        'Microphone 2',
+        'Speaker',
+        'Camera'
+    ],
+    'attributes':[
+        'Controller',
+        'ControlBy',
+        'Function',
+        'LinkTo',
+        'LinkBy',
+        'IfLink'
+    ]
+}
+
+@main.route('/select')
+def select():
+    room_name='Room 4223'
+    room_locate='Academic Building, 4/F'
+    user_name='Shaun@connect.use.hk'
+    user_authority='User'
+    return render_template('select.html',
+        room_name=room_name,room_locate=room_locate,
+        user_name=user_name,user_authority=user_authority,dict=select_dict)
+
+read_input=[]
+@main.route('/select',methods=['POST'])
+def select_post():
+    if request.method=='POST':
+        change_user=request.form.get('dropdown_switch_user')
+        change_role=request.form.get('dropdown_switch_role')
+        logout=request.form.get('dropdown_logout')
+        sub=request.form.get('select_confirm')
+
+        room_name='Room 4223'
+        room_locate='Academic Building, 4/F'
+        user_name='Shaun@connect.use.hk'
+        user_authority='User'
+
+        if sub=='Confirm':
+            for d in select_dict['devices']:
+                read_input_row=[]
+                for i in range(len(select_dict['attributes'])):
+                    read_input_row.append(request.form.get('cell'+str(i)+'_'+d))
+                    #print('cell'+str(i)+'_'+d)
+                    #print(select_dict['attributes'])
+                read_input.append(read_input_row)
+        print(read_input)
+                
+
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return render_template('authority.html',user_name=user_name)
+        elif logout=='Log Out':
+            return redirect(url_for('auth.login'))
+        else:
+            return render_template('select.html',
+            room_name=room_name,room_locate=room_locate,
+            user_name=user_name,user_authority=user_authority,dict=select_dict)
+        
+#@main.route('/select')
