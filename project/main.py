@@ -353,3 +353,51 @@ def add_inter_post():
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
                 devices=personal_devices.getJson())
+
+
+@main.route('/instruction/<num>')
+def instruction(num=1):
+    room_name='Room 4223'
+    room_locate='Academic Building, 4/F'
+    user_name='Shaun@connect.use.hk'
+    user_authority='User'
+    ins_img=url_for('static',filename='img/classroom.jpg')
+    ins1=num
+    ins2=num
+
+    return render_template('instruction.html',
+                room_name=room_name,room_locate=room_locate,
+                user_name=user_name,user_authority=user_authority,ins_img=ins_img,ins1=ins1,ins2=ins2,num=num)
+
+@main.route('/instruction/<num>',methods=['POST'])
+def instruction_post(num):
+    if request.method=="POST":
+        change_user=request.form.get('dropdown_switch_user')
+        change_role=request.form.get('dropdown_switch_role')
+        logout=request.form.get('dropdown_logout')
+        ins_left=request.form.get('ins-left')
+        ins_right=request.form.get('ins-right')
+
+        room_name='Room 4223'
+        room_locate='Academic Building, 4/F'
+        user_name='Shaun@connect.use.hk'
+        user_authority='User'
+        ins_img=url_for('static',filename='img/classroom.jpg')
+        ins1=num
+        ins2=num
+
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return render_template('authority.html',user_name=user_name)
+        elif logout=='Log Out':
+            return redirect(url_for('auth.login'))
+        elif ins_left:
+            return redirect(url_for('main.instruction_post',num=int(num)-1))
+        elif ins_right:
+            return redirect(url_for('main.instruction_post',num=int(num)+1))
+        else:
+            return render_template('instruction.html',
+                room_name=room_name,room_locate=room_locate,
+                user_name=user_name,user_authority=user_authority,
+                ins_img=ins_img,ins1=ins1,ins2=ins2,num=num)
