@@ -16,8 +16,8 @@
             <img id="device-image1" src="{{url_for('static',filename='img/logo-icon.png')}}">
         </div>
         <div id="device-div2">
-            <p id="device-text1">{{room_name}}</p>
-            <p id="device-text2">{{room_locate}}</p>
+            <p id="device-text1">{{name}}</p>
+            <p id="device-text2">{{addr}}</p>
         </div>
     </div>
     <div id="device-menu">
@@ -211,6 +211,8 @@ var getFontSize = (textLength) => {
     var objs = JSON.parse('{{ devices | tojson | safe}}')
     var parenDiv=document.getElementById('device-objs')
     var choose_obj = JSON.parse('{{ device_choose | tojson | safe}}')
+    console.log(objs)
+    console.log(choose_obj)
     //console.log(Object.keys(objs))//['0', '1', '2']
     for (let i = 0; i < Object.keys(objs).length; i++) {
         var obj=objs[i]
@@ -269,9 +271,10 @@ var getFontSize = (textLength) => {
         grandsonInput.style.width='28px'
         grandsonInput.style.borderRadius='50%'
         grandsonInput.style.border='none'
-    
+        
+        console.log(choose_obj)
         let point = document.getElementById("point-menu")
-        if(choose_obj[i].now==1){  // device[i] hits.
+        if(choose_obj[i][1]==1){  // device[i] hits.
             grandsonInput.style.backgroundColor='#F59022'
             if(point.style.display=='none')
                 point.style.display='block';
@@ -309,7 +312,7 @@ var getFontSize = (textLength) => {
             isDuplicate=true
             console.log("duplicate process, choose the location")
             if(e.target==add_btn)
-                point.children[8].setAttribute('value', "");
+                point.children[8].setAttribute('value', "");  // Add default 'name'
         }
         else if(isDuplicate==true){
             isDuplicate=false

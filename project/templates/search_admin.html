@@ -79,10 +79,6 @@ function showlist(){
     else user.style.display='none';
 }
 
-const user_text=document.getElementById('search-text2');
-    const length=user_text.textContent.length;
-    user_text.style.fontSize=getFontSize(length);
-
 
 var getFontSize = (textLength) => {
     const baseSize = 18
@@ -100,6 +96,12 @@ var getFontSize = (textLength) => {
     console.log(textLength)
     console.log(fontSize)
     return `${fontSize}px`
+
+
+const user_text=document.getElementById('search-text2');
+    const length=user_text.textContent.length;
+    user_text.style.fontSize=getFontSize(length);
+
 }
 
 </script>

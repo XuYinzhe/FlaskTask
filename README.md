@@ -4,6 +4,10 @@
 set FLASK_APP=project
 set FLASK_DEBUG=1
 set FLASK_env=development
+
+$env:FLASK_APP = "project"
+$env:FLASK_DEBUG = 1
+$env:FLASK_env = "development"
 ```
 ## 3. Database Configuration
 ```python

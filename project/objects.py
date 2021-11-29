@@ -39,37 +39,13 @@ class Devices(object):
         #Add another device to this room: give all the deivce attributes or only give a initialized Deive class
         if not device:
             if name and type and x and y:
-                for d in self.devices:
-                    if name == d.name:
-                        name += '_'
                 self.devices.append(Device(name,type,x,y,self.img[0],self.img[1]))
                 self.devices_list.append([name,type,x*self.img[0],y*self.img[1]])
-                l = len(self.devices_list)  # self.devices_list need to be init
-                if l:
-                    if self.device_choose:
-                        self.device_choose[l-1]={'name':name,'choose':0,'now':0}
-                    else:
-                        self.device_choose={}
-                        self.device_choose[0]={'name':name,'choose':0,'now':0}
             else:
                 raise ValueError('Device attributes must be set!')
         else:
             self.devices.append(device)
             self.devices_list.append([device.name,device.type,device.x,device.y])
-    
-    def deleteDevice(self, name):
-        for d in self.devices:
-            if d.name==name:  # name is unique because of chooseDevice(self,name=None)
-                self.devices.remove(d)
-                break
-        for d in self.devices_list:
-            if d[0]==name:  
-                self.devices_list.remove(d)
-                break
-        for k, v in self.device_choose.items():
-            if v["name"] == name:
-                self.device_choose.pop(k)
-                break
 
     def deleteDevice_name(self,name):
         index=-1
@@ -88,7 +64,7 @@ class Devices(object):
                 self.__json[i]={'name':device.name,'type':device.type,
                                 'x':device.x,'y':device.y}
                 i+=1
-            # self.__jsondone=True
+            self.__jsondone=True
             return self.__json
         else:
             return self.__json
@@ -106,10 +82,9 @@ class Devices(object):
             self.device_choose={}
             i=0
             for d in self.devices:
-                self.device_choose[i]={'name':d.name,'choose':0,'now':0}  # 'now' record which device hits 
+                self.device_choose[i]={'name':d.name,'choose':0} 
                 if name==d.name:
                     self.device_choose[i]['choose']=1-self.device_choose[i]['choose']
-                    self.device_choose[i]['now']=1-self.device_choose[i]['now']
                 i+=1  
             self.__choose_ini=True
         elif name:
@@ -117,9 +92,6 @@ class Devices(object):
             for d in self.devices:
                 if name==d.name:
                     self.device_choose[i]['choose']=1-self.device_choose[i]['choose']
-                    self.device_choose[i]['now']=1-self.device_choose[i]['now']
-                else:
-                    self.device_choose[i]['now']=0
                 i+=1
 
         return self.device_choose
@@ -137,43 +109,6 @@ class Devices(object):
     '''
 
 def update_from_request(devices:Devices):
-    close_idx=request.form.get('point_close')
-    point_name=request.form.get('point_name')
-    point_delete=request.form.get('point_delete')
-    point_edit=request.form.get('point_edit')
-    dup_x=request.form.get('dup_x')
-    dup_y=request.form.get('dup_y')
-    p_name=request.form.get('p_name')
-    p_type=request.form.get('p_type')
-    uid=request.form.get('uid')
-
-    # Edit the divice
-    if point_edit and p_name and p_type:
-        i=0
-        for d in devices.devices:
-            if i==int(uid):
-                d.name=p_name
-                d.type=p_type
-                break
-            i+=1
-
-    # Delete the device
-    if point_name and point_delete:
-        devices.deleteDevice(point_name)
-    
-    # Duplicate the device
-    print(point_name, dup_x, dup_y)
-    if dup_x and dup_y:
-        hit = False
-        for d in devices.devices:
-            if d.name==point_name:
-                devices.addDevice(d.name, d.type, float(dup_x)/devices.img[0], float(dup_y)/devices.img[1])
-                hit = True
-        if not hit:
-            devices.addDevice('name', 'type', float(dup_x)/devices.img[0], float(dup_y)/devices.img[1])
-        
-
-    # Choose the devices
     i=0
     for d in devices.devices:
         cur_d=request.form.get('devices_input_'+d.name)
@@ -181,12 +116,6 @@ def update_from_request(devices:Devices):
             devices.chooseDevice(d.name)
         i+=1
     
-    # Close the open device window
-    if close_idx:
-        i=0
-        for d in devices.devices:
-            devices.device_choose[i]['now'] = 0
-            i+=1
 
 class PersonalDevice(object):
     #All personal devices in a room (used in add.html page)

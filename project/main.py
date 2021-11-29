@@ -77,7 +77,7 @@ def search_admin_post():
             else:
                 return room
         elif btn == 'Create New Room':
-            return btn
+            return redirect(url_for('main.create_admin', room=room))
         else:
             return render_template('search.html',
                 user_name=user_name, user_authority=user_authority)
@@ -86,7 +86,10 @@ def search_admin_post():
 def room_admin(room):
     user_name='Shaun@connect.use.hk'
     user_authority='Administrator'
-    return render_template('room_admin.html', room=room, user_name=user_name, user_authority=user_authority)
+    room_name='Room 4223'
+    address='Academic Building, 4/F'
+    room_img=url_for('static',filename='img/classroom.jpg')
+    return render_template('room_admin.html', room=room, user_name=user_name, user_authority=user_authority,room_name=room_name,address=address,room_img=room_img)
 
 
 @main.route('/room_admin/<room>',methods=['POST'])
@@ -103,6 +106,9 @@ def room_admin_post(room):
         user_name='Shaun@connect.use.hk'
         user_authority='Administrator'
 
+        room_name='Room 4223'
+        address='Academic Building, 4/F'
+
         if change_user=='Switch User':
             return redirect(url_for('auth.login'))
         elif change_role=='Switch Role':
@@ -117,7 +123,7 @@ def room_admin_post(room):
             else:
                 return room
         elif edit == 'Edit':
-            return redirect(url_for('main.device_admin', room=room))
+            return redirect(url_for('main.device_admin',name=room_name,addr=address,init="n"))
         else:
             return render_template('room_admin.html',
                 user_name=user_name, user_authority=user_authority)
@@ -152,15 +158,20 @@ def create_admin_post():
         elif home=='Home':
             return redirect(url_for('main.search_admin'))
         elif conti == 'Continue' and name and addr:
-                return redirect(url_for('main.device_admin',name=name,addr=addr,init="1"))             
+            return redirect(url_for('main.device_admin',name=name,addr=addr,init="y"))             
         else:
             return render_template('create_admin.html',
                 user_name=user_name, user_authority=user_authority)
 
 from .objects import *
+from .objects_admin import *
 
 devices=devices_test
 devices.chooseDevice()
+devices_admin=devices_test_admin
+devices_admin.chooseDevice()
+devices_dict = {}
+
 
 @main.route('/device')
 def device():
@@ -205,44 +216,43 @@ def device_post():
                 devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice(), img_path=url_for('static', filename='img/white.png'))
 
 
-@main.route('/device_admin')
-def device_admin():
-    name = request.args.get('name')
-    addr = request.args.get('addr')
-    init = request.args.get('init')
-    # if source is create room, device room is empty.
+
+@main.route('/device_admin', methods=['GET', 'POST'])
+def device_admin(name="", addr="", init=""):
+    name=request.args.get('name')
+    addr=request.args.get('addr')
+    init=request.args.get('init')
+    
+    # init: 0. if source is create room, device room is empty. Else init: 1 for edit button
+    if not name or not addr or not init:
+        name='Room 4223'
+        addr='Academic Building, 4/F'
     user_name='Shaun@connect.use.hk'
     user_authority='User'
-    if init:
-        return render_template('device_admin.html',
-                    room_name=name,room_locate=addr,
-                    user_name=user_name,user_authority=user_authority,
-                    devices='',img_size=devices.img,device_choose='',img_path=url_for('static',filename='img/white.png')) 
-    # if source is room or search, device room remains
-    else:
-        room_name='Room 4223'
-        room_locate='Academic Building, 4/F'
-        return render_template('device_admin.html',
-            room_name=room_name,room_locate=room_locate,
-            user_name=user_name,user_authority=user_authority,
-            devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice(),img_path=url_for('static',filename='img/longimage.jpg'))
+    k = name[-4:] if len(name) >= 4 else name
+    
 
+    if init == 'y':  # Create
+        img_path=url_for('static',filename='img/white.png')
+    else:  # Edit
+        img_path=url_for('static',filename='img/longimage.jpg')
+ 
+    if k not in devices_dict.keys():
+        if k == '4223':  # Three point initalization
+            global devices_test_admin
+            devices_dict[k] = devices_test_admin
+        else:  # Zero point initalization
+            devices_admin = Devices_admin(img=[3240,720], room=k)
+            devices_dict[k] = devices_admin
 
-@main.route('/device_admin', methods=['POST'])
-def device_post_admin():
+    
     if request.method=="POST":
         change_user=request.form.get('dropdown_switch_user')
         change_role=request.form.get('dropdown_switch_role')
         logout=request.form.get('dropdown_logout')
         save=request.form.get('device_save')
-
-        user_name='Shaun@connect.use.hk'
-        user_authority='User'
-
-        room_name='Room 4223'
-        room_locate='Academic Building, 4/F'
-
-        update_from_request(devices)
+ 
+        update_from_admin_request(devices_dict[k])
 
         if change_user=='Switch User':
             return redirect(url_for('auth.login'))
@@ -251,12 +261,13 @@ def device_post_admin():
         elif logout=='Log Out':
             return redirect(url_for('auth.login'))
         elif save=='Save':
-            return save
-        else:
-            return render_template('device_admin.html',
-                room_name=room_name,room_locate=room_locate,
-                user_name=user_name,user_authority=user_authority,
-                devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice())
+            return redirect(url_for('main.search_admin'))
+
+    return render_template('device_admin.html',
+        name=name,addr=addr,
+        user_name=user_name,user_authority=user_authority,
+        devices=devices_dict[k].getJson(),img_size=devices_dict[k].img,device_choose=devices_dict[k].chooseDevice(),img_path=img_path)
+
 
 personal_devices=personal_test
 
