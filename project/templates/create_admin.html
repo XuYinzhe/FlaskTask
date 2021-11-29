@@ -6,6 +6,11 @@
 
 {% block content %}
 <form id="create-form" method="post">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
     <div id="create-div1">
         <img id="create-image1" src="{{url_for('static',filename='img/logo-icon.png')}}">
         <div id="create-text">

@@ -6,6 +6,11 @@
 
 {% block content %}
 <form id="authority-form" method="post">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
     <div id="authority-div1">
         <div id="authority-div2">
             <p id="authority-text">Do you want to continue as an administrator or authority?</p>
