@@ -170,8 +170,8 @@ from .objects import *
 from .objects_admin import *
 import re
 
-devices=devices_test
-devices.chooseDevice()
+#devices=devices_test
+#devices.chooseDevice()
 devices_admin=devices_test_admin
 devices_admin.chooseDevice()
 devices_dict = {}
@@ -204,6 +204,8 @@ def device_post():
         room_name='Room 4223'
         room_locate='Academic Building, 4/F'
 
+        room=re.findall(r"\d+",room_name)[0]
+        devices=devices_dict[room]
         update_from_request(devices)
 
         if change_user=='Switch User':
