@@ -147,7 +147,7 @@ def create_admin_post():
         name=request.form.get('create-name-txtedit')
         addr=request.form.get('create-addr-txtedit')
 
-        room_select_set[len(room_select_set)]={'room_name':re.findall(r"\d+",name)[0],'room_addr':addr}
+        #room_select_set[len(room_select_set)]={'room_name':re.findall(r"\d+",name)[0],'room_addr':addr}
 
         user_name='Shaun@connect.use.hk'
         user_authority='Administrator'
@@ -258,7 +258,6 @@ def device_admin(name="", addr="", init=""):
         save=request.form.get('device_save')
  
         update_from_admin_request(devices_dict[k])
-        room_select_set={}
 
         if change_user=='Switch User':
             return redirect(url_for('auth.login'))
@@ -417,8 +416,81 @@ def instruction_post(num):
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
                 ins_img=ins_img,ins1=ins1,ins2=ins2,num=num)
+'''
+room_select_set={
+    0:{
+        'room_name':...,
+        'room_addr':...,
+        'select':{
+            0:{
+                'device_name':...,
+                'controller':{
+                    0:{
 
+                    },
+                    1:{...}
+                }
+            },
+            1:{...},
+        }
+    },
+    1:{...},
+}
+'''
+room_select_set[0]={'room_name':'room1','room_addr':'addr1'}
+room_select_set[0]['select']={'device_name':'device1','controller':{}}
+
+select_dict={
+    'devices':[
+        'Projector 1',
+        'Projector 2',
+        'Projection Screen 1',
+        'Projection Screen 2',
+        'Microphone 1',
+        'Microphone 2',
+        'Speaker',
+        'Camera'
+    ],
+    'attributes':[
+        'Controller',
+        'ControlBy',
+        'Function',
+        'LinkTo',
+        'LinkBy',
+        'IfLink'
+    ]
+}
+
+'''
+select_dict={
+    'devices':{
+        0:{'name':'Projector 1'},
+        1:{'name':'Projector 2'},
+        2:{'name':'Projection Screen 1'},
+        3:{'name':'Projection Screen 2'},
+        4:{'name':'Microphone 1'},
+        5:{'name':'Microphone 2'},
+        6:{'name':'Speaker'},
+        7:{'name':'Camera'}
+    },
+    'attributes':{
+        0:{'name':'Controller'},
+        1:{'name':'ControlBy'},
+        2:{'name':'Function'},
+        3:{'name':'LinkTo'},
+        4:{'name':'LinkBy'},
+        5:{'name':'IfLink'}
+    }
+}
+'''
 @main.route('/select')
 def select():
-    return render_template('select.html')
+    room_name='Room 4223'
+    room_locate='Academic Building, 4/F'
+    user_name='Shaun@connect.use.hk'
+    user_authority='User'
+    return render_template('select.html',
+        room_name=room_name,room_locate=room_locate,
+        user_name=user_name,user_authority=user_authority,dict=select_dict)
 
+#@main.route('/select')
