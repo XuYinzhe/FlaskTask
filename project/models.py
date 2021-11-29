@@ -36,9 +36,15 @@ class room_cls(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True) 
     device  = db.Column(db.String(100))
     type = db.Column(db.String(100))
+    location = db.Column(db.String(100))
+    controller = db.Column(db.String(1000))
+    controlby = db.Column(db.String(1000))
+    func = db.Column(db.String(1000))
+    linkto = db.Column(db.String(1000))
+    linkby = db.Column(db.String(1000)) 
+    iflink = db.Column(db.Integer)
 
-    def to_String():
+    def to_String(arr):
         return 
-
-    def to_array():
+    def to_array(str):
         return 

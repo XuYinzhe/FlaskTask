@@ -10,11 +10,3 @@ def loading():
 def loading_post():
     if request.method=="POST":
         return redirect(url_for('auth.login'))
-
-
-# @main.route('/profile')
-# @login_required
-# def profile():
-#     return render_template('profile.html', name=current_user.name)
-
-

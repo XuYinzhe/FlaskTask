@@ -54,28 +54,6 @@ def create_room():
         flash("You are not an administrator for create room")
         return redirect(url_for('auth.authority'))
 
-# @dev.route('/add/<room_id>')
-# def add(room_id):
-#     room_name = "room_" + room_id
-#     room = RoomList.query.filter_by(room_name=room_name).first()
-#     img_path = url_for('static', filename = 'img/' + room.room_img_prev)
-#     user_name = current_user.email
-#     user_authority = current_user.authority
-#     return render_template('add.html',
-#         room_name=room_name,room_locate=room.room_loc,
-#         user_name=user_name,user_authority=user_authority,
-#         devices=personal_devices.getJson())
-
-# @dev.route('/add_inter')
-# def add_inter():
-#     room_name='Room 4223'
-#     room_locate='Academic Building, 4/F'
-#     user_name='Shaun@connect.use.hk'
-#     user_authority='User'
-#     return render_template('add_inter.html',
-#                 room_name=room_name,room_locate=room_locate,
-#                 user_name=user_name,user_authority=user_authority)
-
 @dev.route('/search',methods=['POST'])
 def search_post():
     if request.method == "POST":
@@ -109,15 +87,6 @@ def search_post():
                 flash("Room not exist! Please turn to an administrator to create")
                 return redirect(url_for('dev.search'))
             return redirect(url_for('dev.room', room_id=room_id))
-            # check = search_room(room)
-            # if check == True:
-            #     return
-            # else: 
-            #     flash('Please turn to an administrator to create this room!')
-            #     if current_user.authority == 'admin':
-            #         return render_template('search_admin.html', user_name=current_user.email, user_authority=current_user.authority)
-            #     elif current_user.authority == 'guest':
-            #         return render_template('search.html', user_name=current_user.email, user_authority=current_user.authority)
         else:
             if current_user.authority == 'admin':
                 return render_template('search_admin.html', user_name=user_name, user_authority=user_authority)
@@ -243,65 +212,3 @@ def manage_device(name="", addr="", img_addr="", init=""):
         name=name,addr=addr,
         user_name=user_name,user_authority=user_authority,
         devices=devices_dict[k].getJson(),img_size=devices_dict[k].img,device_choose=devices_dict[k].chooseDevice(),img_path=img_path)
-
-# @dev.route('/add',methods=['POST'])
-# def add_post():
-#     if request.method=="POST":
-#         change_user=request.form.get('dropdown_switch_user')
-#         change_role=request.form.get('dropdown_switch_role')
-#         logout=request.form.get('dropdown_logout')
-#         continu=request.form.get('add_continue')
-#         add=request.form.get('add_plus')
-
-#         room_name='Room 4223'
-#         room_locate='Academic Building, 4/F'
-#         user_name='Shaun@connect.use.hk'
-#         user_authority='User'
-
-#         if change_user=='Switch User':
-#             return redirect(url_for('auth.login'))
-#         elif change_role=='Switch Role':
-#             return render_template('authority.html',user_name=user_name)
-#         elif logout=='Log Out':
-#             return redirect(url_for('auth.login'))
-#         elif continu=='Continue':
-#             return personal_devices.getJson()
-#         elif add=='':
-#             return redirect(url_for('main.add_inter'))
-#         else:
-#             return render_template('add.html',
-#                 room_name=room_name,room_locate=room_locate,
-#                 user_name=user_name,user_authority=user_authority,
-#                 devices=personal_devices.getJson())
-
-# @dev.route('/add_inter',methods=['POST'])
-# def add_inter_post():
-#     if request.method=="POST":
-#         change_user=request.form.get('dropdown_switch_user')
-#         change_role=request.form.get('dropdown_switch_role')
-#         logout=request.form.get('dropdown_logout')
-#         continu=request.form.get('inter_continue')
-#         radio=request.form.get('inter_device')
-#         name=request.form.get('inter_name')
-
-#         room_name='Room 4223'
-#         room_locate='Academic Building, 4/F'
-#         user_name='Shaun@connect.use.hk'
-#         user_authority='User'
-
-#         if change_user=='Switch User':
-#             return redirect(url_for('auth.login'))
-#         elif change_role=='Switch Role':
-#             return render_template('authority.html',user_name=user_name)
-#         elif logout=='Log Out':
-#             return redirect(url_for('auth.login'))
-#         elif continu=='Confirm':
-#             personal_devices.addDevice(name,radio)
-#             return redirect(url_for('main.add'))
-            
-#         else:
-#             return render_template('add_inter.html',
-#                 room_name=room_name,room_locate=room_locate,
-#                 user_name=user_name,user_authority=user_authority,
-#                 devices=personal_devices.getJson())
-
