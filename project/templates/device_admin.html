@@ -51,11 +51,22 @@
             </div>
             <div id="create-div6">
                 <p id="point-text2">Type: </p>
-                <input id="point-text22" type="text" name="p_type" value="microphone">
+                <!-- <input id="point-text22" type="text" name="p_type" value="microphone"> -->
+                <select id="point-text22" name="p_type" value="">
+                    <option value="Microphone">Microphone</option>
+                    <option value="Projector">Projector</option>
+                    <option value="Screener">Screener</option>
+                </select>
             </div>
-            <input id="point-input0" type="submit" name="Link_table" value="Link table">
-            <input id="point-input1" type="submit" name="Control_table" value="Control table">
-            <input id="point-input2" type="submit" name="point_edit" value="Edit">
+            <div id="point-image0">
+                <input id="point-input1" type="file" name="point_pic" value="p" style="opacity: 0">
+                <svg id="svg-pic" width="25" height="22" viewBox="0 0 50 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30.3 5L34.875 10H45V40H5V10H15.125L19.7 5H30.3ZM32.5 0H17.5L12.925 5H5C2.25 5 0 7.25 0 10V40C0 42.75 2.25 45 5 45H45C47.75 45 50 42.75 50 40V10C50 7.25 47.75 5 45 5H37.075L32.5 0ZM25 17.5C29.125 17.5 32.5 20.875 32.5 25C32.5 29.125 29.125 32.5 25 32.5C20.875 32.5 17.5 29.125 17.5 25C17.5 20.875 20.875 17.5 25 17.5ZM25 12.5C18.1 12.5 12.5 18.1 12.5 25C12.5 31.9 18.1 37.5 25 37.5C31.9 37.5 37.5 31.9 37.5 25C37.5 18.1 31.9 12.5 25 12.5Z" fill="#F59022"/>
+                </svg>
+                <img id="device-small-image" src="../static/img/classroom.jpg">
+            </div>    
+            <input id="point-input10" type="text" name="p_img" value="" style="display: none">   
+            <input id="point-input2" type="submit" name="point_edit" value="Save">
             <input id="point-input3" type="submit" name="point_duplicate" value="Duplicate">
             <input id="point-input4" type="submit" name="point_delete" value="Delete">
             <input id="point-input5" type="submit" name="point_close" value="×">
@@ -281,7 +292,8 @@ var getFontSize = (textLength) => {
             point.style.left = obj.x+'px'
             point.style.top= eval(obj.y+50)+'px'
             point.children[0].children[1].setAttribute('value', obj.name);  // Name
-            point.children[1].children[1].setAttribute('value', obj.type);  // Type
+            point.children[1].children[1].value = obj.type;  // Type
+            point.children[2].children[2].setAttribute('src', obj.device_img);  // Device_img
             point.children[8].setAttribute('value', obj.name); // auxiliary field
             point.children[11].setAttribute('value', i);
         }
@@ -394,10 +406,53 @@ fileUploader.addEventListener('change', (event) => {
             const img = document.getElementById('device-large-image');
             img.src = event.target.result;
             img.alt = file.name;
+            point
+            form.submit();
         });
     } 
     else { alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！"); } 
 
 });
 </script>
+
+<script>
+    const fileUploader1 = document.getElementById('point-input1');
+    // 听更 change 件并读取元数据
+    fileUploader1.addEventListener('change', (event) => {
+        // 获取文件列表数组
+        const files1 = event.target.files;
+        if(files1.length > 1){
+            alert("请您上传1张图片")
+        }
+        const file1 = files1[0]
+    
+        const name1 = file1.name;
+        const type1 = file1.type ? file1.type: 'NA';
+        const size1 = file1.size;
+        const lastModified1 = file1.lastModified;
+    
+        var imageType1 = /^image\//; 
+        // 是否是图片 
+        if(!imageType1.test(type1)) { alert("请选择图片！"); return; }
+        //if(size > 40 * 1024 * 1024) {alert("发送的图片超过40MB！"); return;}
+    
+        console.log({ file1, name1, type1, size1, lastModified1 });
+    
+        // 判断是否支持FileReader 
+        if(window.FileReader) { 
+            const reader1 = new FileReader(); 
+            reader1.readAsDataURL(file1);
+            reader1.addEventListener('load', (event) => {
+                const img1 = document.getElementById('device-small-image');
+                img1.src = event.target.result;
+                img1.alt = file1.name;
+                point.children[3].setAttribute('value', img1.src);
+                form.submit()
+            });
+        } 
+        else { alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！"); } 
+    
+    });
+    </script>
+    
 {% endblock %}

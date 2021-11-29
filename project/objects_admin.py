@@ -6,13 +6,14 @@ from flask import request
 
 class Device_admin(object):
     #One device
-    def __init__(self,name:str,type:str,x:float,y:float,width:int,height:int,room:str):
+    def __init__(self,name:str,type:str,x:float,y:float,width:int,height:int,room:str,device_img:str):
             self.name = name #name of this device
             self.type = type #type of this device
             self.x = x*width #Distance to the left boundary of this device (px)
             self.y = y*height #Distance to the top boundary of this device (px)
             self.img=[width,height] #The size of the image that the device belong to
             self.room=room  # the device belong to which class
+            self.device_img=device_img  # device img 
 
 
 class Devices_admin(object):
@@ -44,8 +45,8 @@ class Devices_admin(object):
                 name_set = set([d.name for d in self.devices])
                 while name in name_set:
                     name += '_'
-                self.devices.append(Device_admin(name,type,x,y,self.img[0],self.img[1],room))
-                self.devices_list.append([name,type,x*self.img[0],y*self.img[1],room])
+                self.devices.append(Device_admin(name,type,x,y,self.img[0],self.img[1],room,device_img=''))
+                self.devices_list.append([name,type,x*self.img[0],y*self.img[1],room,''])
                 self.device_choose.append([name, 0])
             else:
                 raise ValueError('Device_admin attributes must be set!')
@@ -75,7 +76,7 @@ class Devices_admin(object):
             i=0
             for device in self.devices:
                 self.__json[i]={'name':device.name,'type':device.type,
-                                'x':device.x,'y':device.y, 'room':device.room}
+                                'x':device.x,'y':device.y, 'room':device.room,'device_img':device.device_img}
                 i+=1
             # self.__jsondone=True
             return self.__json
@@ -121,11 +122,13 @@ def update_from_admin_request(devices:Devices_admin):
     point_name=request.form.get('point_name')
     point_delete=request.form.get('point_delete')
     point_edit=request.form.get('point_edit')
+    point_pic=request.form.get('point_pic')
     dup_x=request.form.get('dup_x')
     dup_y=request.form.get('dup_y')
     p_name=request.form.get('p_name')
     p_type=request.form.get('p_type')
     uid=request.form.get('uid')
+    p_img=request.form.get('p_img')
 
     # Edit the divice
     if point_edit and p_name and p_type:
@@ -136,7 +139,16 @@ def update_from_admin_request(devices:Devices_admin):
                 d.type=p_type
                 break
             i+=1
-
+    
+    # Insert Img of the device
+    if point_pic and p_img:
+        i=0
+        for d in devices.devices:
+            if i==int(uid):
+                d.device_img=p_img
+                break
+            i+=1
+    
     # Delete the device
     print(1)
     print(p_name, devices.devices_list, point_delete, point_edit)
@@ -157,7 +169,7 @@ def update_from_admin_request(devices:Devices_admin):
                 devices.addDevice(d.name, d.type, float(dup_x)/devices.img[0], float(dup_y)/devices.img[1],room='4223')
                 hit = True
         if not hit:  # point_name="", but p_name=microphone 1
-            devices.addDevice('name', 'type', float(dup_x)/devices.img[0], float(dup_y)/devices.img[1],room='4223')
+            devices.addDevice('name', 'Microphone', float(dup_x)/devices.img[0], float(dup_y)/devices.img[1],room='4223')
     print(3)
     print(point_name,p_name, dup_x, dup_y)
     print(devices.devices_list)
@@ -185,7 +197,7 @@ def update_from_admin_request(devices:Devices_admin):
             i+=1
 
 devices_test_admin=Devices_admin(img=[3240,720], room='4223')
-devices_test_admin.addDevice('Projecter','a',0.2,0.2,room='4223')
-devices_test_admin.addDevice('Screen','b',0.8,0.1,room='4223')
-devices_test_admin.addDevice('Speaker','c',0.3,0.7,room='4223')
+devices_test_admin.addDevice('Projecter','Projector',0.2,0.2,room='4223')
+devices_test_admin.addDevice('Screen','Screener',0.8,0.1,room='4223')
+devices_test_admin.addDevice('Speaker','Microphone',0.3,0.7,room='4223')
 is_used = False
