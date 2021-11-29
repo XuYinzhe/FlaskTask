@@ -1,4 +1,4 @@
-#add-form{
+#inter-form{
     display: none;
 }
 
@@ -13,13 +13,13 @@
     display: none;
 }
 
-#add-form{
+#inter-form{
     display: block;
     width: 100%;
     height: 100%;
 }
 
-#add-info{
+#inter-info{
     position: absolute;
     top: 0;
     left: 0;
@@ -27,26 +27,26 @@
     width: 50%;
 }
 
-#add-div1{
+#inter-div1{
     float: left;
     width: 30%;
     min-width: 120px;
     max-width: 140px;
 }
 
-#add-div2{
+#inter-div2{
     float: left;
     width: 50%;
     height: 100%;
     margin-left: 5%;
 }
 
-#add-image1{
+#inter-image1{
     width: 100%;
     height: 100%;
 }
 
-#add-text1{
+#inter-text1{
     position: absolute;
     bottom: 36%;
     font-family: 'Junge';
@@ -57,7 +57,7 @@
     
 }
 
-#add-text2{
+#inter-text2{
     position: absolute;
     top:50%;
     font-family: 'Junge';
@@ -67,28 +67,28 @@
     font-size: max(12px,1.1vw);
 }
 
-#add-menu{
+#inter-menu{
     position: absolute;
     top: 9%;
     width: 40%;
     transform:translateY(-50%);
 }
 
-#add-div3{
+#inter-div3{
     float: right;
     transform: translateY(2px);
 }
 
-#add-div4{
+#inter-div4{
     float: right;
 }
 
-#add-div5{
+#inter-div5{
     float: right;
     transform: translateY(-2px);
 }
 
-#add-button1{
+#inter-button1{
     position: absolute;
     width: 46px;
     height: 100%;
@@ -97,7 +97,7 @@
     z-index: 1;
 }
 
-#add-button2{
+#inter-button2{
     position: absolute;
     width: 50px;
     height: 100%;
@@ -106,7 +106,7 @@
     z-index: 1;
 }
 
-#add-button3{
+#inter-button3{
     position: absolute;
     width: 52px;
     height: 100%;
@@ -115,72 +115,79 @@
     z-index: 1;
 }
 
-#add-div6{
+#inter-all{
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
-    top:21%;
-    width: 80%;
-    text-align: center;
+    top: 30%;
+}
+
+#inter-text3{
     font-family: 'Junge';
     font-style: normal;
     font-weight: normal;
-    color: #F59022;
-    font-size: max(min(3vw,26px),20px);
+    color:#F59022;
+    font-size:120%;
 }
 
-#add-device{
-    position: absolute;
-    transform: translateX(-50%);
-    left: 50%;
-    top:35%;
-    width: 80%;
-    height:28%;
-    overflow: auto;
-    white-space: nowrap;
-    text-align: center;
+#label1,#label2,#label3{
+    font-family: 'Junge';
+    font-style: normal;
+    font-weight: normal;
+    color:#F59022;
+    transform: translateY(-2px);
 }
 
-#add-plus{
-    display: inline-block;
-    width: 150px;
-    height: 150px;
-    transform: translate(0,0);
-    border: 3px solid #F59022;
-    border-radius: 20px;
+input[type="radio"]{
+    margin-left: 15px;
+    font: inherit;
+    color: currentColor;
+    width: 0.8em;
+    height: 0.8em;
+    border: 0.1em solid #F59022;
+    border-radius: 50%;
+    -webkit-appearance: none;
+    background-color: #fff;
+    appearance: none;
 }
 
-#add-cross{
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top:50%;
-    left:50%;
-    height:30%;
-    width: 30%;
+input[type="radio"]:checked {
     background-color:#F59022;
-    clip-path: polygon(45% 0%,55% 0%,55% 45%,100% 45%,100% 55%,55% 55%,55% 100%,45% 100%,45% 55%,0% 55%,0% 45%,45% 45%);
 }
 
-#add-input1{
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top:50%;
-    left:50%;
-    width:90%;
-    height:90%;
-    z-index: 1;
-    border: none;
-    background-color: transparent;
+#inter-text4{
+    margin-top:12%;
+    font-family: 'Junge';
+    font-style: normal;
+    font-weight: normal;
+    color:#F59022;
+    font-size:120%;
 }
 
-#add-input2{
+#inter-input4{
+    transform: translateY(-4px);
+    font-family: 'Junge';
+    font-style: normal;
+    font-weight: normal;
+    font-size:180%;
+    color:#F59022;
+    border:none;
+    border-bottom: 1px solid #F59022;
+}
+
+#inter-input4:focus{
+    border-bottom: 2px solid #F59022;
+    outline: none;
+}
+
+#inter-input5{
     position: absolute;
     transform: translateX(-50%);
     left:50%;
     top:73%;
     width: max(min(20vw,240px),160px);
     height: 10%;
-    border: 3px solid #F59022;
+    border: 2px solid #F59022;
     border-radius: 20px;
     background-color:white;
     font-family: 'Junge';
