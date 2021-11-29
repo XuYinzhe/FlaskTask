@@ -461,28 +461,6 @@ select_dict={
     ]
 }
 
-'''
-select_dict={
-    'devices':{
-        0:{'name':'Projector 1'},
-        1:{'name':'Projector 2'},
-        2:{'name':'Projection Screen 1'},
-        3:{'name':'Projection Screen 2'},
-        4:{'name':'Microphone 1'},
-        5:{'name':'Microphone 2'},
-        6:{'name':'Speaker'},
-        7:{'name':'Camera'}
-    },
-    'attributes':{
-        0:{'name':'Controller'},
-        1:{'name':'ControlBy'},
-        2:{'name':'Function'},
-        3:{'name':'LinkTo'},
-        4:{'name':'LinkBy'},
-        5:{'name':'IfLink'}
-    }
-}
-'''
 @main.route('/select')
 def select():
     room_name='Room 4223'
@@ -493,4 +471,40 @@ def select():
         room_name=room_name,room_locate=room_locate,
         user_name=user_name,user_authority=user_authority,dict=select_dict)
 
+read_input=[]
+@main.route('/select',methods=['POST'])
+def select_post():
+    if request.method=='POST':
+        change_user=request.form.get('dropdown_switch_user')
+        change_role=request.form.get('dropdown_switch_role')
+        logout=request.form.get('dropdown_logout')
+        sub=request.form.get('select_confirm')
+
+        room_name='Room 4223'
+        room_locate='Academic Building, 4/F'
+        user_name='Shaun@connect.use.hk'
+        user_authority='User'
+
+        if sub=='Confirm':
+            for d in select_dict['devices']:
+                read_input_row=[]
+                for i in range(len(select_dict['attributes'])):
+                    read_input_row.append(request.form.get('cell'+str(i)+'_'+d))
+                    #print('cell'+str(i)+'_'+d)
+                    #print(select_dict['attributes'])
+                read_input.append(read_input_row)
+        print(read_input)
+                
+
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return render_template('authority.html',user_name=user_name)
+        elif logout=='Log Out':
+            return redirect(url_for('auth.login'))
+        else:
+            return render_template('select.html',
+            room_name=room_name,room_locate=room_locate,
+            user_name=user_name,user_authority=user_authority,dict=select_dict)
+        
 #@main.route('/select')
