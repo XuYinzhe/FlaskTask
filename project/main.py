@@ -128,6 +128,7 @@ def room_admin_post(room):
             return render_template('room_admin.html',
                 user_name=user_name, user_authority=user_authority)
 
+room_select_set={}#save all device setting of all room
 
 @main.route('/create_admin')
 def create_admin():
@@ -145,6 +146,8 @@ def create_admin_post():
         home=request.form.get('search-home')
         name=request.form.get('create-name-txtedit')
         addr=request.form.get('create-addr-txtedit')
+
+        room_select_set[len(room_select_set)]={'room_name':re.findall(r"\d+",name)[0],'room_addr':addr}
 
         user_name='Shaun@connect.use.hk'
         user_authority='Administrator'
@@ -255,6 +258,7 @@ def device_admin(name="", addr="", init=""):
         save=request.form.get('device_save')
  
         update_from_admin_request(devices_dict[k])
+        room_select_set={}
 
         if change_user=='Switch User':
             return redirect(url_for('auth.login'))
@@ -413,3 +417,8 @@ def instruction_post(num):
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
                 ins_img=ins_img,ins1=ins1,ins2=ins2,num=num)
+
+@main.route('/select')
+def select():
+    return render_template('select.html')
+
