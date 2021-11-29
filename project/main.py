@@ -165,12 +165,14 @@ def create_admin_post():
 
 from .objects import *
 from .objects_admin import *
+import re
 
 devices=devices_test
 devices.chooseDevice()
 devices_admin=devices_test_admin
 devices_admin.chooseDevice()
 devices_dict = {}
+personal_devices_dict={}
 
 
 @main.route('/device')
@@ -281,10 +283,15 @@ def add():
     room_locate='Academic Building, 4/F'
     user_name='Shaun@connect.use.hk'
     user_authority='User'
+
+    room=re.findall(r"\d+",room_name)[0]
+    if room not in personal_devices_dict.keys():
+        personal_devices_dict[room]=PersonalDevice()
+
     return render_template('add.html',
         room_name=room_name,room_locate=room_locate,
         user_name=user_name,user_authority=user_authority,
-        devices=personal_devices.getJson())
+        devices=personal_devices_dict[room].getJson())
 
 @main.route('/add',methods=['POST'])
 def add_post():
@@ -300,6 +307,7 @@ def add_post():
         user_name='Shaun@connect.use.hk'
         user_authority='User'
 
+        room=re.findall(r"\d+",room_name)[0]
         if change_user=='Switch User':
             return redirect(url_for('auth.login'))
         elif change_role=='Switch Role':
@@ -307,14 +315,14 @@ def add_post():
         elif logout=='Log Out':
             return redirect(url_for('auth.login'))
         elif continu=='Continue':
-            return personal_devices.getJson()
+            return personal_devices_dict[room].getJson()
         elif add=='':
             return redirect(url_for('main.add_inter'))
         else:
             return render_template('add.html',
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
-                devices=personal_devices.getJson())
+                devices=personal_devices_dict[room].getJson())
 
 @main.route('/add_inter')
 def add_inter():
@@ -341,6 +349,7 @@ def add_inter_post():
         user_name='Shaun@connect.use.hk'
         user_authority='User'
 
+        room=re.findall(r"\d+",room_name)[0]
         if change_user=='Switch User':
             return redirect(url_for('auth.login'))
         elif change_role=='Switch Role':
@@ -348,14 +357,14 @@ def add_inter_post():
         elif logout=='Log Out':
             return redirect(url_for('auth.login'))
         elif continu=='Confirm':
-            personal_devices.addDevice(name,radio)
+            personal_devices_dict[room].addDevice(name,radio)
             return redirect(url_for('main.add'))
             
         else:
             return render_template('add_inter.html',
                 room_name=room_name,room_locate=room_locate,
                 user_name=user_name,user_authority=user_authority,
-                devices=personal_devices.getJson())
+                devices=personal_devices_dict[room].getJson())
 
 
 @main.route('/instruction/<num>')
