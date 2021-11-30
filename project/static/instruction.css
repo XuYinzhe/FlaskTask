@@ -55,11 +55,22 @@
 
 #room-image2{
     position: absolute;
-    left: 25%;
-    top:10%;
+    left: 18%;
+    top:1%;
+    width:330px;
+    height:240px;
     transform:translateX(-50%);
     border:none;
-    width:50%;
+}
+
+#room-image3{
+    position: absolute;
+    left: 18%;
+    top:51%;
+    width:330px;
+    height:240px;
+    transform:translateX(-50%);
+    border:none;
 }
 
 #room-text{

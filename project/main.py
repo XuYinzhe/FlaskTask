@@ -382,12 +382,13 @@ def instruction(num=1):
     user_name='Shaun@connect.use.hk'
     user_authority='User'
     ins_img=url_for('static',filename='img/classroom.jpg')
+    ins_img2=url_for('static',filename='img/classroom.jpg')
     ins1=num
     ins2=num
 
     return render_template('instruction.html',
                 room_name=room_name,room_locate=room_locate,
-                user_name=user_name,user_authority=user_authority,ins_img=ins_img,ins1=ins1,ins2=ins2,num=num)
+                user_name=user_name,user_authority=user_authority,ins_img=ins_img,ins_img2=ins_img2,ins1=ins1,ins2=ins2,num=num)
 
 @main.route('/instruction/<num>',methods=['POST'])
 def instruction_post(num):
@@ -403,6 +404,7 @@ def instruction_post(num):
         user_name='Shaun@connect.use.hk'
         user_authority='User'
         ins_img=url_for('static',filename='img/classroom.jpg')
+        ins_img2=url_for('static',filename='img/classroom.jpg')
         ins1=num
         ins2=num
 
