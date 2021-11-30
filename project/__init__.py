@@ -45,11 +45,12 @@ def create_app():
     from .dev import dev as dev_blueprint
     app.register_blueprint(dev_blueprint)
 
+    from .ins import ins as ins_blueprint
+    app.register_blueprint(ins_blueprint)
+
     return app
 
 def get_room_cls(room_id, room_img_prev, room_loc):
-
-    print("111")
 
     from .models import room_cls
     from .models import RoomList

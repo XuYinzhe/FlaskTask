@@ -6,12 +6,19 @@ from . import check_room, db, insert_room
 
 from .objects import *
 from .objects_admin import *
+import re
 
 devices=devices_test
 devices.chooseDevice()
 devices_admin=devices_test_admin
 devices_admin.chooseDevice()
 devices_dict = {}
+
+personal_devices=PersonalDevice()
+personal_devices.addDevice('Shaun\'s Windowsaa','Windows')
+personal_devices.addDevice('Shaun\'s Windowsaa','Windows')
+personal_devices.addDevice('Shaun\'s iPhone','Apple')
+personal_devices_dict={}
 
 dev = Blueprint('dev', __name__)
 
@@ -52,7 +59,46 @@ def create_room():
         return render_template('create_admin.html', user_name=current_user.email, user_authority=current_user.authority)
     elif current_user.authority == 'guest':
         flash("You are not an administrator for create room")
-        return redirect(url_for('auth.authority'))
+        return redirect(url_for('auth.authority')) 
+
+@dev.route('/add/<room_id>')
+def add(room_id):
+    room_name = "room_" + room_id
+    room = RoomList.query.filter_by(room_name=room_name).first()
+    # img_path = url_for('static', filename = 'img/' + room.room_img_prev)
+    room_locate = room.room_loc
+    user_name = current_user.email
+    user_authority = current_user.authority
+
+    # room=re.findall(r"\d+",room_name)[0]
+    if room_id not in personal_devices_dict.keys():
+        personal_devices_dict[room_id]=PersonalDevice()
+
+    return render_template('add.html',
+        room_name=room_name,room_locate=room_locate,
+        user_name=user_name,user_authority=user_authority,
+        devices=personal_devices_dict[room_id].getJson())
+
+@dev.route('/add_inter/<room_id>')
+def add_inter(room_id):
+    room_name = "room_" + room_id
+    room = RoomList.query.filter_by(room_name=room_name).first()
+    # img_path = url_for('static', filename = 'img/' + room.room_img_prev)
+    room_locate = room.room_loc
+    user_name = current_user.email
+    user_authority = current_user.authority
+    return render_template('add_inter.html',
+                room_name=room_name,room_locate=room_locate,
+                user_name=user_name,user_authority=user_authority)
+
+@dev.route('/deviceselection/<room_id>')
+def device(room_id):
+    room_name = "room_" + room_id
+    room = RoomList.query.filter_by(room_name=room_name).first()
+    return render_template('device.html',
+        room_name=room_name,room_locate=room.room_loc,
+        user_name=current_user.email,user_authority=current_user.authority,
+        devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice())
 
 @dev.route('/search',methods=['POST'])
 def search_post():
@@ -74,7 +120,7 @@ def search_post():
         if change_user == 'Switch User':
             return redirect(url_for('auth.login'))
         elif change_role == 'Switch Role':
-            return render_template('authority.html',user_name=user_name)
+            return redirect(url_for('auth.authority'))
         elif logout == 'Log Out':
             return redirect(url_for('auth.logout'))
         elif create_btn == 'Create New Room':
@@ -114,9 +160,9 @@ def room_post(room_id):
         if change_user=='Switch User':
             return redirect(url_for('auth.login'))
         elif change_role=='Switch Role':
-            return render_template('authority.html',user_name=user_name)
+            return redirect(url_for('auth.authority'))
         elif logout=='Log Out':
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.logup'))
         elif home=='Home':
             return redirect(url_for('dev.search'))
         elif sub=='':
@@ -124,7 +170,7 @@ def room_post(room_id):
         elif edit == 'Edit':
             return redirect(url_for('dev.manage_device',name=room_id,addr=address,init="n"))
         elif edit == 'Confirm':
-            return 
+            return redirect(url_for('dev.add', room_id=room_id))
         else:
             return render_template('room_admin.html',
                 user_name=user_name, user_authority=user_authority, nxt_btn=edit) 
@@ -146,7 +192,7 @@ def create_room_post():
     if change_user=='Switch User':
         return redirect(url_for('auth.login'))
     elif change_role=='Switch Role':
-        return render_template('authority.html',user_name=user_name)
+        return redirect(url_for('auth.authority'))
     elif logout=='Log Out':
         return redirect(url_for('auth.logout'))
     elif home=='Home':
@@ -199,6 +245,7 @@ def manage_device(name="", addr="", img_addr="", init=""):
  
         update_from_admin_request(devices_dict[k])
 
+
         if change_user=='Switch User':
             return redirect(url_for('auth.login'))
         elif change_role=='Switch Role':
@@ -212,3 +259,101 @@ def manage_device(name="", addr="", img_addr="", init=""):
         name=name,addr=addr,
         user_name=user_name,user_authority=user_authority,
         devices=devices_dict[k].getJson(),img_size=devices_dict[k].img,device_choose=devices_dict[k].chooseDevice(),img_path=img_path)
+
+@dev.route('/add/<room_id>',methods=['POST'])
+def add_post(room_id):
+    if request.method=="POST":
+        change_user=request.form.get('dropdown_switch_user')
+        change_role=request.form.get('dropdown_switch_role')
+        logout=request.form.get('dropdown_logout')
+        continu=request.form.get('add_continue')
+        add=request.form.get('add_plus')
+
+        room_name = "room_" + room_id
+        room = RoomList.query.filter_by(room_name=room_name).first()
+        # img_path = url_for('static', filename = 'img/' + room.room_img_prev)
+        room_locate = room.room_loc
+        user_name = current_user.email
+        user_authority = current_user.authority
+
+        # room=re.findall(r"\d+",room_name)[0]
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return redirect(url_for('auth.authority'))
+        elif logout=='Log Out':
+            return redirect(url_for('auth.logup'))
+        elif continu=='Continue':
+            # return personal_devices_dict[room].getJson()
+            return redirect(url_for('ins.instruction', room_id=room_id, num=1))
+        elif add=='':
+            return redirect(url_for('dev.add_inter', room_id=room_id))
+        else:
+            return render_template('add.html',
+                room_name=room_name,room_locate=room_locate,
+                user_name=user_name,user_authority=user_authority,
+                devices=personal_devices_dict[room_id].getJson())
+
+@dev.route('/add_inter/<room_id>',methods=['POST'])
+def add_inter_post(room_id):
+    if request.method=="POST":
+        change_user=request.form.get('dropdown_switch_user')
+        change_role=request.form.get('dropdown_switch_role')
+        logout=request.form.get('dropdown_logout')
+        continu=request.form.get('inter_continue')
+        radio=request.form.get('inter_device')
+        name=request.form.get('inter_name')
+
+        room_name = "room_" + room_id
+        room = RoomList.query.filter_by(room_name=room_name).first()
+        # img_path = url_for('static', filename = 'img/' + room.room_img_prev)
+        room_locate = room.room_loc
+        user_name = current_user.email
+        user_authority = current_user.authority
+
+        # room=re.findall(r"\d+",room_name)[0]
+        if change_user=='Switch User':
+            return redirect(url_for('auth.login'))
+        elif change_role=='Switch Role':
+            return redirect(url_for('auth.authority'))
+        elif logout=='Log Out':
+            return redirect(url_for('auth.logup'))
+        elif continu=='Confirm':
+            personal_devices_dict[room_id].addDevice(name,radio)
+            return redirect(url_for('dev.add', room_id=room_id))
+            
+        else:
+            return render_template('add_inter.html',
+                room_name=room_name,room_locate=room_locate,
+                user_name=user_name,user_authority=user_authority,
+                devices=personal_devices_dict[room_id].getJson())
+
+# @dev.route('/deviceselection/<room_id>', methods=['POST'])
+# def device_post(room_id):
+#     if request.method=="POST":
+#         change_user=request.form.get('dropdown_switch_user')
+#         change_role=request.form.get('dropdown_switch_role')
+#         logout=request.form.get('dropdown_logout')
+#         confirm=request.form.get('device_confirm')
+
+#         user_name='Shaun@connect.use.hk'
+#         user_authority='User'
+
+#         room_name='Room 4223'
+#         room_locate='Academic Building, 4/F'
+
+#         update_from_request(devices)
+
+#         if change_user=='Switch User':
+#             return redirect(url_for('auth.login'))
+#         elif change_role=='Switch Role':
+#             return render_template('authority.html',user_name=user_name)
+#         elif logout=='Log Out':
+#             return redirect(url_for('auth.login'))
+#         elif confirm=='Confirm':
+#             return devices.chooseDevice()
+#         else:
+#             return render_template('device.html',
+#                 room_name=room_name,room_locate=room_locate,
+#                 user_name=user_name,user_authority=user_authority,
+#                 devices=devices.getJson(),img_size=devices.img,device_choose=devices.chooseDevice(), img_path=url_for('static', filename='img/white.png'))

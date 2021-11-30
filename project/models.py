@@ -4,10 +4,15 @@ from . import db
 type_list = ['projector',
              'screen',
              'microphone',
+             'visualizer',
              'speaker',
              'apple',
              'windows',
              'android',]
+
+func_list = ['ON', 
+             'CONNECTION', 
+             'PROJECTION',]
 
 class User(UserMixin, db.Model):
     
@@ -31,20 +36,23 @@ class RoomList(UserMixin, db.Model):
 
 class room_cls(UserMixin, db.Model):
      
-    __abstract__ = True  # 关键语句,定义所有数据库表对应的父类
+    __abstract__ = True 
     __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True) 
     device  = db.Column(db.String(100))
     type = db.Column(db.String(100))
     location = db.Column(db.String(100))
-    controller = db.Column(db.String(1000))
-    controlby = db.Column(db.String(1000))
-    func = db.Column(db.String(1000))
-    linkto = db.Column(db.String(1000))
-    linkby = db.Column(db.String(1000)) 
-    iflink = db.Column(db.Integer)
 
-    def to_String(arr):
-        return 
-    def to_array(str):
-        return 
+    func = db.Column(db.String(100)) # "ON/P/C = 1,1,1; ON/C = 1,0,1"
+
+    oncontrol = db.Column(db.String(1000))
+    oncontrolby = db.Column(db.String(1000))
+    ifon = db.Column(db.Integer) # init = False, select = True
+
+    projectionto = db.Column(db.String(1000))
+    projectionby = db.Column(db.String(1000)) 
+    ifprojection = db.Column(db.Integer) # init = False, link = True
+
+    connectionto = db.Column(db.String(1000))
+    connectionby = db.Column(db.String(1000))
+    ifconnection = db.Column(db.Integer) # init = False, connect = True
