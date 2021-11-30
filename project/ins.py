@@ -17,7 +17,7 @@ def setup_instruction_generation(room_id):
 
     for i in range(3): # ON,PROJECTION,CONNECTION
         for dev in devices:
-            if dev.ifon == 1: ## shoule be 0
+            if dev.ifon == 0: ## shoule be 0
                 continue
             dev_func_list = dev.func.split(',')
             # print(i)
@@ -54,7 +54,7 @@ def setup_instruction_generation(room_id):
                         pt = dev_projectionto_list[t]
                         pb = dev_projectionby_list[t]
                         todevice = room_content.query.filter_by(device=pt).first()
-                        if todevice.ifon == 0: ## should be 1
+                        if todevice.ifon == 1: ## should be 1
                             dev.ifprojection = 1
                             # todevice.ifprojection = 1
                             out[2] = out[2] + pt + ','
@@ -62,10 +62,18 @@ def setup_instruction_generation(room_id):
                             db.session.commit()
                         else:
                             continue
+
+                    if "null" in out[2]:
+                        break
+
+                    if "null" in out[3]:
+                        break
+
                     setup_instruction[cnt] = ''
                     for k in range(4):
                         setup_instruction[cnt] = setup_instruction[cnt] + out[k] + '+'
                     cnt = cnt + 1
+                    
                 elif i == 2: # CONNECTION
                     if dev.ifconnection == 1:
                         continue
@@ -79,7 +87,7 @@ def setup_instruction_generation(room_id):
                         ct = dev_connectionto_list[t]
                         cb = dev_connectionby_list[t]
                         todevice = room_content.query.filter_by(device=ct).first()
-                        if todevice.ifon == 0: ## should be 1 
+                        if todevice.ifon == 1: ## should be 1 
                             dev.ifconnection = 1
                             # todevice.ifconnection = 1
                             out[2] = out[2] + ct + ','
@@ -87,6 +95,11 @@ def setup_instruction_generation(room_id):
                             db.session.commit()
                         else:
                             continue
+                    if "null" in out[2]:
+                        break
+
+                    if "null" in out[3]:
+                        break
                     setup_instruction[cnt] = ''
                     for k in range(4):
                         setup_instruction[cnt] = setup_instruction[cnt] + out[k] + '+'
@@ -108,6 +121,9 @@ def instruction(room_id, num=1):
     setup_instruction_generation(room_id)
     tmp = ''
     tmp = setup_instruction[int(num)-1].split('+')
+    ins_len = len(setup_instruction) - 1
+    ins_len=str(ins_len)
+    print(ins_len)
     
     if (tmp[0] == '0'):
         ins1 = "To set up: "
@@ -133,7 +149,7 @@ def instruction(room_id, num=1):
 
     return render_template('instruction.html',
                 room_name=room_id,room_locate=room_locate,
-                user_name=user_name,user_authority=user_authority,ins_img=ins_img,ins1=ins1,ins2=ins2,num=num)
+                user_name=user_name,user_authority=user_authority,ins_img=ins_img,ins1=ins1,ins2=ins2,num=num,ins_len=ins_len)
 
 @ins.route('/instruction/<room_id>/<num>',methods=['POST'])
 def instruction_post(room_id, num):
@@ -153,6 +169,8 @@ def instruction_post(room_id, num):
         setup_instruction_generation(room_id)
         tmp = ''
         tmp = setup_instruction[int(num)-1].split('+')
+        ins_len = len(setup_instruction) - 1
+        ins_len=str(ins_len)
         
         if (tmp[0] == '0'):
             ins1 = "To set up: "
@@ -187,4 +205,6 @@ def instruction_post(room_id, num):
         elif ins_right:
             return redirect(url_for('ins.instruction_post',room_id=room_id,num=int(num)+1))
         else:
-            return redirect(url_for('ins.instruction',room_id=room_id,num=1))
+            return render_template('instruction.html',
+                    room_name=room_id,room_locate=room_locate,
+                    user_name=user_name,user_authority=user_authority,ins_img=ins_img,ins1=ins1,ins2=ins2,num=num,ins_len=ins_len)
